@@ -25,5 +25,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             return Ok(_productTypeAccess.GetProductTypes());
         }
+
+        [HttpGet("producttypes/{id}")]
+        public IActionResult GetProductTypePerId(int id)
+        {
+            return Ok(_productTypeAccess.GetProductTypePerId(id));
+        }
     }
 }

@@ -30,5 +30,19 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result.ToList();
             }
         }
+
+        public ProductType GetProductTypePerId(int id)
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+                var result = dbConnection.QueryFirst<ProductType>(@"SELECT
+                                                                     Id,
+                                                                     ProductTypeName
+                                                                    FROM ProductType
+                                                                    WHERE id = @id", new { id });
+                return result;
+            }
+        }
     }
 }
