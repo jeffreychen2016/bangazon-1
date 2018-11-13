@@ -45,12 +45,30 @@ namespace ThreeLeggedMonkey.DataAccess
 
         public bool Add(Product product)
         {
-            using (var db = new SqlConnection(ConnectionString)){
+            using (var db = new SqlConnection(ConnectionString))
+            {
                 db.Open();
 
                 var result = db.Execute(@"INSERT INTO [dbo].[Product]([ProductTypeId], [Price], [Name], [Description], [Quantity])
                                             VALUES(@ProductTypeId, @Price, @Name, @Description, @Quantity)", product);
 
+                return result == 1;
+            }
+        }
+
+        public bool UpdateProduct(int id, Product product)
+        {
+            using(var db = new SqlConnection(ConnectionString))
+            {
+                product.Id = id;
+                db.Open();
+                var result = db.Execute(@"UPDATE Product
+                                            SET ProductTypeId = @ProductTypeId,
+                                                Price = @Price,
+                                                Name = @Name,
+                                                Description = @Description,
+                                                Quantity = @Quantity
+                                            WHERE Id = @id", product);
                 return result == 1;
             }
         }

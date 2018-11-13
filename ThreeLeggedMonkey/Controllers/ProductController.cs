@@ -38,5 +38,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             _storage.Add(product);
         }
+
+        [HttpPut("updateProduct/{id}")]
+        public IActionResult UpdateProduct(int id, Product product)
+        {
+            return Ok(_storage.UpdateProduct(id, product));
+        }
     }
 }
