@@ -38,12 +38,23 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
-        //public Computer GetComputerPerId(int id)
-        //{
-        //    using (var dbConnection = new SqlConnection(ConnectionString))
-        //    {
-        //        dbConnection.Open()
-        //    }
-        //}
+        public Computer GetComputerPerId(int id)
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+
+                var result = dbConnection.QueryFirst<Computer>(@"SELECT 
+                                                            Id
+                                                            ,SerialNumber
+                                                            ,DateOfPurchase
+                                                            ,DecommissionedDate
+                                                            ,IsOperable
+                                                        FROM computers
+                                                        WHERE Id = @id", new { id });
+
+                return result;
+            }
+        }
     }
 }

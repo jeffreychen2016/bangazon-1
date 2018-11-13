@@ -25,5 +25,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             return Ok(_computerAccess.GetAllComputers());
         }
+
+        [HttpGet("GetComputer/{id}")]
+        public IActionResult GetComputerPerId(int id)
+        {
+            return Ok(_computerAccess.GetComputerPerId(id));
+        }
     }
 }
