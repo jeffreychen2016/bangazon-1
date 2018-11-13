@@ -37,5 +37,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             return Ok(_productTypeAccess.AddNewProductType(ProductTypeName));
         }
+
+        [HttpDelete("deleteproducttype/{id}")]
+        public IActionResult DeleteProductType(int id)
+        {
+            return Ok(_productTypeAccess.DeleteProductType(id));
+        }
     }
 }
