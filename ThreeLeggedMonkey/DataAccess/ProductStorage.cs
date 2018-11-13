@@ -42,5 +42,17 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result.ToList();
             }
         }
+
+        public bool Add(Product product)
+        {
+            using (var db = new SqlConnection(ConnectionString)){
+                db.Open();
+
+                var result = db.Execute(@"INSERT INTO [dbo].[Product]([ProductTypeId], [Price], [Name], [Description], [Quantity])
+                                            VALUES(@ProductTypeId, @Price, @Name, @Description, @Quantity)", product);
+
+                return result == 1;
+            }
+        }
     }
 }
