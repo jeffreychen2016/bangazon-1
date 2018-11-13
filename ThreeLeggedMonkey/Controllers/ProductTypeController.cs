@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ThreeLeggedMonkey.DataAccess;
+using ThreeLeggedMonkey.Models;
 
 namespace ThreeLeggedMonkey.Controllers
 {
@@ -32,10 +33,10 @@ namespace ThreeLeggedMonkey.Controllers
             return Ok(_productTypeAccess.GetProductTypePerId(id));
         }
 
-        [HttpPost("addproducttype/{ProductTypeName}")]
-        public IActionResult AddNewProductType(string ProductTypeName)
+        [HttpPost("addproducttype")]
+        public IActionResult AddNewProductType(ProductType productType)
         {
-            return Ok(_productTypeAccess.AddNewProductType(ProductTypeName));
+            return Ok(_productTypeAccess.AddNewProductType(productType));
         }
 
         [HttpDelete("deleteproducttype/{id}")]
