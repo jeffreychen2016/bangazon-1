@@ -31,5 +31,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             return Ok(_productTypeAccess.GetProductTypePerId(id));
         }
+
+        [HttpPost("addproducttype/{ProductTypeName}")]
+        public IActionResult AddNewProductType(string ProductTypeName)
+        {
+            return Ok(_productTypeAccess.AddNewProductType(ProductTypeName));
+        }
     }
 }
