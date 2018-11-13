@@ -69,5 +69,19 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result == 1;
             }
         }
+
+        public bool UpdateProductType(int id, ProductType productType)
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                productType.Id = id;
+                dbConnection.Open();
+                var result = dbConnection.Execute(@"UPDATE ProductType
+                                                     SET ProductTypeName = @ProductTypeName
+                                                    WHERE Id = @id", productType);
+
+                return result == 1;
+            }
+        }
     }
 }
