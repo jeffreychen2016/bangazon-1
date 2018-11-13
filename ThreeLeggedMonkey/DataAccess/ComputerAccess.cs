@@ -1,16 +1,38 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using ThreeLeggedMonkey.Models;
 
 namespace ThreeLeggedMonkey.DataAccess
 {
     public class ComputerAccess
     {
+        private string ConnectionString;
+
         public ComputerAccess(IConfiguration config)
         {
             ConnectionString = config.GetSection("ConnectionString").Value;
+        }
+
+        public List<Computer> GetAllComputers()
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+
+                var result = dbConnection.Query<Computer>(@"SELECT 
+                                                            Id
+                                                            ,SerialNumber
+                                                            ,DateOfPurchase
+                                                            ,DecommissionedDate
+                                                            ,IsOperable
+                                                          FROM computers");
+                return result.ToList();
+            }
         }
     }
 }
