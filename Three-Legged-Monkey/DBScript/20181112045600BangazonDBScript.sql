@@ -308,25 +308,12 @@ BEGIN
 END  
 
 -- Payment Type Table --
+DECLARE @PaymentTypeName varchar(50)
 
-DECLARE @PaymentTypeCounter int
-       ,@PaymentTypeName varchar(50)
-	   ,@PaymentCustomerId int
-	   ,@PaymentUpperLimit int
-	   ,@PaymentLowerLimit int
-
-SET @PaymentTypeCounter = 1
 SET @PaymentTypeName = 'Visa'
-SET @PaymentUpperLimit = 10
-SET @PaymentLowerLimit = 1
 
-WHILE @PaymentTypeCounter < 11
-BEGIN
-   SET @PaymentCustomerId = ROUND(((@PaymentUpperLimit - @PaymentLowerLimit -1) * RAND() + @PaymentLowerLimit), 0);
-   INSERT INTO PaymentType(PaymentTypeName,CustomerId)
-   VALUES (@PaymentTypeName,@PaymentCustomerId)
-   SET @PaymentTypeCounter = @PaymentTypeCounter + 1;
-END
+INSERT INTO PaymentType(PaymentTypeName,CustomerId)
+VALUES (@PaymentTypeName,1)
 
 -- Order Table --
 DECLARE @OrderCounter int
