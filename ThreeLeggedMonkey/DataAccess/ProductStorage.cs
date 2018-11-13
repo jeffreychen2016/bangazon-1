@@ -72,5 +72,18 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result == 1;
             }
         }
+
+        public bool DeleteProduct(int id)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+                var result = db.Execute(@"DELETE 
+                                            FROM Product
+                                            WHERE Product.Id = @id", new { id });
+
+                return result == 1;
+            }
+        }
     }
 }
