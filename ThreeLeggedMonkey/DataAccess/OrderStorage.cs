@@ -37,7 +37,7 @@ namespace ThreeLeggedMonkey.DataAccess
             {
                 connection.Open();
 
-                var result = connection.Execute(@"INSERT INTO [Order] (CustomerId, IsComplete) Values(@CustomerId, @IsComplete)", order);
+                var result = connection.Execute(@"INSERT INTO [Order] (CustomerId, IsComplete, IsActive) Values(@CustomerId, @IsComplete, @IsActive)", order);
 
                 return result == 1;
             }
@@ -51,9 +51,23 @@ namespace ThreeLeggedMonkey.DataAccess
                 connection.Open();
 
                 var result = connection.Execute(@"UPDATE [Order]
-                                                SET CustomerId = @CustomerId, IsComplete = @IsComplete
+                                                SET CustomerId = @CustomerId, IsComplete = @IsComplete, IsActive = @IsActive
                                                 WHERE Id = @id", order);
 
+                return result == 1;
+            }
+        }
+
+        public bool DeactivateOrder(Order order, int id)
+        {
+            using (var connection = new SqlConnection(conString))
+            {
+                order.Id = id;
+                connection.Open();
+
+                var result = connection.Execute(@"UPDATE [Order]
+                                                SET CustomerId = @CustomerId, IsComplete = @IsComplete, IsActive = @IsActive
+                                                WHERE Id = @id", order);
                 return result == 1;
             }
         }

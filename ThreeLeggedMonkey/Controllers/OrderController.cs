@@ -38,5 +38,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             _storage.UpdateOrder(order, id);
         }
+
+        [HttpPut("deactivateOrder/{id}")]
+        public void DeactivateOrder(Order order, int id)
+        {
+            _storage.DeactivateOrder(order, id);
+        }
     }
 }
