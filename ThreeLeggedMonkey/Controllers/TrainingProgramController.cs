@@ -45,5 +45,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             return Ok(_trainingProgramAccess.AddTraningProgram(trainingProgramForPost));
         }
+
+        [HttpPut("UpdateTrainingProgram/{id}")]
+        public IActionResult UpdateTrainingProgram(int id, TrainingProgramForPut trainingProgramForPut)
+        {
+            return Ok(_trainingProgramAccess.UpdateTrainingProgram(id, trainingProgramForPut));
+        }
     }
 }

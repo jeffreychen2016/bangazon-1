@@ -106,5 +106,21 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result == 1;
             }
         }
+
+        public bool UpdateTrainingProgram(int id, TrainingProgramForPut trainingProgramForPut)
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+                trainingProgramForPut.Id = id;
+                var result = dbConnection.Execute(@"UPDATE TrainingProgram 
+                                                       SET ProgramName = @ProgramName
+                                                          ,StartDate = @StartDate
+                                                          ,EndDate = @EndDate
+                                                          ,MaxAttendees = @MaxAttendees
+                                                    WHERE id = @id", trainingProgramForPut);
+                return result == 1;
+            }
+        }
     }
 }
