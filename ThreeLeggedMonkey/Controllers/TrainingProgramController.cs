@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ThreeLeggedMonkey.DataAccess;
+using ThreeLeggedMonkey.Models;
 
 namespace ThreeLeggedMonkey.Controllers
 {
@@ -37,6 +38,12 @@ namespace ThreeLeggedMonkey.Controllers
         public IActionResult DeleteTrainingProgram(int id)
         {
             return Ok(_trainingProgramAccess.DeleteTrainingProgram(id));
+        }
+
+        [HttpPost("AddTrainingProgram")]
+        public IActionResult AddTrainingProgram(TrainingProgramForPost trainingProgramForPost)
+        {
+            return Ok(_trainingProgramAccess.AddTraningProgram(trainingProgramForPost));
         }
     }
 }

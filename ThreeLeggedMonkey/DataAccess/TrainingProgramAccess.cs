@@ -93,5 +93,18 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result == 1;
             }
         }
+
+        public bool AddTraningProgram(TrainingProgramForPost trainingProgramForPost)
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+
+                var result = dbConnection.Execute(@"INSERT INTO 
+                                                       TrainingProgram (ProgramName,StartDate,EndDate,MaxAttendees)
+                                                    VALUES (@ProgramName, @StartDate, @EndDate, @MaxAttendees)", trainingProgramForPost);
+                return result == 1;
+            }
+        }
     }
 }
