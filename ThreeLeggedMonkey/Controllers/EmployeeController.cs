@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ThreeLeggedMonkey.DataAccess;
+using ThreeLeggedMonkey.Models;
 
 namespace ThreeLeggedMonkey.Controllers
 {
@@ -30,6 +31,12 @@ namespace ThreeLeggedMonkey.Controllers
         public IActionResult GetAllEmployees()
         {
             return Ok(_storage.GetAll());
+        }
+
+        [HttpPost]
+        public void AddEmployee(NewEmployee newEmployee)
+        {
+            _storage.Add(newEmployee);
         }
     }
 }

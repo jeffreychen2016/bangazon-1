@@ -56,5 +56,18 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result.ToList();
             }
         }
+
+        public bool Add(NewEmployee newEmployee)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var result = db.Execute(@"INSERT INTO [dbo].[Employee]([FirstName], [LastName], [DepartmentId], [EmployeeTypeId], [AssignedComputer])
+                                            VALUES(@FirstName, @LastName, @DepartmentId, @EmployeeTypeId, @AssignedComputer)", newEmployee);
+
+                return result == 1;
+            }
+        }
     }
 }
