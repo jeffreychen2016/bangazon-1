@@ -33,8 +33,27 @@ namespace ThreeLeggedMonkey.DataAccess
                                                             ON E.DepartmentId = D.Id
                                                             JOIN Computers C
                                                             ON E.AssignedComputer = C.Id
-                                                            WHERE E.Id = 5", new { id });
+                                                            WHERE E.Id = @id", new { id });
                 return result;
+            }
+        }
+
+        public List<Employee> GetAll()
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.Query<Employee>(@"SELECT 
+	                                                            FullName = FirstName + ' ' + LastName,
+	                                                            Department = D.DepartmentName,
+	                                                            Computer = C.SerialNumber
+                                                            FROM Employee E
+                                                            JOIN Department D
+                                                            ON E.DepartmentId = D.Id
+                                                            JOIN Computers C
+                                                            ON E.AssignedComputer = C.Id");
+                return result.ToList();
             }
         }
     }

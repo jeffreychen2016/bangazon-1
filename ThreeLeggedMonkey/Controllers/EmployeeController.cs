@@ -25,5 +25,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             return Ok(_storage.GetById(id));
         }
+
+        [HttpGet("employees")]
+        public IActionResult GetAllEmployees()
+        {
+            return Ok(_storage.GetAll());
+        }
     }
 }
