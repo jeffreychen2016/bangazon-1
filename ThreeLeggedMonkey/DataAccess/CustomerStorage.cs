@@ -28,5 +28,18 @@ namespace ThreeLeggedMonkey.DataAccess
                 return results.ToList();
             }
         }
+
+        public Customers GetById(int id)
+        {
+            using (var db = new SqlConnection(connectionstring))
+            {
+                db.Open();
+
+                var result = db.QueryFirst<Customers>(@"select *
+                                                                from Customer
+                                                                where Customer.Id = @id", new { id = id });
+                return result;
+            }
+        }
     }
 }
