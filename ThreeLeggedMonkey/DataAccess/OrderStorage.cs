@@ -30,5 +30,17 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result;
             }
         }
+
+        public bool AddOrder(Order order)
+        {
+            using (var connection = new SqlConnection(conString))
+            {
+                connection.Open();
+
+                var result = connection.Execute(@"INSERT INTO [Order] (CustomerId, IsComplete) Values(@CustomerId, @IsComplete)", order);
+
+                return result == 1;
+            }
+        }
     }
 }

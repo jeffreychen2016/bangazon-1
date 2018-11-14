@@ -26,5 +26,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             return Ok(_storage.GetAllOrders());
         }
+
+        [HttpPost]
+        public void AddOrder(Order order)
+        {
+            _storage.AddOrder(order);
+        }
     }
 }
