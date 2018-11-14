@@ -36,9 +36,20 @@ namespace ThreeLeggedMonkey.DataAccess
                                                                         ORDER BY ProgramName");
 
                 // created new class to hold the value, and return the list of new class instead
-                var result = from p in programsWithEmployeeName
-                             where p.StartDate >= DateTime.Today
-                             select new TrainingProgramForGetMap(){ ProgramName = p.ProgramName, EmployeeName = p.EmployeeName };
+                if (completed == false)
+                {
+                    var result = from p in programsWithEmployeeName
+                                 where p.StartDate >= DateTime.Today
+                                 select new TrainingProgramForGetMap() { ProgramName = p.ProgramName, EmployeeName = p.EmployeeName };
+                    return result.ToList();
+                }
+                else
+                {
+                    var result = from p in programsWithEmployeeName
+                                 select new TrainingProgramForGetMap() { ProgramName = p.ProgramName, EmployeeName = p.EmployeeName };
+                    return result.ToList();
+                }
+
 
                 //var result = programsWithEmployeeName
                 //    .Where(p => p.StartDate >= DateTime.Today)
@@ -47,8 +58,68 @@ namespace ThreeLeggedMonkey.DataAccess
                 //        ProgramName = x.ProgramName,
                 //        EmployeeName = x.EmployeeName
                 //    });
+            }
+        }
 
-                return result.ToList();
+        public TrainingProgramForGetMap GetTrainingProgramPerId(int id)
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+
+                var result  = dbConnection.QueryFirst<TrainingProgramForGetMap>(@"SELECT 
+	                                                                        ProgramName
+	                                                                        ,EmployeeName = FirstName + ' ' + LastName
+                                                                        FROM TrainingProgram
+                                                                        LEFT JOIN EmployeeTrainings 
+                                                                        ON TrainingProgram.Id = EmployeeTrainings.TrainingProgramId
+                                                                        LEFT JOIN Employee 
+                                                                        ON EmployeeTrainings.EmployeeId = Employee.Id
+                                                                        WHERE TrainingProgram.id = @id
+                                                                        ORDER BY ProgramName", new { id });
+                return result;
+            }
+        }
+
+        public bool DeleteTrainingProgram(int id)
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+
+                var result = dbConnection.Execute(@"DELETE FROM 
+                                                       TrainingProgram
+                                                    WHERE id = @id", new { id });
+                return result == 1;
+            }
+        }
+
+        public bool AddTraningProgram(TrainingProgramForPost trainingProgramForPost)
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+
+                var result = dbConnection.Execute(@"INSERT INTO 
+                                                       TrainingProgram (ProgramName,StartDate,EndDate,MaxAttendees)
+                                                    VALUES (@ProgramName, @StartDate, @EndDate, @MaxAttendees)", trainingProgramForPost);
+                return result == 1;
+            }
+        }
+
+        public bool UpdateTrainingProgram(int id, TrainingProgramForPut trainingProgramForPut)
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+                trainingProgramForPut.Id = id;
+                var result = dbConnection.Execute(@"UPDATE TrainingProgram 
+                                                       SET ProgramName = @ProgramName
+                                                          ,StartDate = @StartDate
+                                                          ,EndDate = @EndDate
+                                                          ,MaxAttendees = @MaxAttendees
+                                                    WHERE id = @id", trainingProgramForPut);
+                return result == 1;
             }
         }
     }

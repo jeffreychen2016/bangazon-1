@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ThreeLeggedMonkey.DataAccess;
+using ThreeLeggedMonkey.Models;
 
 namespace ThreeLeggedMonkey.Controllers
 {
@@ -21,9 +22,34 @@ namespace ThreeLeggedMonkey.Controllers
         }
 
         [HttpGet("GetTrainingPrograms")]
-        public IActionResult GetTrainingPrograms([FromQuery(Name ="completed")]bool completed)
+        // https:///localhost:44323/api/TrainingProgram/GetTrainingPrograms?completed=true
+        public IActionResult GetTrainingPrograms([FromQuery(Name = "completed")]bool completed)
         {
             return Ok(_trainingProgramAccess.GetTrainingPrograms(completed));
+        }
+
+        [HttpGet("GetTrainingProgram/{id}")]
+        public IActionResult GetTrainingProgramPerId(int id)
+        {
+            return Ok(_trainingProgramAccess.GetTrainingProgramPerId(id));
+        }
+
+        [HttpDelete("DeleteTrainingProgram/{id}")]
+        public IActionResult DeleteTrainingProgram(int id)
+        {
+            return Ok(_trainingProgramAccess.DeleteTrainingProgram(id));
+        }
+
+        [HttpPost("AddTrainingProgram")]
+        public IActionResult AddTrainingProgram(TrainingProgramForPost trainingProgramForPost)
+        {
+            return Ok(_trainingProgramAccess.AddTraningProgram(trainingProgramForPost));
+        }
+
+        [HttpPut("UpdateTrainingProgram/{id}")]
+        public IActionResult UpdateTrainingProgram(int id, TrainingProgramForPut trainingProgramForPut)
+        {
+            return Ok(_trainingProgramAccess.UpdateTrainingProgram(id, trainingProgramForPut));
         }
     }
 }
