@@ -55,5 +55,18 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result == 1;
             }
         }
+
+        public bool UpdateDept(int id, Department department)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                department.Id = id;
+                db.Open();
+                var result = db.Execute(@"UPDATE Department
+                                            SET DepartmentName = @DepartmentName
+                                            WHERE Id = @id", department);
+                return result == 1;
+            }
+        }
     }
 }
