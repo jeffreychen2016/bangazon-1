@@ -1,7 +1,6 @@
 ---------------------------------- Create Database ----------------------------
-DROP DATABASE BangazonDB;
-
-CREATE DATABASE BangazonDB;
+-- DROP DATABASE BangazonDB;
+-- CREATE DATABASE BangazonDB;
 
 USE BangazonDB
 GO
@@ -68,22 +67,22 @@ CREATE TABLE Employee (
 );
 CREATE TABLE EmployeeType(
   Id int not null PRIMARY KEY IDENTITY(1,1),
-  EmployeeTypeName varchar(50) not null
+  EmployeeTypeName varchar(50) not null UNIQUE
 )
 CREATE TABLE Department (
   Id int not null PRIMARY KEY IDENTITY(1,1),
-  DepartmentName varchar(50) not null
+  DepartmentName varchar(50) not null UNIQUE
 )
 CREATE TABLE Computers(
   Id int not null PRIMARY KEY IDENTITY(1,1),
-  SerialNumber varchar(50) not null,
+  SerialNumber varchar(50) not null UNIQUE,
   DateOfPurchase datetime not null,
   DecommissionedDate datetime not null,
   IsOperable bit not null
 )
 CREATE TABLE TrainingProgram (
   Id int not null PRIMARY KEY IDENTITY(1,1),
-  ProgramName varchar(50) not null,
+  ProgramName varchar(50) not null UNIQUE,
   StartDate datetime not null,
   EndDate datetime not null,
   MaxAttendees int not null
@@ -97,13 +96,13 @@ CREATE TABLE Product (
   Id int not null PRIMARY KEY IDENTITY(1,1),
   ProductTypeId int not null,
   Price bigint not null,
-  Name varchar(50) not null,
+  Name varchar(50) not null UNIQUE,
   Description varchar(50) not null,
   Quantity int not null
 )
 CREATE TABLE ProductType (
   Id int not null PRIMARY KEY IDENTITY(1,1),
-  ProductTypeName varchar(50) not null 
+  ProductTypeName varchar(50) not null UNIQUE
 )
 CREATE TABLE Customer (
   Id int not null PRIMARY KEY IDENTITY(1,1),
@@ -113,7 +112,7 @@ CREATE TABLE Customer (
 )
 CREATE TABLE PaymentType(
   Id int not null PRIMARY KEY IDENTITY(1,1),
-  PaymentTypeName varchar(50) not null,
+  PaymentTypeName varchar(50) not null UNIQUE,
   CustomerId int not null
 )
 CREATE TABLE [Order] (
@@ -131,43 +130,53 @@ CREATE TABLE OrderStage (
 
 ALTER TABLE Employee
 ADD CONSTRAINT FK_DepartmentId
-FOREIGN KEY (DepartmentId) REFERENCES Department(Id);
+FOREIGN KEY (DepartmentId) REFERENCES Department(Id)
+ON DELETE CASCADE;
 
 ALTER TABLE Employee
 ADD CONSTRAINT FK_EmployeeTypeId
-FOREIGN KEY (EmployeeTypeId) REFERENCES EmployeeType(Id);
+FOREIGN KEY (EmployeeTypeId) REFERENCES EmployeeType(Id)
+ON DELETE CASCADE;
 
 ALTER TABLE Employee
 ADD CONSTRAINT FK_AssignedComputer
-FOREIGN KEY (AssignedComputer) REFERENCES Computers(Id);
+FOREIGN KEY (AssignedComputer) REFERENCES Computers(Id)
+ON DELETE CASCADE;
 
 ALTER TABLE EmployeeTrainings
 ADD CONSTRAINT FK_TrainingProgramId
-FOREIGN KEY (TrainingProgramId) REFERENCES TrainingProgram(Id);
+FOREIGN KEY (TrainingProgramId) REFERENCES TrainingProgram(Id)
+ON DELETE CASCADE;
 
 ALTER TABLE PaymentType
 ADD CONSTRAINT FK_CustomerId_1
-FOREIGN KEY (CustomerId) REFERENCES Customer(Id);
+FOREIGN KEY (CustomerId) REFERENCES Customer(Id)
+ON DELETE CASCADE;
 
 ALTER TABLE EmployeeTrainings
 ADD CONSTRAINT FK_EmployeeId
-FOREIGN KEY (EmployeeId) REFERENCES Employee(Id);
+FOREIGN KEY (EmployeeId) REFERENCES Employee(Id)
+ON DELETE CASCADE;
 
 ALTER TABLE [Order]
 ADD CONSTRAINT FK_CustomerId_2
-FOREIGN KEY (CustomerId) REFERENCES Customer(Id);
+FOREIGN KEY (CustomerId) REFERENCES Customer(Id)
+ON DELETE CASCADE;
 
 ALTER TABLE OrderStage
 ADD CONSTRAINT FK_OrderId
-FOREIGN KEY (OrderId) REFERENCES [Order](Id);
+FOREIGN KEY (OrderId) REFERENCES [Order](Id)
+ON DELETE CASCADE;
 
 ALTER TABLE OrderStage
 ADD CONSTRAINT FK_ProductId
-FOREIGN KEY (ProductId) REFERENCES Product(Id);
+FOREIGN KEY (ProductId) REFERENCES Product(Id)
+ON DELETE CASCADE;
 
 ALTER TABLE Product
 ADD CONSTRAINT FK_ProductType
-FOREIGN KEY (ProductTypeId) REFERENCES ProductType(Id);
+FOREIGN KEY (ProductTypeId) REFERENCES ProductType(Id)
+ON DELETE CASCADE;
 
 ---------------------------- Populating Seed Data ------------------------------
 -- Department Table --
@@ -223,12 +232,12 @@ DECLARE @TraninngProgramCounter int
 		,@TraninngProgramMaxAttendees int;
 
 SET @TraninngProgramCounter = 1
-SET @TraninngProgramStartDate = '2000/01/01'
-SET @TraninngProgramEndDate = '2000/01/01'
+SET @TraninngProgramStartDate = '2015/01/01'
+SET @TraninngProgramEndDate = '2016/01/01'
 WHILE @TraninngProgramCounter < 11
 BEGIN  
 	SET @TraninngProgramProgramName = 'ProgramName-' + CAST(@TraninngProgramCounter AS nvarchar);
-	SET @TraninngProgramStartDate = DATEADD(month, 1, @TraninngProgramStartDate);
+	SET @TraninngProgramStartDate = DATEADD(year, 1, @TraninngProgramStartDate);
 	SET @TraninngProgramEndDate = DATEADD(year, 1, @TraninngProgramEndDate);
 	INSERT INTO TrainingProgram(ProgramName,StartDate,EndDate,MaxAttendees)
 	VALUES (@TraninngProgramProgramName,@TraninngProgramStartDate,@TraninngProgramEndDate, 10)
@@ -406,3 +415,4 @@ BEGIN
 	VALUES (@OrderStageProductId,@OrderStageOrderId)
 	SET @OrderStageCounter = @OrderStageCounter + 1;
 END  
+
