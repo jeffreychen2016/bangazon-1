@@ -35,7 +35,8 @@ namespace ThreeLeggedMonkey.Controllers
         [HttpGet("{id}")]
         public ActionResult<string> GetById(int id)
         {
-            return Ok(_storage.GetById(id));
+            var customer = new CustomerStorage(_config);
+            return Ok(customer.GetById(id));
         }
     }
 }
