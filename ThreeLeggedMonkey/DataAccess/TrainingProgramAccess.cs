@@ -36,9 +36,20 @@ namespace ThreeLeggedMonkey.DataAccess
                                                                         ORDER BY ProgramName");
 
                 // created new class to hold the value, and return the list of new class instead
-                var result = from p in programsWithEmployeeName
-                             where p.StartDate >= DateTime.Today
-                             select new TrainingProgramForGetMap(){ ProgramName = p.ProgramName, EmployeeName = p.EmployeeName };
+                if (completed == false)
+                {
+                    var result = from p in programsWithEmployeeName
+                                 where p.StartDate >= DateTime.Today
+                                 select new TrainingProgramForGetMap() { ProgramName = p.ProgramName, EmployeeName = p.EmployeeName };
+                    return result.ToList();
+                }
+                else
+                {
+                    var result = from p in programsWithEmployeeName
+                                 select new TrainingProgramForGetMap() { ProgramName = p.ProgramName, EmployeeName = p.EmployeeName };
+                    return result.ToList();
+                }
+
 
                 //var result = programsWithEmployeeName
                 //    .Where(p => p.StartDate >= DateTime.Today)
@@ -47,8 +58,6 @@ namespace ThreeLeggedMonkey.DataAccess
                 //        ProgramName = x.ProgramName,
                 //        EmployeeName = x.EmployeeName
                 //    });
-
-                return result.ToList();
             }
         }
     }

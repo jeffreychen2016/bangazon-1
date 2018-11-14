@@ -21,6 +21,7 @@ namespace ThreeLeggedMonkey.Controllers
         }
 
         [HttpGet("GetTrainingPrograms")]
+        // https:///localhost:44323/api/TrainingProgram/GetTrainingPrograms?completed=true
         public IActionResult GetTrainingPrograms([FromQuery(Name ="completed")]bool completed)
         {
             return Ok(_trainingProgramAccess.GetTrainingPrograms(completed));
