@@ -7,5 +7,8 @@ namespace ThreeLeggedMonkey.Models
 {
     public class Order
     {
+        public int Id { get; set; }
+        public int CustomerId { get; set; }
+        public bool IsComplete { get; set; }
     }
 }
