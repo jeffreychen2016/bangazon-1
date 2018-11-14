@@ -23,12 +23,20 @@ namespace ThreeLeggedMonkey.Controllers
 
         private readonly CustomerStorage _storage;
 
-        // GET api/values
+        // GET api/customer
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
             var customers = new CustomerStorage(_config);
             return Ok(customers.GetAllCustomers());
+        }
+
+        // GET api/customer/{id}
+        [HttpGet("{id}")]
+        public ActionResult<string> GetById(int id)
+        {
+            var customer = new CustomerStorage(_config);
+            return Ok(customer.GetById(id));
         }
     }
 }
