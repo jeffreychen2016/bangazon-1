@@ -26,5 +26,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             return Ok(_trainingProgramAccess.GetTrainingPrograms(completed));
         }
+
+        [HttpGet("GetTrainingProgram/{id}")]
+        public IActionResult GetTrainingProgramPerId(int id)
+        {
+            return Ok(_trainingProgramAccess.GetTrainingProgramPerId(id));
+        }
     }
 }

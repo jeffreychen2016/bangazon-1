@@ -60,5 +60,25 @@ namespace ThreeLeggedMonkey.DataAccess
                 //    });
             }
         }
+
+        public TrainingProgramForGetMap GetTrainingProgramPerId(int id)
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+
+                var result  = dbConnection.QueryFirst<TrainingProgramForGetMap>(@"SELECT 
+	                                                                        ProgramName
+	                                                                        ,EmployeeName = FirstName + ' ' + LastName
+                                                                        FROM TrainingProgram
+                                                                        LEFT JOIN EmployeeTrainings 
+                                                                        ON TrainingProgram.Id = EmployeeTrainings.TrainingProgramId
+                                                                        LEFT JOIN Employee 
+                                                                        ON EmployeeTrainings.EmployeeId = Employee.Id
+                                                                        WHERE TrainingProgram.id = @id
+                                                                        ORDER BY ProgramName", new { id });
+                return result;
+            }
+        }
     }
 }
