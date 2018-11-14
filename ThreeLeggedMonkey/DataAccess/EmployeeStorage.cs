@@ -69,5 +69,24 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result == 1;
             }
         }
+
+        public bool UpdateEmployee(int id, NewEmployee newEmployee)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                newEmployee.Id = id;
+
+                db.Open();
+
+                var result = db.Execute(@"UPDATE Employee
+                                            SET FirstName = @FirstName,
+                                                LastName = @LastName,
+                                                DepartmentId = @DepartmentId,
+                                                EmployeeTypeId = @EmployeeTypeId,
+                                                AssignedComputer = @AssignedComputer
+                                            WHERE Id = @id", newEmployee);
+                return result == 1;
+            }
+        }
     }
 }
