@@ -44,5 +44,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             return Ok(_computerAccess.AddComputer(computer));
         }
+
+        [HttpPut("UpdateComputer/{id}")]
+        public IActionResult UpdateComputer(int id, Computer computer)
+        {
+            return Ok(_computerAccess.UpdateComputer(id, computer));
+        }
     }
 }

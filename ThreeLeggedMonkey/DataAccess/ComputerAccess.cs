@@ -83,5 +83,23 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result == 1;
             }
         }
+
+        public bool UpdateComputer(int id, Computer computer)
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+
+                computer.Id = id;
+                var result = dbConnection.Execute(@"UPDATE Computers
+                                                    SET SerialNumber = @SerialNumber
+                                                       ,DateOfPurchase = @DateOfPurchase
+                                                       ,DecommissionedDate = @DecommissionedDate
+                                                       ,IsOperable = @IsOperable
+                                                    WHERE id = @id",computer);
+
+                return result == 1;
+            }
+        }
     }
 }
