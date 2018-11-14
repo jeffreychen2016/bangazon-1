@@ -31,5 +31,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             return Ok(_computerAccess.GetComputerPerId(id));
         }
+
+        [HttpDelete("DeleteComputer/{id}")]
+        public IActionResult DeleteComputerPerId(int id)
+        {
+            return Ok(_computerAccess.DeleteComputerPerId(id));
+        }
     }
 }
