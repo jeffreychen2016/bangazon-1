@@ -22,7 +22,7 @@ namespace ThreeLeggedMonkey.Controllers
 
         [HttpGet("GetTrainingPrograms")]
         // https:///localhost:44323/api/TrainingProgram/GetTrainingPrograms?completed=true
-        public IActionResult GetTrainingPrograms([FromQuery(Name ="completed")]bool completed)
+        public IActionResult GetTrainingPrograms([FromQuery(Name = "completed")]bool completed)
         {
             return Ok(_trainingProgramAccess.GetTrainingPrograms(completed));
         }
@@ -31,6 +31,12 @@ namespace ThreeLeggedMonkey.Controllers
         public IActionResult GetTrainingProgramPerId(int id)
         {
             return Ok(_trainingProgramAccess.GetTrainingProgramPerId(id));
+        }
+
+        [HttpDelete("DeleteTrainingProgram/{id}")]
+        public IActionResult DeleteTrainingProgram(int id)
+        {
+            return Ok(_trainingProgramAccess.DeleteTrainingProgram(id));
         }
     }
 }

@@ -80,5 +80,18 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result;
             }
         }
+
+        public bool DeleteTrainingProgram(int id)
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+
+                var result = dbConnection.Execute(@"DELETE FROM 
+                                                       TrainingProgram
+                                                    WHERE id = @id", new { id });
+                return result == 1;
+            }
+        }
     }
 }
