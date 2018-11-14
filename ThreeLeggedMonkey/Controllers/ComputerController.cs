@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ThreeLeggedMonkey.DataAccess;
+using ThreeLeggedMonkey.Models;
 
 namespace ThreeLeggedMonkey.Controllers
 {
@@ -36,6 +37,12 @@ namespace ThreeLeggedMonkey.Controllers
         public IActionResult DeleteComputerPerId(int id)
         {
             return Ok(_computerAccess.DeleteComputerPerId(id));
+        }
+
+        [HttpPost("AddComputer")]
+        public IActionResult AddComputer(Computer computer)
+        {
+            return Ok(_computerAccess.AddComputer(computer));
         }
     }
 }

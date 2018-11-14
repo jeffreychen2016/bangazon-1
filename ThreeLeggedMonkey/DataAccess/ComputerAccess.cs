@@ -69,5 +69,19 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result == 1;
             }
         }
+
+        public bool AddComputer(Computer computer)
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+
+                var result = dbConnection.Execute(@"INSERT INTO 
+                                                       Computers (SerialNumber,DateOfPurchase,DecommissionedDate,IsOperable)
+                                                    VALUES (@SerialNumber,@DateOfPurchase,@DecommissionedDate,@IsOperable)", computer);
+
+                return result == 1;
+            }
+        }
     }
 }
