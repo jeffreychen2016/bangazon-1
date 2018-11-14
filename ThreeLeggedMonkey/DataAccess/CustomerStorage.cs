@@ -41,5 +41,20 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result;
             }
         }
+
+        public bool UpdateCustomer(int id, Customers customer)
+        {
+            using (var db = new SqlConnection(connectionstring))
+            {
+                customer.Id = id;
+                db.Open();
+                var result = db.Execute(@"update Customer
+                                            set FirstName = @FirstName,
+                                                LastName = @LastName,
+                                                IsActive = @IsActive
+                                            where Id = @id", customer);
+                return result == 1;
+            }
+        }
     }
 }
