@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using ThreeLeggedMonkey.DataAccess;
+using ThreeLeggedMonkey.Models;
 
 namespace ThreeLeggedMonkey.Controllers
 {
@@ -37,6 +38,14 @@ namespace ThreeLeggedMonkey.Controllers
         {
             var customer = new CustomerStorage(_config);
             return Ok(customer.GetById(id));
+        }
+
+        // PUT api/updatecustomer/{id}
+        [HttpPut("updatecustomer/{id}")]
+        public IActionResult UpdateCustomer(int id, Customers customer)
+        {
+            var customers = new CustomerStorage(_config);
+            return Ok(customers.UpdateCustomer(id, customer));
         }
     }
 }
