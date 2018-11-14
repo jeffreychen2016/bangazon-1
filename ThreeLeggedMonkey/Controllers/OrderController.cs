@@ -32,5 +32,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             _storage.AddOrder(order);
         }
+
+        [HttpPut("updateOrder/{id}")]
+        public void UpdateOrder(Order order, int id)
+        {
+            _storage.UpdateOrder(order, id);
+        }
     }
 }

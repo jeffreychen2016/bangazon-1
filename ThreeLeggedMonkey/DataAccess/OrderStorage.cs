@@ -42,5 +42,20 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result == 1;
             }
         }
+
+        public bool UpdateOrder(Order order, int id)
+        {
+            using (var connection = new SqlConnection(conString))
+            {
+                order.Id = id;
+                connection.Open();
+
+                var result = connection.Execute(@"UPDATE [Order]
+                                                SET CustomerId = @CustomerId, IsComplete = @IsComplete
+                                                WHERE Id = @id", order);
+
+                return result == 1;
+            }
+        }
     }
 }
