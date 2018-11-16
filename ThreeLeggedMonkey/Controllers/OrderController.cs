@@ -21,17 +21,34 @@ namespace ThreeLeggedMonkey.Controllers
             _storage = new OrderStorage(config);
         }
 
-        [HttpGet]
-        public IActionResult GetOrders([FromQuery] bool completed)
-        {
-            if (completed == false)
-            {
-                return Ok(_storage.GetOrderByComletionStatus(completed));
+//        [HttpGet]
+//        public IActionResult GetOrders([FromQuery] bool completed, [FromQuery] string _includes)
+//        {
+//            if (completed == false)
+//            {
+//                return Ok(_storage.GetOrderByComletionStatus(completed));
+//
+//           }
+//            else if (completed == true)
+//            {
+//                return Ok(_storage.GetOrderByComletionStatus(completed));
+//            }
+//            else if (_includes == "customer")
+//            {
+//                return Ok(_storage.GetOrderWithCustomer());
+//            }
+//            else
+//            {
+//                return Ok(_storage.GetAllOrders());
+//            }
+//        }
 
-            }
-            else if (completed == true)
+        [HttpGet]
+        public IActionResult GetOrderWithCustomer([FromQuery] string _includes)
+        {
+            if (_includes == "customer")
             {
-                return Ok(_storage.GetOrderByComletionStatus(completed));
+                return Ok(_storage.GetOrderWithCustomer());
             }
             else
             {

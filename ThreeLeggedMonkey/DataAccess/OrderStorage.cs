@@ -83,5 +83,19 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result;
             }
         }
+
+        public IEnumerable<OrderWithCustomer> GetOrderWithCustomer()
+        {
+            using (var connection = new SqlConnection(conString))
+            {
+                connection.Open();
+
+                var result = connection.Query<OrderWithCustomer>(@"select o.Id, o.CustomerId, o.IsComplete, o.IsActive, c.FirstName, c.LastName
+                                                                from [Order] as o, Customer as c 
+                                                                where o.CustomerId = c.Id");
+
+                return result;
+            }
+        }
     }
 }
