@@ -56,5 +56,19 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result == 1;
             }
         }
+
+
+        public bool Add(Customers customer)
+        {
+            using (var db = new SqlConnection(connectionstring))
+            {
+                db.Open();
+
+                var result = db.Execute(@"insert into [dbo].[Customer]( [FirstName], [LastName], [IsActive])
+                                            values( @FirstName, @LastName, @IsActive)", customer);
+
+                return result == 1;
+            }
+        }
     }
 }

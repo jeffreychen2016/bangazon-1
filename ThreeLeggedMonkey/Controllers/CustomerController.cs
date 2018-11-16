@@ -47,5 +47,13 @@ namespace ThreeLeggedMonkey.Controllers
             var customers = new CustomerStorage(_config);
             return Ok(customers.UpdateCustomer(id, customer));
         }
+
+        // POST api/addnewcustomer
+        [HttpPost]
+        public void AddProduct(Customers customer)
+        {
+            var customerz = new CustomerStorage(_config);
+            customerz.Add(customer);
+        }
     }
 }
