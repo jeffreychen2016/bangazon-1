@@ -71,5 +71,17 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result == 1;
             }
         }
+
+        public IEnumerable<Order> GetOrderByComletionStatus(bool param)
+        {
+            using (var connection = new SqlConnection(conString))
+            {
+                connection.Open();
+
+                var result = connection.Query<Order>(@"select * from [Order]
+                                                    where [order].IsComplete = @param", new { param = param});
+                return result;
+            }
+        }
     }
 }

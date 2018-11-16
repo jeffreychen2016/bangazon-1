@@ -22,9 +22,21 @@ namespace ThreeLeggedMonkey.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetOrders()
+        public IActionResult GetOrders([FromQuery] bool completed)
         {
-            return Ok(_storage.GetAllOrders());
+            if (completed == false)
+            {
+                return Ok(_storage.GetOrderByComletionStatus(completed));
+
+            }
+            else if (completed == true)
+            {
+                return Ok(_storage.GetOrderByComletionStatus(completed));
+            }
+            else
+            {
+                return Ok(_storage.GetAllOrders());
+            }
         }
 
         [HttpPost]
@@ -43,6 +55,12 @@ namespace ThreeLeggedMonkey.Controllers
         public void DeactivateOrder(Order order, int id)
         {
             _storage.DeactivateOrder(order, id);
+        }
+
+        [HttpGet("orderCompletionStatus/{param}")]
+        public void GetOrderByComletionStatus(bool param)
+        {
+            _storage.GetOrderByComletionStatus(param);
         }
     }
 }
