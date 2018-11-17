@@ -33,10 +33,10 @@ namespace ThreeLeggedMonkey.Controllers
             {
                 return Ok(_storage.GetOrderWithCustomer());
             }
-            else if (completed == 0)
-            {
-                return Ok(_storage.GetOrderByComletionStatus(completed));
-            }
+//            else if (completed == 0)
+//            {
+//                return Ok(_storage.GetOrderByComletionStatus(completed));
+//            }
             else
             {
                 return Ok(_storage.GetAllOrders());
@@ -65,6 +65,12 @@ namespace ThreeLeggedMonkey.Controllers
         public void DeactivateOrder(Order order, int id)
         {
             _storage.DeactivateOrder(order, id);
+        }
+
+        [HttpDelete("deleteOrder/{id}")]
+        public IActionResult DeleteOrder(int id)
+        {
+            return Ok(_storage.DeleteOrder(id));
         }
     }
 }

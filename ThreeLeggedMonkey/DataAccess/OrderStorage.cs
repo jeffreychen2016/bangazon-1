@@ -35,9 +35,10 @@ namespace ThreeLeggedMonkey.DataAccess
         {
             using (var connection = new SqlConnection(connectionString))
             {
+                connection.Open();
                 var result = connection.Query<Order>(@"select *
                                                     from [Order]
-                                                    where Id = @id", new { id = id});
+                                                    where Id = @id", new { id });
                 return result;
             }
         }
@@ -90,7 +91,7 @@ namespace ThreeLeggedMonkey.DataAccess
                 connection.Open();
 
                 var result = connection.Query<Order>(@"select * from [Order]
-                                                    where [order].IsComplete = @param", new { param = param});
+                                                    where [order].IsComplete = @param", new { param });
                 return result;
             }
         }
@@ -106,6 +107,19 @@ namespace ThreeLeggedMonkey.DataAccess
                                                                 where o.CustomerId = c.Id");
 
                 return result;
+            }
+        }
+
+        public bool DeleteOrder(int id)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var result = connection.Execute(@"DELETE
+                                                FROM [Order]
+                                                WHERE Id = @id", new { id });
+                return result == 1;
             }
         }
     }
