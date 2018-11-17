@@ -72,10 +72,8 @@ namespace ThreeLeggedMonkey.DataAccess
                                                             ");
                 if (!activeFalse)
                 {
-                    // (int?)c.CustomerId will return 0 when it is null
                     var result = from c in customerList
-                                 let v = (int?)c.CustomerId
-                                 where v == 0
+                                 where c.CustomerId == null
                                  select new CustomerWithNoOrders() { FirstName = c.FirstName, LastName = c.LastName };
                     return result.ToList();
                 }
