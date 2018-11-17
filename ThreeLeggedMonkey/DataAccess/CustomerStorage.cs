@@ -80,6 +80,22 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
+        public List<CustomerPaymentTypes> GetCustomerPaymentTypes(int id, string include)
+        {
+            using (var db = new SqlConnection(connectionstring))
+            {
+                db.Open();
+
+                var result = db.Query<CustomerPaymentTypes>(@"select
+                                                            PaymentTypeName
+                                                                from Customer C
+                                                                JOIN PaymentType PT
+                                                                    ON C.Id = PT.CustomerId
+                                                                where C.Id = @id", new { id });
+                return result.ToList();
+            }
+        }
+
         public bool UpdateCustomer(int id, Customers customer)
         {
             using (var db = new SqlConnection(connectionstring))

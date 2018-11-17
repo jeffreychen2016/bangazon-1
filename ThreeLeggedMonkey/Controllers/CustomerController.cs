@@ -48,6 +48,11 @@ namespace ThreeLeggedMonkey.Controllers
             {
                 return Ok(customer.GetCustomerProducts(id, include));
             }
+
+            else if (include == "payments")
+            {
+                return Ok(customer.GetCustomerPaymentTypes(id, include));
+            }
             
             else
             {
