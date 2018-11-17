@@ -41,10 +41,18 @@ namespace ThreeLeggedMonkey.Controllers
 
         // GET api/customer/{id}
         [HttpGet("{id}")]
-        public ActionResult<string> GetById(int id)
+        public ActionResult<string> GetById(int id, [FromQuery]string include)
         {
             var customer = new CustomerStorage(_config);
-            return Ok(customer.GetById(id));
+            if (include == "products")
+            {
+                return Ok(customer.GetCustomerProducts(id, include));
+            }
+            
+            else
+            {
+                return Ok(customer.GetById(id));
+            }
         }
 
         // PUT api/updatecustomer/{id}
