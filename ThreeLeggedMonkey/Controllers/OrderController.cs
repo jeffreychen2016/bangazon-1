@@ -22,21 +22,21 @@ namespace ThreeLeggedMonkey.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetOrders([FromQuery] int completed, [FromQuery] string _includes)
+        public IActionResult GetOrders([FromQuery] bool? completed, [FromQuery] string _include)
         {
-            if (completed == 1)
+            if (completed == false)
             {
                 return Ok(_storage.GetOrderByComletionStatus(completed));
 
             }
-            else if (_includes == "customer")
+            else if (_include == "customer")
             {
                 return Ok(_storage.GetOrderWithCustomer());
             }
-//            else if (completed == 0)
-//            {
-//                return Ok(_storage.GetOrderByComletionStatus(completed));
-//            }
+            else if (completed == true)
+            {
+                return Ok(_storage.GetOrderByComletionStatus(completed));
+            }
             else
             {
                 return Ok(_storage.GetAllOrders());
@@ -44,9 +44,16 @@ namespace ThreeLeggedMonkey.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetOrderById(int id)
+        public IActionResult GetOrderById(int id, [FromQuery] string _include)
         {
-            return Ok(_storage.GetOrderById(id));
+            if (_include == "products")
+            {
+                return Ok(_storage.GetOrderWithProductNamres(id));
+            }
+            else
+            {
+                return Ok(_storage.GetOrderById(id));
+            }
         }
 
         [HttpPost]

@@ -84,7 +84,7 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
-        public IEnumerable<Order> GetOrderByComletionStatus(int param)
+        public IEnumerable<Order> GetOrderByComletionStatus(bool? param)
         {
             using (var connection = new SqlConnection(connectionString))
             {
@@ -120,6 +120,25 @@ namespace ThreeLeggedMonkey.DataAccess
                                                 FROM [Order]
                                                 WHERE Id = @id", new { id });
                 return result == 1;
+            }
+        }
+
+        public IEnumerable<OrderWithProductNamre> GetOrderWithProductNamres(int id)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var result = connection.Query<OrderWithProductNamre>(@"select p.Name
+                                                                    from [Order] as o
+                                                                    JOIN OrderStage as os
+                                                                    on o.Id = os.OrderId
+                                                                    join Product as p
+                                                                    on os.ProductId = p.Id 
+                                                                    where o.id = 4", new { id });
+
+                return result;
+                
             }
         }
     }
