@@ -142,6 +142,65 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
+        public List<OrdersWithProductsForView> GetAllOrderWithProducts()
+        {
+            using (var dbConnection = new SqlConnection(connectionString))
+            {
+                dbConnection.Open();
+
+                var orderList = dbConnection.Query<OrderWithProducts>(@"SELECT DISTINCT
+                                                                             orderId = O.Id
+                                                                           , customerId = c.Id
+                                                                           , paymentTypeId = pt.Id
+                                                                         FROM[Order] AS o
+                                                                         INNER JOIN OrderStage AS os
+                                                                         ON o.Id = os.OrderId
+                                                                         INNER JOIN Product AS p
+                                                                         ON os.ProductId = p.Id
+                                                                         INNER JOIN Customer AS c
+                                                                         ON c.Id = o.CustomerId
+                                                                         INNER JOIN PaymentType AS pt
+                                                                         ON c.Id = pt.CustomerId
+                                                                         ORDER BY O.Id");
+
+                var products = dbConnection.Query<ProductInOrder>(@"SELECT 
+	                                                                    OrderId = [Order].Id
+	                                                                    ,ProductId = Product.Id
+	                                                                    ,ProductName = Product.[Name]
+	                                                                    ,Price = Product.Price
+	                                                                    ,Quantity = COUNT(Product.Quantity)
+                                                                    FROM  Product
+                                                                    INNER JOIN OrderStage
+                                                                    ON Product.Id = OrderStage.ProductId
+                                                                    INNER JOIN [Order]
+                                                                    ON [Order].Id = OrderStage.OrderId
+                                                                    WHERE  [Order].Id IN @orderList
+                                                                    GROUP BY [Order].Id,Product.Id,Product.[Name],Product.Price", new { orderList = orderList.Select(x => x.OrderId) });
+
+                // make key value pair for each order id. example: { orderId1, [{product1}, {product2}] }
+                var groupedProducts = products.GroupBy(p => p.OrderId);
+
+                var result = from order in orderList
+                             join productGroup in groupedProducts on order.OrderId equals productGroup.Key
+                             orderby order.OrderId
+                             select new OrdersWithProductsForView
+                             {
+                                 OrderId = order.OrderId,
+                                 CustomerId = order.CustomerId,
+                                 PaymentTypeId = order.PaymentTypeId,
+                                 Products = productGroup.Select(product => new ProductInOrderForView()
+                                 {
+                                     ProductId = product.ProductId,
+                                     ProductName = product.ProductName,
+                                     Price = product.Price,
+                                     Quantity = product.Quantity
+                                 }).ToList()
+                             };
+
+                return result.ToList();
+            }
+        }
+
         public IEnumerable<OrderWithCustomer> GetOrderWithCustomerById(int id)
         {
             using (var connection = new SqlConnection(connectionString))
