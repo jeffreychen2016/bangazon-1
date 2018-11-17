@@ -57,7 +57,6 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
-
         public bool Add(Customers customer)
         {
             using (var db = new SqlConnection(connectionstring))
@@ -68,6 +67,37 @@ namespace ThreeLeggedMonkey.DataAccess
                                             values( @FirstName, @LastName, @IsActive)", customer);
 
                 return result == 1;
+            }
+        }
+
+        public List<CustomerWithNoOrders> GetCustomersWithNoOrders(bool activeFalse)
+        {
+            using (var dbConnection = new SqlConnection(connectionstring))
+            {
+                dbConnection.Open();
+
+                var customerList = dbConnection.Query<CustomerWithNoOrders>(@"SELECT DISTINCT
+	                                                            Customer.FirstName
+	                                                            ,Customer.LastName
+	                                                            ,[Order].CustomerId
+                                                            FROM Customer
+                                                            LEFT JOIN [Order] ON Customer.Id = [Order].CustomerId
+                                                            ");
+                if (!activeFalse)
+                {
+                    // (int?)c.CustomerId will return 0 when it is null
+                    var result = from c in customerList
+                                 let v = (int?)c.CustomerId
+                                 where v == 0
+                                 select new CustomerWithNoOrders() { FirstName = c.FirstName, LastName = c.LastName };
+                    return result.ToList();
+                }
+                else
+                {
+                    var result = from c in customerList
+                                 select new CustomerWithNoOrders() { FirstName = c.FirstName, LastName = c.LastName };
+                    return result.ToList();
+                }
             }
         }
     }
