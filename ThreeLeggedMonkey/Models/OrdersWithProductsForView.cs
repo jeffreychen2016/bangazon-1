@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace ThreeLeggedMonkey.Models
+{
+    public class OrdersWithProductsForView
+    {
+        public int OrderId { get; set; }
+        public int CustomerId { get; set; }
+        public int PaymentTypeId { get; set; }
+        public List<ProductInOrderForView> Products { get; set; }
+    }
+}

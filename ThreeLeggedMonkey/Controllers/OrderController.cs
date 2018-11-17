@@ -79,5 +79,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             return Ok(_storage.DeleteOrder(id));
         }
+
+        [HttpGet("GetAllOrderWithProducts")]
+        public IActionResult GetAllOrderWithProducts()
+        {
+            return Ok(_storage.GetAllOrderWithProducts());
+        }
     }
 }
