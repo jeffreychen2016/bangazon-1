@@ -42,6 +42,22 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
+        public List<Customers> GetByQuery(string q)
+        {
+            using (var db = new SqlConnection(connectionstring))
+            {
+                db.Open();
+
+                var result = db.Query<Customers>(@"select *
+                                                            from Customer
+                                                            where FirstName
+	                                                            like @q
+                                                            or LastName
+	                                                            like @q", new { q = "%" + q + "%"});
+                return result.ToList();
+            }
+        }
+
         public bool UpdateCustomer(int id, Customers customer)
         {
             using (var db = new SqlConnection(connectionstring))
