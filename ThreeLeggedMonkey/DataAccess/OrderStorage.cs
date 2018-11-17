@@ -102,7 +102,7 @@ namespace ThreeLeggedMonkey.DataAccess
             {
                 connection.Open();
 
-                var result = connection.Query<OrderWithCustomer>(@"select o.Id, o.CustomerId, o.IsComplete, o.IsActive, c.FirstName, c.LastName
+                var result = connection.Query<OrderWithCustomer>(@"select o.Id, o.CustomerId, o.IsComplete, o.IsActive, Customer = c.FirstName +' ' + c.LastName
                                                                 from [Order] as o, Customer as c 
                                                                 where o.CustomerId = c.Id");
 
@@ -139,6 +139,26 @@ namespace ThreeLeggedMonkey.DataAccess
 
                 return result;
                 
+            }
+        }
+
+        public IEnumerable<OrderWithCustomer> GetOrderWithCustomerById(int id)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var result = connection.Query<OrderWithCustomer>(@"select
+                                                                Customer = C.FirstName +' ' + C.LastName,
+                                                                CustomerId = O.CustomerId,
+                                                                OrderId = O.Id,
+                                                                IsComplete = O.IsComplete
+                                                                from [Order] O
+                                                                JOIN Customer C
+                                                                ON C.Id = O.CustomerId
+                                                                WHERE O.Id = @id", new { id });
+
+                return result;
             }
         }
     }
