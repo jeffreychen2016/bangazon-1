@@ -50,6 +50,10 @@ namespace ThreeLeggedMonkey.Controllers
             {
                 return Ok(_storage.GetOrderWithProductNamres(id));
             }
+            else if (_include == "customer")
+            {
+                return Ok(_storage.GetOrderWithCustomerById(id));
+            }
             else
             {
                 return Ok(_storage.GetOrderById(id));
