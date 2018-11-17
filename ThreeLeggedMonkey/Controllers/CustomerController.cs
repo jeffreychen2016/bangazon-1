@@ -22,8 +22,6 @@ namespace ThreeLeggedMonkey.Controllers
             _config = config;
         }
 
-        private readonly CustomerStorage _storage;
-
         // GET api/customer
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -46,6 +44,13 @@ namespace ThreeLeggedMonkey.Controllers
         {
             var customers = new CustomerStorage(_config);
             return Ok(customers.UpdateCustomer(id, customer));
+        }
+
+        [HttpGet("customers")]
+        public IActionResult GetCustomersWithNoOrders([FromQuery(Name = "Active")]bool active)
+        {
+            var customers = new CustomerStorage(_config);
+            return Ok(customers.GetCustomersWithNoOrders(active));
         }
     }
 }
