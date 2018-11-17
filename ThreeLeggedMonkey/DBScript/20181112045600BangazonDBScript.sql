@@ -118,7 +118,8 @@ CREATE TABLE PaymentType(
 CREATE TABLE [Order] (
   Id int not null PRIMARY KEY IDENTITY(1,1),
   CustomerId int not null,
-  IsComplete bit not null
+  IsComplete bit not null,
+  IsActive bit not null
 )
 CREATE TABLE OrderStage (
   Id int not null PRIMARY KEY IDENTITY(1,1),
@@ -328,9 +329,11 @@ VALUES (@PaymentTypeName,1)
 DECLARE @OrderCounter int
 		,@OrderCustomerId varchar(50)
 		,@IsCompelete varchar(50)
+		,@IsActive varchar(50)
 		,@OrderCustomerIdLowerLimit int
 		,@OrderCustomerIdUpperLimit int
 		,@OrderIsComplete int
+		,@OrderisActive int
 		,@OrderIsCompleteLowerLimit int
 		,@OrderIsCompleteUpperLimit int
 
@@ -344,9 +347,10 @@ WHILE @OrderCounter < 11
 BEGIN  
 	SET @OrderCustomerId = ROUND(((@OrderCustomerIdUpperLimit - @OrderCustomerIdLowerLimit -1) * RAND() + @OrderCustomerIdLowerLimit), 0);
 	SET @OrderIsComplete = ROUND(((@OrderIsCompleteUpperLimit - @OrderIsCompleteLowerLimit -1) * RAND() + @OrderIsCompleteLowerLimit), 0);
+	SET @OrderIsActive = ROUND(((@OrderIsCompleteUpperLimit - @OrderIsCompleteLowerLimit -1) * RAND() + @OrderIsCompleteLowerLimit), 0);
 
-	INSERT INTO [Order](CustomerId,IsComplete)
-	VALUES (@OrderCustomerId, @OrderIsComplete)
+	INSERT INTO [Order](CustomerId,IsComplete,IsActive)
+	VALUES (@OrderCustomerId, @OrderIsComplete, @OrderIsActive)
 	SET @OrderCounter = @OrderCounter + 1;
 END  
 
