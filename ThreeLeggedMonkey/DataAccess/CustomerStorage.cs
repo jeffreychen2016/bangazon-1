@@ -42,6 +42,60 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
+        public List<Customers> GetByQuery(string q)
+        {
+            using (var db = new SqlConnection(connectionstring))
+            {
+                db.Open();
+
+                var result = db.Query<Customers>(@"select *
+                                                            from Customer
+                                                            where FirstName
+	                                                            like @q
+                                                            or LastName
+	                                                            like @q", new { q = "%" + q + "%"});
+                return result.ToList();
+            }
+        }
+
+        public List<CustomerProducts> GetCustomerProducts(int id, string include)
+        {
+            using (var db = new SqlConnection(connectionstring))
+            {
+                db.Open();
+
+                var result = db.Query<CustomerProducts>(@"select
+                                                    Product = P.Name
+                                                        from Product P
+                                                        JOIN OrderStage OS
+                                                            ON P.Id = OS.ProductId
+                                                        JOIN [Order] O
+                                                            ON O.Id = OS.OrderId
+                                                        JOIN Customer C
+                                                            ON C.Id = O.CustomerId
+                                                        WHERE C.Id = @id
+                                                        Group By P.Name
+                                                        Order BY P.Name", new { id });
+                return result.ToList();
+            }
+        }
+
+        public List<CustomerPaymentTypes> GetCustomerPaymentTypes(int id, string include)
+        {
+            using (var db = new SqlConnection(connectionstring))
+            {
+                db.Open();
+
+                var result = db.Query<CustomerPaymentTypes>(@"select
+                                                            PaymentTypeName
+                                                                from Customer C
+                                                                JOIN PaymentType PT
+                                                                    ON C.Id = PT.CustomerId
+                                                                where C.Id = @id", new { id });
+                return result.ToList();
+            }
+        }
+
         public bool UpdateCustomer(int id, Customers customer)
         {
             using (var db = new SqlConnection(connectionstring))

@@ -11,7 +11,6 @@ namespace ThreeLeggedMonkey.Models
         public int CustomerId { get; set; }
         public bool IsComplete { get; set; }
         public bool IsActive { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Customer { get; set; }
     }
 }

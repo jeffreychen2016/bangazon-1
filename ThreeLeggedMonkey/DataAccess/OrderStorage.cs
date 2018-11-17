@@ -102,7 +102,7 @@ namespace ThreeLeggedMonkey.DataAccess
             {
                 connection.Open();
 
-                var result = connection.Query<OrderWithCustomer>(@"select o.Id, o.CustomerId, o.IsComplete, o.IsActive, c.FirstName, c.LastName
+                var result = connection.Query<OrderWithCustomer>(@"select o.Id, o.CustomerId, o.IsComplete, o.IsActive, Customer = c.FirstName +' ' + c.LastName
                                                                 from [Order] as o, Customer as c 
                                                                 where o.CustomerId = c.Id");
 
@@ -135,7 +135,7 @@ namespace ThreeLeggedMonkey.DataAccess
                                                                     on o.Id = os.OrderId
                                                                     join Product as p
                                                                     on os.ProductId = p.Id 
-                                                                    where o.id = 4", new { id });
+                                                                    where o.id = @id", new { id });
 
                 return result;
                 
@@ -175,7 +175,7 @@ namespace ThreeLeggedMonkey.DataAccess
                                                                     INNER JOIN [Order]
                                                                     ON [Order].Id = OrderStage.OrderId
                                                                     WHERE  [Order].Id IN @orderList
-                                                                    GROUP BY [Order].Id,Product.Id,Product.[Name],Product.Price", new { orderList = orderList.Select( x => x.OrderId) });
+                                                                    GROUP BY [Order].Id,Product.Id,Product.[Name],Product.Price", new { orderList = orderList.Select(x => x.OrderId) });
 
                 // make key value pair for each order id. example: { orderId1, [{product1}, {product2}] }
                 var groupedProducts = products.GroupBy(p => p.OrderId);
@@ -188,16 +188,36 @@ namespace ThreeLeggedMonkey.DataAccess
                                  OrderId = order.OrderId,
                                  CustomerId = order.CustomerId,
                                  PaymentTypeId = order.PaymentTypeId,
-                                 Products = productGroup.Select( product => new ProductInOrderForView()
+                                 Products = productGroup.Select(product => new ProductInOrderForView()
                                  {
                                      ProductId = product.ProductId,
                                      ProductName = product.ProductName,
                                      Price = product.Price,
                                      Quantity = product.Quantity
-                                 }).ToList()                                
+                                 }).ToList()
                              };
 
                 return result.ToList();
+            }
+        }
+
+        public IEnumerable<OrderWithCustomer> GetOrderWithCustomerById(int id)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                var result = connection.Query<OrderWithCustomer>(@"select
+                                                                Customer = C.FirstName +' ' + C.LastName,
+                                                                CustomerId = O.CustomerId,
+                                                                OrderId = O.Id,
+                                                                IsComplete = O.IsComplete
+                                                                from [Order] O
+                                                                JOIN Customer C
+                                                                ON C.Id = O.CustomerId
+                                                                WHERE O.Id = @id", new { id });
+
+                return result;
             }
         }
     }
