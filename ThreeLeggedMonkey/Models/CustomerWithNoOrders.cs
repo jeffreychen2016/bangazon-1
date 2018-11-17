@@ -7,7 +7,8 @@ namespace ThreeLeggedMonkey.Models
 {
     public class CustomerWithNoOrders
     {
-        public int CustomerId { get; set; }
+        // make id nullable and i can map customerid to it when it is null
+        public int? CustomerId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
     }
