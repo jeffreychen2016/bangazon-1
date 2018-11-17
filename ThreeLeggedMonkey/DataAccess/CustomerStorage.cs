@@ -57,6 +57,19 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
+        public bool Add(Customers customer)
+        {
+            using (var db = new SqlConnection(connectionstring))
+            {
+                db.Open();
+
+                var result = db.Execute(@"insert into [dbo].[Customer]( [FirstName], [LastName], [IsActive])
+                                            values( @FirstName, @LastName, @IsActive)", customer);
+
+                return result == 1;
+            }
+        }
+
         public List<CustomerWithNoOrders> GetCustomersWithNoOrders(bool activeFalse)
         {
             using (var dbConnection = new SqlConnection(connectionstring))

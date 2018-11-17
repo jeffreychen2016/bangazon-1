@@ -46,11 +46,20 @@ namespace ThreeLeggedMonkey.Controllers
             return Ok(customers.UpdateCustomer(id, customer));
         }
 
+<<<<<<< HEAD
+        // POST api/addnewcustomer
+        [HttpPost]
+        public void AddProduct(Customers customer)
+        {
+            var customerz = new CustomerStorage(_config);
+            customerz.Add(customer);
+=======
         [HttpGet("customers")]
         public IActionResult GetCustomersWithNoOrders([FromQuery(Name = "Active")]bool active)
         {
             var customers = new CustomerStorage(_config);
             return Ok(customers.GetCustomersWithNoOrders(active));
+>>>>>>> b1d2745142ff45b7b713ba1fa4467dfd281571a4
         }
     }
 }
