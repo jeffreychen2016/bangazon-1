@@ -135,7 +135,7 @@ namespace ThreeLeggedMonkey.DataAccess
                                                                     on o.Id = os.OrderId
                                                                     join Product as p
                                                                     on os.ProductId = p.Id 
-                                                                    where o.id = 4", new { id });
+                                                                    where o.id = @id", new { id });
 
                 return result;
                 
