@@ -11,16 +11,16 @@ namespace ThreeLeggedMonkey.DataAccess
 {
     public class OrderStorage
     {
-        private readonly string conString;
+        private readonly string connectionString;
 
         public OrderStorage(IConfiguration config)
         {
-            conString = config.GetSection("ConnectionString").Value;
+            connectionString = config.GetSection("ConnectionString").Value;
         }
 
         public IEnumerable<Order> GetAllOrders()
         {
-            using (var connection = new SqlConnection(conString))
+            using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -31,9 +31,20 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
+        public IEnumerable<Order> GetOrderById(int id)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                var result = connection.Query<Order>(@"select *
+                                                    from [Order]
+                                                    where Id = @id", new { id = id});
+                return result;
+            }
+        }
+
         public bool AddOrder(Order order)
         {
-            using (var connection = new SqlConnection(conString))
+            using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -45,7 +56,7 @@ namespace ThreeLeggedMonkey.DataAccess
 
         public bool UpdateOrder(Order order, int id)
         {
-            using (var connection = new SqlConnection(conString))
+            using (var connection = new SqlConnection(connectionString))
             {
                 order.Id = id;
                 connection.Open();
@@ -60,7 +71,7 @@ namespace ThreeLeggedMonkey.DataAccess
 
         public bool DeactivateOrder(Order order, int id)
         {
-            using (var connection = new SqlConnection(conString))
+            using (var connection = new SqlConnection(connectionString))
             {
                 order.Id = id;
                 connection.Open();
@@ -72,9 +83,9 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
-        public IEnumerable<Order> GetOrderByComletionStatus(bool param)
+        public IEnumerable<Order> GetOrderByComletionStatus(int param)
         {
-            using (var connection = new SqlConnection(conString))
+            using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -86,7 +97,7 @@ namespace ThreeLeggedMonkey.DataAccess
 
         public IEnumerable<OrderWithCustomer> GetOrderWithCustomer()
         {
-            using (var connection = new SqlConnection(conString))
+            using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
