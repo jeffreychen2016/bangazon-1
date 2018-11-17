@@ -24,10 +24,19 @@ namespace ThreeLeggedMonkey.Controllers
 
         // GET api/customer
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IEnumerable<string>> Get([FromQuery] string q)
         {
             var customers = new CustomerStorage(_config);
-            return Ok(customers.GetAllCustomers());
+
+            if (q != null)
+            {
+                return Ok(customers.GetByQuery(q));
+            }
+            else
+            {
+                return Ok(customers.GetAllCustomers());
+            }
+            
         }
 
         // GET api/customer/{id}
