@@ -42,19 +42,19 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
-        public Customers GetByQuery(string q)
+        public List<Customers> GetByQuery(string q)
         {
             using (var db = new SqlConnection(connectionstring))
             {
                 db.Open();
 
-                var result = db.QueryFirst<Customers>(@"select *
+                var result = db.Query<Customers>(@"select *
                                                             from Customer
                                                             where FirstName
 	                                                            like @q
                                                             or LastName
 	                                                            like @q", new { q = "%" + q + "%"});
-                return result;
+                return result.ToList();
             }
         }
 
