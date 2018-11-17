@@ -68,5 +68,23 @@ namespace ThreeLeggedMonkey.DataAccess
                 return result == 1;
             }
         }
+
+        public List<DeptEmployee> GetDeptEmployees(int id)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+                var result = db.Query<DeptEmployee>(@"select 
+	                                                    Department = D.DepartmentName,
+	                                                    Employee = E.FirstName +' '+ E.LastName
+                                                    from Department D
+                                                    Join Employee E
+                                                    on D.Id = E.DepartmentId
+                                                    WHERE D.Id = @id
+                                                    Order BY D.Id", new { id });
+
+                return result.ToList();
+            }
+        }
     }
 }

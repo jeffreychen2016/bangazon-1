@@ -22,9 +22,16 @@ namespace ThreeLeggedMonkey.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetDeptById(int id)
+        public IActionResult GetDeptById(int id, [FromQuery] string _include)
         {
-            return Ok(_storage.GetById(id));
+            if (_include == "employees")
+            {
+                return Ok(_storage.GetDeptEmployees(id));
+            }
+            else
+            {
+                return Ok(_storage.GetById(id));
+            }
         }
 
         [HttpGet("depts")]
