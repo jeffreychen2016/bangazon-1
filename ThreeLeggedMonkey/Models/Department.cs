@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 
 namespace ThreeLeggedMonkey.Models
 {
-    public class PlaceHolder
+    public class Department
     {
+        public int Id { get; set; }
+        public string DepartmentName { get; set; }
     }
 }
