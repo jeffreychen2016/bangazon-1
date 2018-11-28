@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import paymentTypeCalls from '../../DBRequests/paymentTypeCalls';
+import paymentTypeCalls from '../DBRequests/PaymentTypeCalls';
 
 
 export class PaymentType extends Component {
@@ -26,6 +26,7 @@ export class PaymentType extends Component {
     return (
         <div>
             <Link to={`/paymenttype`}>
+
                 <h1>PaymentType</h1>
                 <h3>{allPaymentTypes.Id}</h3>
                 <h3>{allPaymentTypes.PaymentType}</h3>

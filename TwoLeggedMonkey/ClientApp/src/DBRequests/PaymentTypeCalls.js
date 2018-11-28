@@ -1,10 +1,10 @@
 ﻿import axios from 'axios';
 import { PaymentType } from '../components/PaymentType';
 
-const getAllPayments = () => {
+const getAllPaymentTypes = () => {
     return new Promise((resoslve, reject) => {
         axios
-            .get(`/api/PaymentType`)
+            .get(`/api/paymenttype`)
             .then(res => {
                 const allPaymentTypes = [];
                 if (res.data !== null) {
@@ -21,4 +21,4 @@ const getAllPayments = () => {
     });
 };
 
-export default {getPay}
+export default { getAllPaymentTypes };
