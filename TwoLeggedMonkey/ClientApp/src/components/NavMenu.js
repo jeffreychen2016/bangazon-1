@@ -20,42 +20,42 @@ export class NavMenu extends Component {
           <Nav>
             <LinkContainer to={'/computer'}>
               <NavItem>
-                <Glyphicon /> Computer
+                Computer
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/customer'}>
               <NavItem>
-                <Glyphicon /> Customer
+                 Customer
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/department'}>
               <NavItem>
-                <Glyphicon /> Department
+                 Department
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/employee'}>
               <NavItem>
-                <Glyphicon /> Employee
+                 Employee
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/order'}>
               <NavItem>
-                <Glyphicon /> Order
+                 Order
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/paymenttype'}>
               <NavItem>
-                <Glyphicon /> Payment Type
+                 Payment Type
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/product'}>
               <NavItem>
-                <Glyphicon /> Product
+                 Product
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/trainingprogram'}>
               <NavItem>
-                <Glyphicon /> Training Program
+                 Training Program
               </NavItem>
             </LinkContainer>
           </Nav>
