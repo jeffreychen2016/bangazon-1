@@ -20,17 +20,27 @@ export class Customer extends Component {
     render() {
         const customerComponents = this.state.customers.map((customer) => {
             return (
-                <div key={customer.id}>
-                    <h3>{customer.firstName} {customer.lastName}</h3>
-                </div>
+                <tr key={customer.id}>
+                    <td>{customer.firstName}</td>
+                    <td>{customer.lastName}</td>
+                    <td>ACTIVE</td>
+                </tr>
             );
         });
     return (
       <div>
             <h1>Customers</h1>
-            <ul>
-                {customerComponents}
-            </ul>
+
+            <table>
+                <tbody>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Active</th>
+                </tr>
+                    {customerComponents}
+                </tbody>
+            </table>
        </div>
     );
   }
