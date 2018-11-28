@@ -23,7 +23,7 @@ export class Customer extends Component {
                 <tr key={customer.id}>
                     <td>{customer.firstName}</td>
                     <td>{customer.lastName}</td>
-                    <td>ACTIVE</td>
+                    {customer.isActive === true ? <td>Active</td> : <td>Not Active</td>}
                 </tr>
             );
         });
