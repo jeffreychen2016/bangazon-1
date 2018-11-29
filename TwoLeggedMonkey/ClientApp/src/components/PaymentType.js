@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+
 import paymentTypeCalls from '../DBRequests/PaymentTypeCalls';
 
 
@@ -11,6 +11,7 @@ export class PaymentType extends Component {
 
     componentDidMount() {
         paymentTypeCalls
+            .getAllPaymentTypes()
             .then((allPaymentTypes) => {
                 this.setState({allPaymentTypes})
             })
@@ -22,17 +23,23 @@ export class PaymentType extends Component {
 
 
 
-  render() {
+    render() {
+        const paymentTypes = this.state.allPaymentTypes.map((paymentType) => {
+            return (
+                <div key={paymentType.id}>
+                    
+                        <h1>PaymentType</h1>
+                        <h3>{paymentType.id}</h3>
+                        <h3>{paymentType.paymentTypeName}</h3>
+
+              
+                </div>
+            );
+        })
     return (
         <div>
-            <Link to={`/paymenttype`}>
-
-                <h1>PaymentType</h1>
-                <h3>{allPaymentTypes.Id}</h3>
-                <h3>{allPaymentTypes.PaymentType}</h3>
-               
-            </Link>
-      </div>
+            {paymentTypes}
+        </div>
     );
   }
 }

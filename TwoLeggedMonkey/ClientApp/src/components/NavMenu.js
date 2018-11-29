@@ -45,7 +45,7 @@ export class NavMenu extends Component {
             </LinkContainer>
             <LinkContainer to={'/paymenttype'}>
               <NavItem>
-                <Glyphicon /> Payment Type
+                 Payment Type
               </NavItem>
             </LinkContainer>
             <LinkContainer to={'/product'}>
