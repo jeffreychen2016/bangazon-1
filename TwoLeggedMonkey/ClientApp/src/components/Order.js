@@ -29,8 +29,10 @@ export class Order extends Component {
     return (
       <div key = {order.id}>
         <h1>Order</h1>
-        <h2>{order.id}</h2>
-        <h2>{order.customerId}</h2>
+        <p>{order.id}</p>
+        <p>{order.customerId}</p>
+        {order.isComplete === true ? <p>Complete</p> : <p>Not Complete</p>}
+        {order.isActive === true ? <p>Active</p> : <p>Not Active</p>}
       </div>
     );
   });
