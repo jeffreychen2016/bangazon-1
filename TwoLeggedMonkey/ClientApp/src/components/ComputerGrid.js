@@ -37,9 +37,11 @@ export class ComputerGrid extends Component {
               <th>Action</th>
             </tr>
             {this.printGrid()}
+            <ComputerAdd 
+              updateState = {this.props.updateState}
+            />
           </tbody>
         </table>
-        <ComputerAdd />
       </div>
     );
   }
