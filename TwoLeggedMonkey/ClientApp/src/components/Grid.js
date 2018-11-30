@@ -10,23 +10,22 @@ export class Grid extends Component {
           <td>{computer.serialNumber}</td>
           <td>{computer.dateOfPurchase}</td>
           <td>{computer.decommissionedDate}</td>
-          <td>{computer.isOperable}</td>
+          <td>{computer.isOperable ? 'Yes' : 'No'}</td>
         </tr>
       );
     });
   };
 
   render() {
-    console.error(this.props.computers);
     return (
       <div className="container">
         <table className="table">
           <tbody>
             <tr>
-              <th>serialNumber</th>
-              <th>dateOfPurchase</th>
-              <th>decommissionedDate</th>
-              <th>isOperable</th>
+              <th>Serial Number</th>
+              <th>Date Purchased</th>
+              <th>Date Decommission</th>
+              <th>Is Operable?</th>
             </tr>
             {this.printGrid()}
           </tbody>
