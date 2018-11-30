@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ComputerDelete } from './ComputerDelete';
+import { ComputerAdd} from './ComputerAdd';
 
 export class ComputerGrid extends Component {
 
@@ -38,6 +39,7 @@ export class ComputerGrid extends Component {
             {this.printGrid()}
           </tbody>
         </table>
+        <ComputerAdd />
       </div>
     );
   }
