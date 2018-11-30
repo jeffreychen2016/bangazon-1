@@ -7,7 +7,7 @@ export class Computer extends Component {
     computers: []
   };
 
-  componentDidMount () {
+  getAllComputers = () => {
     computerRequest.getAllComputers()
       .then((computers) => {
         this.setState({computers});
@@ -17,12 +17,21 @@ export class Computer extends Component {
       });
   }
 
+  componentDidMount () {
+    this.getAllComputers();
+  }
+
+  updateState = () => {
+    this.getAllComputers();
+  };
+
   render() {
     return (
       <div>
         <h1>Computer</h1>
         <ComputerGrid 
           computers = {this.state.computers}
+          updateState = {this.updateState}
         />
       </div>
     );

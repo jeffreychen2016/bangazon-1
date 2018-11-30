@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { ComputerDelete } from './ComputerDelete';
 
 export class ComputerGrid extends Component {
 
@@ -11,6 +12,12 @@ export class ComputerGrid extends Component {
           <td>{computer.dateOfPurchase}</td>
           <td>{computer.decommissionedDate}</td>
           <td>{computer.isOperable ? 'Yes' : 'No'}</td>
+          <td>
+            <ComputerDelete
+              computerId = {computer.id}
+              updateState = {this.props.updateState}
+            />
+          </td>
         </tr>
       );
     });
@@ -26,6 +33,7 @@ export class ComputerGrid extends Component {
               <th>Date Purchased</th>
               <th>Date Decommission</th>
               <th>Is Operable?</th>
+              <th>Action</th>
             </tr>
             {this.printGrid()}
           </tbody>
