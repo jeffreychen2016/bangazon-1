@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ComputerDelete } from './ComputerDelete';
+import { ComputerAdd} from './ComputerAdd';
 
 export class ComputerGrid extends Component {
 
@@ -36,6 +37,9 @@ export class ComputerGrid extends Component {
               <th>Action</th>
             </tr>
             {this.printGrid()}
+            <ComputerAdd 
+              updateState = {this.props.updateState}
+            />
           </tbody>
         </table>
       </div>
