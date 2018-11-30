@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class Grid extends Component {
+export class ComputerGrid extends Component {
 
   printGrid = () => {
     const allComputers = this.props.computers;
