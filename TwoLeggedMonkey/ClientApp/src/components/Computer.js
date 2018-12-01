@@ -38,7 +38,6 @@ export class Computer extends Component {
         computers.push(computer);
       }
     })
-    console.table(computers);
     this.setState({computers});
   };
 

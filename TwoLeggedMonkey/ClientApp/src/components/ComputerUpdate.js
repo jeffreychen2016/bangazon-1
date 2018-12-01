@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import computerRequest from '../DBRequests/computer';
 
 export class ComputerUpdate extends Component {
-  updateComputer = () => {
+  unlockInputFields = () => {
     // computerRequest.updateComputer(this.props.computerId)
     // .then((res) => {
     //   this.props.updateState();
@@ -13,10 +13,18 @@ export class ComputerUpdate extends Component {
     this.props.changeInputStatus(this.props.computers,this.props.computerId);
   };
 
+  renderButton = () => {
+    if (this.props.computer.disabled) {
+      return <button onClick={this.unlockInputFields}>Unclock</button>;
+    } else {
+      return <button onClick={this.updateComputer}>Update</button>;      
+    }
+  }
+
   render() {
     return (
       <div>
-        <button onClick={this.updateComputer}>Update</button>
+        {this.renderButton()}
       </div>
     );
   }

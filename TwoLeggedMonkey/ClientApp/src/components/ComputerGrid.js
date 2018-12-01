@@ -21,6 +21,7 @@ export class ComputerGrid extends Component {
             <ComputerUpdate
               computerId = {computer.id}
               computers = {this.props.computers}
+              computer = {computer}
               changeInputStatus = {this.props.changeInputStatus}
             />
           </td>
