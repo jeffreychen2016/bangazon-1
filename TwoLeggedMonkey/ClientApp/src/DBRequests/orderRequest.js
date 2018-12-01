@@ -8,15 +8,6 @@ const getAllOrdersRequest = () =>
       .get(`/api/order`)
       .then(res =>
         {
-          const orderHolder = [];
-          if (res.data !== null)
-          {
-            Object.keys(res.data).forEach(oKey =>
-              {
-                res.data[oKey].id = oKey;
-                orderHolder.push(res.data[oKey])
-              })
-          }
           resolve(res.data);
         })
         .catch(err =>
@@ -60,5 +51,22 @@ const deleteOrder = (id) =>
   });
 };
 
+const updateOrder = (id, updatedOrder) =>
+{
+  return new Promise((resolve, reject) =>
+  {
+    axios
+      .put(`/api/order/updateOrder/${id}`)
+      .then((res) =>
+      {
+        resolve(res);
+      })
+      .catch((err) =>
+      {
+        reject(err)
+      });
+  });
+};
 
-export default {getAllOrdersRequest, postNewOrder}
+
+export default {getAllOrdersRequest, postNewOrder, deleteOrder}
