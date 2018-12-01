@@ -3,12 +3,12 @@ import { Glyphicon, Modal, Button } from 'react-bootstrap';
 
 import paymentTypeCalls from '../DBRequests/PaymentTypeCalls';
 
-export class PaymentType extends Component {
+const blankPaymentType = {
+    paymentTypeName: '',
+    customerId: '',
+}
 
-    const blankPaymentType = {
-        paymentTypeName: '',
-        customerId: '',
-    }
+export class PaymentType extends Component {
 
     state = {
         allPaymentTypes: [],
