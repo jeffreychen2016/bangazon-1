@@ -5,14 +5,7 @@ const getRequest = () => {
         axios
             .get(`/api/product/products`)
             .then(results => {
-                const products = [];
-                if (results.data !== null) {
-                    Object.keys(results.data).forEach(pkey => {
-                        results.data[pkey].id = pkey;
-                        products.push(results.data[pkey]);
-                    });
-                }
-                resolve(products);
+                resolve(results.data);
             })
             .catch(error => {
                 reject(error);
@@ -20,5 +13,20 @@ const getRequest = () => {
     });
 };
 
+const deleteRequest = (productId) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .delete(`/api/product/deleteproduct/${productId}`)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                reject(err);
+            });
+    });
+};
 
-export default { getRequest };
+export default {
+    getRequest,
+    deleteRequest
+};
