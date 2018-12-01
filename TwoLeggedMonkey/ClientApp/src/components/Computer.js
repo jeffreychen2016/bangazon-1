@@ -10,6 +10,9 @@ export class Computer extends Component {
   getAllComputers = () => {
     computerRequest.getAllComputers()
       .then((computers) => {
+        computers.forEach(computer => {
+          computer.disabled = true;
+        })
         this.setState({computers});
       })
       .catch((err) => {
@@ -25,6 +28,20 @@ export class Computer extends Component {
     this.getAllComputers();
   };
 
+  changeInputStatus = (allComputers,computerId) => {
+    const computers = [];
+    allComputers.forEach(computer => {
+      if (computer.id === computerId) {
+        computer.disabled = !computer.disabled;
+        computers.push(computer);
+      } else {
+        computers.push(computer);
+      }
+    })
+    console.table(computers);
+    this.setState({computers});
+  };
+
   render() {
     return (
       <div>
@@ -32,6 +49,7 @@ export class Computer extends Component {
         <ComputerGrid 
           computers = {this.state.computers}
           updateState = {this.updateState}
+          changeInputStatus = {this.changeInputStatus}
         />
       </div>
     );
