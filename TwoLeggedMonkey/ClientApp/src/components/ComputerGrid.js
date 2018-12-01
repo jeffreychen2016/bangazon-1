@@ -18,6 +18,21 @@ export class ComputerGrid extends Component {
     } else return null;
   }
 
+  changeInputStatus = (allComputers,computerId) => {
+    allComputers.forEach(computer => {
+      if (computer.id === computerId) {
+        // console.error(computer.id);
+        // console.error(computerId);
+        console.error(computer.disabled);
+        computer.disabled = !computer.disabled;
+        console.error(computer.disabled);
+        console.error(allComputers);
+      } 
+    })
+    console.error(allComputers);
+    this.setState({allComputers});
+  };
+
   printGrid = () => {
     return this.state.allComputers.map((computer) => {
       return (
@@ -32,7 +47,9 @@ export class ComputerGrid extends Component {
               updateState = {this.props.updateState}
             />
             <ComputerUpdate
-
+              computerId = {computer.id}
+              computers = {this.state.allComputers}
+              changeInputStatus = {this.changeInputStatus}
             />
           </td>
         </tr>
