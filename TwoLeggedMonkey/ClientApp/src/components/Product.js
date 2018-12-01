@@ -9,11 +9,28 @@ export class Product extends Component {
     componentDidMount() {
         productRequest.getRequest()
             .then((products) => {
+                products.forEach(product => {
+                    product.showEdit = '';
+                });
                 this.setState({ products });
             })
             .catch(err => {
                 console.error('Error with product getRequest', err);
             });
+    }
+
+    editClick = (e) => {
+        const tempProducts = [...this.state.products];
+        tempProducts.forEach(product => {
+            if (product.id === e.target.id) {
+                tempProducts.showEdit = e.target.id;
+            }
+            this.setState({ products: tempProducts });
+        });
+    };
+
+    cancelEdit = () => {
+        this.componentDidMount();
     }
 
     deleteClick = (e) => {
@@ -30,15 +47,31 @@ export class Product extends Component {
 
     render() {
         const productComponenet = this.state.products.map((product) => {
-            return (
-                <tr key={product.id}>
-                    <td>{product.name}</td>
-                    <td>{product.quantity}</td>
-                    <td>{product.description}</td>
-                    <td>{product.price}</td>
-                    <td className="btn btn-danger" id={product.id} onClick={this.deleteClick}>Delete</td>
-                </tr>
-            );
+            if (product.showEdit === '') {
+                return (
+                    <tr key={product.id}>
+                        <td className={product.showEdit}>{product.name}</td>
+                        <td>{product.quantity}</td>
+                        <td>{product.description}</td>
+                        <td>{product.price}</td>
+                        <td>{product.productTypeId}</td>
+                        <td className="btn btn-success" id={product.id} onClick={this.editClick}>Edit</td>
+                        <td className="btn btn-danger" id={product.id} onClick={this.deleteClick}>Delete</td>
+                    </tr>
+                );
+            } else {
+                return (
+                    <tr key={product.id}>
+                        <td><input type="text" className="form-control" placeholder="Name" aria-describedby="basic-addon1" /></td>
+                        <td><input type="text" className="form-control" placeholder="Quantity" aria-describedby="basic-addon1" /></td>
+                        <td><input type="text" className="form-control" placeholder="Description" aria-describedby="basic-addon1" /></td>
+                        <td><input type="text" className="form-control" placeholder="Price" aria-describedby="basic-addon1" /></td>
+                        <td><input type="text" className="form-control" placeholder="Product Type Id" aria-describedby="basic-addon1" /></td>
+                        <td className="btn btn-success" id={product.id} onClick={this.submitEdit}>Submit Changes</td>
+                        <td className="btn btn-info" id={product.id} onClick={this.cancelEdit}>Cancel</td>
+                    </tr>
+                );
+            }
         });
     return (
       <div>
@@ -51,6 +84,7 @@ export class Product extends Component {
                             <th>Quantity</th>
                             <th>Description</th>
                             <th>Price</th>
+                            <th>Product Type ID</th>
                         </tr>
                             {productComponenet}
                     </tbody>
