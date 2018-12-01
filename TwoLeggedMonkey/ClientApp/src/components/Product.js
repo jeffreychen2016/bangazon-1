@@ -21,13 +21,9 @@ export class Product extends Component {
 
     editClick = (e) => {
         const tempProducts = [...this.state.products];
-        tempProducts.forEach(product => {
-            if (product.id === e.target.id) {
-                tempProducts.showEdit = e.target.id;
-            }
-            this.setState({ products: tempProducts });
-        });
-    };
+        tempProducts[0].showEdit = e.target.id;
+        this.setState({ products: tempProducts });
+    }
 
     cancelEdit = () => {
         this.componentDidMount();
