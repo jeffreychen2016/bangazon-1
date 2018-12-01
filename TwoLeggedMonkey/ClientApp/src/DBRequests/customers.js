@@ -13,10 +13,18 @@ const getRequest = () => {
     });
 };
 
-const deleteRequest = () => {
+const deactivationRequest = (customerToDeactivateId) => {
+    console.log(customerToDeactivateId);
     return new Promise((resolve, reject) => {
-
+        axios
+            .put(`api/customer/deactivate/${customerToDeactivateId}`)
+            .then(results => {
+                resolve(results);
+            })
+            .catch(err => {
+                reject(err);
+            })
     })
 }
 
-export default { getRequest, deleteRequest };
+export default { getRequest, deactivationRequest };
