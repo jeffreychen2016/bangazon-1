@@ -6,6 +6,18 @@ export class Customer extends Component {
         customers: []
     }
 
+    removeCustomer = (e) => {
+        const customerToDelete = e.target.id;
+        customersRequest
+            .deleteRequest(customerToDelete)
+            .then(() => {
+                this.componentDidMount();
+            })
+            .catch((error) => {
+                console.error("trouble making delete request ->", error);
+            })
+    }
+
     componentDidMount() {
         customersRequest
             .getRequest()
@@ -24,14 +36,15 @@ export class Customer extends Component {
                     <td>{customer.firstName}</td>
                     <td>{customer.lastName}</td>
                     {customer.isActive === true ? <td>Active</td> : <td>Not Active</td>}
+                    <td><button className="btn btn-default" id={customer.id} onClick={(e) => this.removeCustomer(e)}>delete</button></td>
                 </tr>
             );
         });
     return (
-      <div>
+      <div className="container">
             <h1>Customers</h1>
 
-            <table>
+            <table className="table">
                 <tbody>
                 <tr>
                     <th>Firstname</th>
