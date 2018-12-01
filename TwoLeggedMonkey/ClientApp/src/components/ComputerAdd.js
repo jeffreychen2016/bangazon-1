@@ -43,11 +43,6 @@ export class ComputerAdd extends Component {
     .catch((err) => {
       console.error('Error adding a computer: ', err);
     });
-    // console.error(this.state.newComputer.SerialNumber);
-    // console.error(this.state.newComputer.DateOfPurchase);
-    // console.error(this.state.newComputer.DecommissionedDate);
-    // console.error(this.state.newComputer.IsOperable);
-
   };
 
   render() {
