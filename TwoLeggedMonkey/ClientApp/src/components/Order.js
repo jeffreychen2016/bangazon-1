@@ -120,7 +120,7 @@ export class Order extends Component {
   render() {
     const myOrders = this.state.orders.map((order) =>
   {
-    if(!this.state.editing === 0)
+    if(!this.state.editing)
     {
       return (
         <tr key = {order.id}>
