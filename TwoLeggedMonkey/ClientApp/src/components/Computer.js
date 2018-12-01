@@ -41,6 +41,30 @@ export class Computer extends Component {
     this.setState({computers});
   };
 
+  SerialNumberChange = (e) => {
+    const tempComputers = [ ...this.state.computers ];
+    tempComputers[e.target.className].serialNumber = e.target.value;
+    this.setState({ computers: tempComputers });
+  };
+
+  DateOfPurchaseChange = (e) => {
+    const tempComputers = [ ...this.state.computers ];
+    tempComputers[e.target.className].dateOfPurchase = e.target.value;
+    this.setState({ computers: tempComputers });
+  }
+
+  DecommissionedDateChange = (e) => {
+    const tempComputers = [ ...this.state.computers ];
+    tempComputers[e.target.className].decommissionedDate = e.target.value;
+    this.setState({ computers: tempComputers });
+  }
+
+  IsOperableChange = (e) => {
+    const tempComputers = [ ...this.state.computers ];
+    tempComputers[e.target.className].isOperable = e.target.value;
+    this.setState({ computers: tempComputers });
+  }
+
   render() {
     return (
       <div>
@@ -49,6 +73,10 @@ export class Computer extends Component {
           computers = {this.state.computers}
           updateState = {this.updateState}
           changeInputStatus = {this.changeInputStatus}
+          serialNumberChange = {this.SerialNumberChange}
+          dateOfPurchaseChange = {this.DateOfPurchaseChange}
+          decommissionedDateChange = {this.DecommissionedDateChange}
+          isOperableChange = {this.IsOperableChange}
         />
       </div>
     );

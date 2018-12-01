@@ -6,13 +6,43 @@ import { ComputerUpdate } from './ComputerUpdate';
 export class ComputerGrid extends Component {
 
   printGrid = () => {
-    return this.props.computers.map((computer) => {
+    return this.props.computers.map((computer,index) => {
       return (
         <tr key={computer.id}>
-          <td><input value={computer.serialNumber} disabled={computer.disabled} /></td>
-          <td><input value={computer.dateOfPurchase} disabled={computer.disabled} /></td>
-          <td><input value={computer.decommissionedDate} disabled={computer.disabled} /></td>
-          <td><input value={computer.isOperable ? 'Yes' : 'No'} disabled={computer.disabled} /></td>
+          <td>
+            <input 
+              value={computer.serialNumber} 
+              disabled={computer.disabled} 
+              onChange={this.props.serialNumberChange} 
+              // id is used to indentify the record that is being editing on
+              className={index}
+            />
+          </td>
+          <td>
+            <input 
+              value={computer.dateOfPurchase} 
+              disabled={computer.disabled} 
+              onChange={this.props.dateOfPurchaseChange}
+              className={index}
+            />
+          </td>
+          <td>
+            <input 
+              value={computer.decommissionedDate}
+              disabled={computer.disabled} 
+              onChange={this.props.decommissionedDateChange}  
+              className={index}
+            />
+          </td>
+          <td>
+            <input 
+              // value={computer.isOperable ? 'Yes' : 'No'} 
+              value={computer.isOperable} 
+              disabled={computer.disabled} 
+              onChange={this.props.isOperableChange}   
+              className={index}
+            />
+          </td>
           <td>
             <ComputerDelete
               computerId = {computer.id}
@@ -23,6 +53,7 @@ export class ComputerGrid extends Component {
               computers = {this.props.computers}
               computer = {computer}
               changeInputStatus = {this.props.changeInputStatus}
+              updateState = {this.props.updateState}
             />
           </td>
         </tr>
