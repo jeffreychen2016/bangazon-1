@@ -6,6 +6,18 @@ export class Customer extends Component {
         customers: []
     }
 
+    deactivateCustomer = (e) => {
+        const customerToDeactivate = e.target.id;
+        customersRequest
+            .deactivationRequest(customerToDeactivate)
+            .then(() => {
+                this.componentDidMount();
+            })
+            .catch((error) => {
+                console.error("trouble making customer inactive ->", error);
+            })
+    }
+
     componentDidMount() {
         customersRequest
             .getRequest()
@@ -13,7 +25,7 @@ export class Customer extends Component {
                 this.setState({ customers });
             })
             .catch(err => {
-                console.error('Error with customers get request', err);
+                console.error('Error with customers get request ->', err);
             })
     }
 
@@ -24,14 +36,15 @@ export class Customer extends Component {
                     <td>{customer.firstName}</td>
                     <td>{customer.lastName}</td>
                     {customer.isActive === true ? <td>Active</td> : <td>Not Active</td>}
+                    <td><button className="btn btn-default" id={customer.id} onClick={(e) => this.deactivateCustomer(e)}>Deactivate</button></td>
                 </tr>
             );
         });
     return (
-      <div>
+      <div className="container">
             <h1>Customers</h1>
 
-            <table>
+            <table className="table">
                 <tbody>
                 <tr>
                     <th>Firstname</th>
