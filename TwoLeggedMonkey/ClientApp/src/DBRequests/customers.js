@@ -5,14 +5,7 @@ const getRequest = () => {
         axios
             .get(`/api/customer`)
             .then(results => {
-                const customers = [];
-                if (results.data !== null) {
-                    Object.keys(results.data).forEach(ckey => {
-                        results.data[ckey].id = ckey;
-                        customers.push(results.data[ckey]);
-                    });
-                }
-                resolve(customers);
+                resolve(results.data);
             })
             .catch(error => {
                 reject(error)
@@ -20,4 +13,18 @@ const getRequest = () => {
     });
 };
 
-export default { getRequest };
+const deactivationRequest = (customerToDeactivateId) => {
+    console.log(customerToDeactivateId);
+    return new Promise((resolve, reject) => {
+        axios
+            .put(`api/customer/deactivate/${customerToDeactivateId}`)
+            .then(results => {
+                resolve(results);
+            })
+            .catch(err => {
+                reject(err);
+            })
+    })
+}
+
+export default { getRequest, deactivationRequest };
