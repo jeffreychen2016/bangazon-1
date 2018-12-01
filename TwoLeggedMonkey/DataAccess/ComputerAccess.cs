@@ -18,7 +18,7 @@ namespace ThreeLeggedMonkey.DataAccess
             ConnectionString = config.GetSection("ConnectionString").Value;
         }
 
-        public List<string> GetAllComputers()
+        public List<Computer> GetAllComputers()
         {
             using (var dbConnection = new SqlConnection(ConnectionString))
             {
@@ -31,10 +31,8 @@ namespace ThreeLeggedMonkey.DataAccess
                                                             ,DecommissionedDate
                                                             ,IsOperable
                                                           FROM computers");
-                var result = from c in computers
-                             select c.SerialNumber;
 
-                return result.ToList();
+                return computers.ToList();
             }
         }
 
