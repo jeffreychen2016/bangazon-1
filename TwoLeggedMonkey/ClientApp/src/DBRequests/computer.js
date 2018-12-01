@@ -51,5 +51,18 @@ const addComputer = (newComputer) => {
   });
 };
 
-export default { getAllComputers,deleteComputer,addComputer};
+const updateComputer = (computerId, updatedComputer) => {
+  return new Promise((resolve,reject) => {
+    axios
+      .put(`/api/Computer/AddComputer/UpdateComputer/${computerId}`,updatedComputer)
+      .then((res) => {
+        resolve(res);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export default { getAllComputers,deleteComputer,addComputer,updateComputer };
 
