@@ -16,6 +16,18 @@ export class Product extends Component {
             });
     }
 
+    deleteClick = (e) => {
+        const productToDelete = e.target.id;
+        productRequest
+            .deleteRequest(productToDelete)
+            .then(() => {
+                this.componentDidMount();
+            })
+            .catch((err) => {
+                console.error('error with delete request', err);
+            });
+    }
+
     render() {
         const productComponenet = this.state.products.map((product) => {
             return (
@@ -24,6 +36,7 @@ export class Product extends Component {
                     <td>{product.quantity}</td>
                     <td>{product.description}</td>
                     <td>{product.price}</td>
+                    <td className="btn btn-danger" id={product.id} onClick={this.deleteClick}>Delete</td>
                 </tr>
             );
         });
