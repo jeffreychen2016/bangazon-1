@@ -54,6 +54,7 @@ export class ComputerGrid extends Component {
               computer = {computer}
               changeInputStatus = {this.props.changeInputStatus}
               updateState = {this.props.updateState}
+              id={computer.id}
             />
           </td>
         </tr>

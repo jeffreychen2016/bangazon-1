@@ -54,7 +54,7 @@ const addComputer = (newComputer) => {
 const updateComputer = (computerId, updatedComputer) => {
   return new Promise((resolve,reject) => {
     axios
-      .put(`/api/Computer/AddComputer/UpdateComputer/${computerId}`,updatedComputer)
+      .put(`/api/Computer/UpdateComputer/${computerId}`,updatedComputer)
       .then((res) => {
         resolve(res);
       })

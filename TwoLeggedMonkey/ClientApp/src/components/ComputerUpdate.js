@@ -4,18 +4,19 @@ import computerRequest from '../DBRequests/computer';
 export class ComputerUpdate extends Component {
 
   unlockInputFields = () => {
-    // computerRequest.updateComputer(this.props.computerId)
-    // .then((res) => {
-    //   this.props.updateState();
-    // })
-    // .catch((err) => {
-    //   console.error('Error deleting a computer: ', err);
-    // });
-
     this.props.changeInputStatus(this.props.computers,this.props.computerId);
   };
 
-  updateComputer = () => {
+  updateComputer = (e) => {
+    computerRequest.updateComputer(e.target.id,this.props.computer)
+    .then((res) => {
+      this.props.updateState();
+    })
+    .catch((err) => {
+      console.error('Error deleting a computer: ', err);
+    });
+
+    console.error(this.props.computer);
     this.props.updateState();
   }
 
@@ -23,7 +24,7 @@ export class ComputerUpdate extends Component {
     if (this.props.computer.disabled) {
       return <button onClick={this.unlockInputFields}>Unclock</button>;
     } else {
-      return <button onClick={this.updateComputer}>Update</button>;      
+      return <button id={this.props.id} onClick={this.updateComputer}>Update</button>;      
     }
   }
 
