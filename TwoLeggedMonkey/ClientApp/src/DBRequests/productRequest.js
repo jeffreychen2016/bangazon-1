@@ -26,7 +26,6 @@ const deleteRequest = (productId) => {
     });
 };
 
-
 export default {
     getRequest,
     deleteRequest
