@@ -5,62 +5,62 @@ import { LinkContainer } from 'react-router-bootstrap';
 import './NavMenu.css';
 
 export class NavMenu extends Component {
-  displayName = NavMenu.name
+    displayName = NavMenu.name
 
-  render() {
-    return (
-      <Navbar inverse fixedTop fluid collapseOnSelect>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <Link to={'/'}>TwoLeggedMonkey</Link>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          <Nav>
-            <LinkContainer to={'/computer'}>
-              <NavItem>
-                Computer
+    render() {
+        return (
+            <Navbar inverse fixedTop fluid collapseOnSelect>
+                <Navbar.Header>
+                    <Navbar.Brand>
+                        <Link to={'/'}>TwoLeggedMonkey</Link>
+                    </Navbar.Brand>
+                    <Navbar.Toggle />
+                </Navbar.Header>
+                <Navbar.Collapse>
+                    <Nav>
+                        <LinkContainer to={'/computer'}>
+                            <NavItem>
+                                Computer
               </NavItem>
-            </LinkContainer>
-            <LinkContainer to={'/customer'}>
-              <NavItem>
-                 Customer
+                        </LinkContainer>
+                        <LinkContainer to={'/customer'}>
+                            <NavItem>
+                                Customer
               </NavItem>
-            </LinkContainer>
-            <LinkContainer to={'/department'}>
-              <NavItem>
-                 Department
+                        </LinkContainer>
+                        <LinkContainer to={'/department'}>
+                            <NavItem>
+                                Department
               </NavItem>
-            </LinkContainer>
-            <LinkContainer to={'/employee'}>
-              <NavItem>
-                 Employee
+                        </LinkContainer>
+                        <LinkContainer to={'/employee'}>
+                            <NavItem>
+                                Employee
               </NavItem>
-            </LinkContainer>
-            <LinkContainer to={'/order'}>
-              <NavItem>
-                 Order
+                        </LinkContainer>
+                        <LinkContainer to={'/order'}>
+                            <NavItem>
+                                Order
               </NavItem>
-            </LinkContainer>
-            <LinkContainer to={'/paymenttype'}>
-              <NavItem>
-                 Payment Type
+                        </LinkContainer>
+                        <LinkContainer to={'/paymenttype'}>
+                            <NavItem>
+                                Payment Type
               </NavItem>
-            </LinkContainer>
-            <LinkContainer to={'/product'}>
-              <NavItem>
-                 Product
+                        </LinkContainer>
+                        <LinkContainer to={'/product'}>
+                            <NavItem>
+                                Product
               </NavItem>
-            </LinkContainer>
-            <LinkContainer to={'/trainingprogram'}>
-              <NavItem>
-                 Training Program
+                        </LinkContainer>
+                        <LinkContainer to={'/trainingprogram'}>
+                            <NavItem>
+                                Training Program
               </NavItem>
-            </LinkContainer>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-    );
-  }
+                        </LinkContainer>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
+        );
+    }
 }
