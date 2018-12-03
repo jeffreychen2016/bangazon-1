@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import customersRequest from '../DBRequests/customers';
-import { Glyphicon, Modal, Checkbox, Radio, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Modal, ControlLabel, FormControl } from 'react-bootstrap';
 
 export class Customer extends Component {
     state = {
         customers: [],
-        newCustomer: {},
+        newCustomer: {
+            firstName: '',
+            lastName: '',
+            isActive: true
+        },
         show: false,
     }
+
+    // modal
 
     constructor(props, context) {
         super(props, context);
@@ -24,9 +30,38 @@ export class Customer extends Component {
         this.setState({ show: true });
     }
 
-    addNewCustomer = () => {
-        const tempNewCustomer = { ...this.state.customers };
+    // form submit event
+
+    formSubmitEvent = (e) => {
+        const newCustomer = { ...this.state.newCustomer };
+        e.preventDefault();
+        customersRequest.postRequest(newCustomer)
+            .then(() => {
+                this.setState({
+                    newCustomer: {
+                        firstName: '',
+                        lastName: ''
+                    }
+                })
+            })
+            .catch((error) => {
+                console.error('There was an error posting the new customer ->', error);
+            })
     }
+
+    changeFirstName = (e) => {
+        const tempNewCustomer = { ...this.state.newCustomer };
+        tempNewCustomer.firstName = e.target.value;
+        this.setState({ newCustomer: tempNewCustomer });
+    }
+
+    changeLastName = (e) => {
+        const tempNewCustomer = { ...this.state.newCustomer };
+        tempNewCustomer.lastName = e.target.value;
+        this.setState({ newCustomer: tempNewCustomer });
+    }
+
+    // button events
 
     deactivateCustomer = (e) => {
         const customerToDeactivate = e.target.id;
@@ -52,19 +87,29 @@ export class Customer extends Component {
     }
 
     render() {
-        const customerComponents = this.state.customers.map((customer) => {
-            return (
-                <tr key={customer.id}>
-                    <td>{customer.firstName}</td>
-                    <td>{customer.lastName}</td>
-                    {customer.isActive === true ? <td>Active</td> : <td>Not Active</td>}
-                    <td><button className="btn btn-default" id={customer.id} onClick={(e) => this.deactivateCustomer(e)}>Deactivate</button></td>
-                </tr>
-            );
-        });
+    const customerComponents = this.state.customers.map((customer) => {
+        return (
+            <tr key={customer.id}>
+                <td>{customer.firstName}</td>
+                <td>{customer.lastName}</td>
+                {customer.isActive === true ? <td>Active</td> : <td>Not Active</td>}
+                <td><button className="btn btn-default" id={customer.id} onClick={(e) => this.deactivateCustomer(e)}>Deactivate</button></td>
+            </tr>
+        );
+    });
+
+    const { newCustomer } = this.state;
+
     return (
       <div className="container">
             <h1>Customers</h1>
+            <button
+                className="btn add-new"
+                bsStyle="primary"
+                bsSize="large"
+                onClick={this.handleShow} >
+                Add New
+            </button>
 
             <table className="table">
                 <tbody>
@@ -72,14 +117,6 @@ export class Customer extends Component {
                     <th>Firstname</th>
                     <th>Lastname</th>
                     <th>Active</th>
-                    <th>
-                        <button
-                                bsStyle="primary"
-                                bsSize="large"
-                                onClick={this.handleShow} >
-                            <Glyphicon glyph="plus" />
-                        </button>
-                    </th>
                 </tr>
                     {customerComponents}
                 </tbody>
@@ -90,24 +127,28 @@ export class Customer extends Component {
                 </Modal.Header>
                 <Modal.Body>
                     <h4>Add a New Customer</h4>
-                    <form>
+                    <form onSubmit={this.formSubmitEvent}>
                         <ControlLabel>First Name</ControlLabel>
                         <FormControl
                             type="text"
-                            value={this.state.value}
-                            placeholder="Enter text"
-                            onChange={this.handleChange}
+                            value={newCustomer.firstName}
+                            onChange={this.changeFirstName}
                         />
 
                         <ControlLabel>Last Name</ControlLabel>
                         <FormControl
                             type="text"
                             value={this.state.value}
-                            placeholder="Enter text"
-                            onChange={this.handleChange}
+                            onChange={this.changeLastName}
                         />
 
-                        <button type="submit">Submit</button>
+                        <button
+                            type="submit"
+                            className="btn btn-primary"
+                            onClick={this.handleClose}
+                        >
+                            Submit
+                        </button>
                     </form>
                 </Modal.Body>
             </Modal>
