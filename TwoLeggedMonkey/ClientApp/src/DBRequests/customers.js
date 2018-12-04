@@ -13,6 +13,19 @@ const getRequest = () => {
     });
 };
 
+const postRequest = (customer) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`/api/customer/addcustomer`, customer)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                reject(err);
+            })
+    })
+};
+
 const deactivationRequest = (customerToDeactivateId) => {
     console.log(customerToDeactivateId);
     return new Promise((resolve, reject) => {
@@ -27,4 +40,4 @@ const deactivationRequest = (customerToDeactivateId) => {
     })
 }
 
-export default { getRequest, deactivationRequest };
+export default { getRequest, deactivationRequest, postRequest };
