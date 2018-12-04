@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import { EmployeeDelete } from './EmployeeDelete';
 
 export class EmployeeGrid extends Component {
 
   printGrid = () => {
     return this.props.employees.map((employee,index) => {
       return (
-        <tr key={index}>
+        <tr key={employee.id}>
           <td>
             <input 
               value={employee.fullName} 
@@ -25,6 +26,12 @@ export class EmployeeGrid extends Component {
               value={employee.computer}
               disabled={employee.disabled} 
               className={index}
+            />
+          </td>
+          <td>
+            <EmployeeDelete
+              employeeId = {employee.id}
+              updateState = {this.props.updateState}
             />
           </td>
         </tr>

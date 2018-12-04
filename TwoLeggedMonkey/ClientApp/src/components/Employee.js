@@ -24,12 +24,17 @@ export class Employee extends Component {
     this.getAllEmployees();
   }
 
+  updateState = () => {
+    this.getAllEmployees();
+  };
+
   render() {
     return (
       <div>
         <h1>Employee</h1>
         <EmployeeGrid 
           employees = {this.state.employees}
+          updateState = {this.updateState}
         />
       </div>
     );

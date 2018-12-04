@@ -16,7 +16,7 @@ const getAllEmployees = () => {
 const deleteEmployee = (id) => {
   return new Promise((resolve,reject) => {
     axios
-      .delete(`/api/Employee/DeleteEmployee/${id}`)
+      .delete(`/api/Employee/deleteemployee/${id}`)
       .then((res) => {
         resolve(res);
       })
