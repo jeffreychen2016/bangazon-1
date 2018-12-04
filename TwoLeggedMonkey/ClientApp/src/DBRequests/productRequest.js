@@ -13,6 +13,34 @@ const getRequest = () => {
     });
 };
 
+const postRequest = (product) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`/api/product`, product)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                reject(err);
+            });
+    });
+};
+
+
+
+const putRequest = (productId, price, name, desc, quanity) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .put(`api/product/updateproduct/${productId}.json`, price, name, desc,  quanity)
+            .then(res => {
+                resolve(res.data);
+            })
+            .catch(err => {
+                reject(err);
+            });
+    });
+};
+
 const deleteRequest = (productId) => {
     return new Promise((resolve, reject) => {
         axios
@@ -28,5 +56,7 @@ const deleteRequest = (productId) => {
 
 export default {
     getRequest,
-    deleteRequest
+    postRequest,
+    deleteRequest,
+    putRequest
 };
