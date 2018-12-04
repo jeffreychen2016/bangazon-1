@@ -74,9 +74,9 @@ export class Product extends Component {
         this.productState("productTypeId", e);
     }
 
-    editClick = (id) => {
+    editClick = (index) => {
         const tempProducts = [...this.state.products];
-        tempProducts[id].showEdit = id;
+        tempProducts[index].showEdit = index;
         this.setState({ products: tempProducts });
     }
 
@@ -105,7 +105,7 @@ export class Product extends Component {
     }
 
     render() {
-        const productComponenet = this.state.products.map((product) => {
+        const productComponenet = this.state.products.map((product, index) => {
             if (product.showEdit === '') {
                 return (
                     <tr key={product.id}>
@@ -114,7 +114,7 @@ export class Product extends Component {
                         <td>{product.description}</td>
                         <td>{product.price}</td>
                         <td>{product.productTypeId}</td>
-                        <td className="btn btn-success" id={product.id} onClick={() => { this.editClick(product.id); }}>Edit</td>
+                        <td className="btn btn-success" id={product.id} onClick={() => { this.editClick(index); }}>Edit</td>
                         <td className="btn btn-danger" id={product.id} onClick={this.deleteClick}>Delete</td>
                     </tr>
                 );
