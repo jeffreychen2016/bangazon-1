@@ -26,6 +26,19 @@ const postRequest = (customer) => {
     })
 };
 
+const putRequest = (customerId, updatedCustomer) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .put(`api/customer/updatecustomer/${customerId}`, updatedCustomer)
+            .then((result) => {
+                resolve(result);
+            })
+            .catch((err) => {
+                reject(err);
+            })
+    });
+};
+
 const deactivationRequest = (customerToDeactivateId) => {
     console.log(customerToDeactivateId);
     return new Promise((resolve, reject) => {
@@ -40,4 +53,4 @@ const deactivationRequest = (customerToDeactivateId) => {
     })
 }
 
-export default { getRequest, deactivationRequest, postRequest };
+export default { getRequest, deactivationRequest, postRequest, putRequest };
