@@ -16,7 +16,6 @@ export class ComputerUpdate extends Component {
       console.error('Error deleting a computer: ', err);
     });
 
-    console.error(this.props.computer);
     this.props.updateState();
   }
 
