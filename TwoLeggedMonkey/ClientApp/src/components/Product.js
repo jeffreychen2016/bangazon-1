@@ -74,12 +74,10 @@ export class Product extends Component {
         this.productState("productTypeId", e);
     }
 
-    editClick = (e) => {
+    editClick = (id) => {
         const tempProducts = [...this.state.products];
-        const theTarget = e.target.id;
-        tempProducts[theTarget].showEdit = e.target.id;
+        tempProducts[id].showEdit = id;
         this.setState({ products: tempProducts });
-        console.log(theTarget);
     }
 
     cancelEdit = () => {
@@ -116,7 +114,7 @@ export class Product extends Component {
                         <td>{product.description}</td>
                         <td>{product.price}</td>
                         <td>{product.productTypeId}</td>
-                        <td className="btn btn-success" id={product.id} onClick={this.editClick}>Edit</td>
+                        <td className="btn btn-success" id={product.id} onClick={() => { this.editClick(product.id); }}>Edit</td>
                         <td className="btn btn-danger" id={product.id} onClick={this.deleteClick}>Delete</td>
                     </tr>
                 );
