@@ -68,9 +68,17 @@ namespace ThreeLeggedMonkey.Controllers
             return Ok(customers.UpdateCustomer(id, customer));
         }
 
+        // PUT api/deactivate/{id}
+        [HttpPut("deactivate/{id}")]
+        public IActionResult DeactivateCustomer(int id)
+        {
+            var customers = new CustomerStorage(_config);
+            return Ok(customers.DeactivateCustomer(id));
+        }
+
         // POST api/addnewcustomer
-        [HttpPost]
-        public void AddProduct(Customers customer)
+        [HttpPost("addcustomer")]
+        public void AddCustomer(Customers customer)
         {
             var customerz = new CustomerStorage(_config);
             customerz.Add(customer);
