@@ -49,10 +49,6 @@ export class Customer extends Component {
             })
     }
 
-    submitBtnEvent = () => {
-        
-    }
-
     changeFirstName = (e) => {
         const tempNewCustomer = { ...this.state.newCustomer };
         tempNewCustomer.firstName = e.target.value;
@@ -153,7 +149,7 @@ export class Customer extends Component {
                         <button
                             type="submit"
                             className="btn btn-primary"
-                            onClick={this.submitBtnEvent}
+                            onClick={this.handleClose}
                             disabled={!isEnabled}
                         >
                             Submit
