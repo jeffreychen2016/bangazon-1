@@ -25,7 +25,8 @@ export class Product extends Component {
     state = {
         products: [],
         show: false,
-        newProduct: baseProduct
+        newProduct: baseProduct,
+        updateCustomer: baseProduct
     }
 
     componentDidMount() {
@@ -81,6 +82,12 @@ export class Product extends Component {
     }
 
     cancelEdit = () => {
+        this.componentDidMount();
+    }
+
+    submitEdit = (e) => {
+        e.preventDefault();
+        productRequest.putRequest(this.state.newProduct);
         this.componentDidMount();
     }
 
