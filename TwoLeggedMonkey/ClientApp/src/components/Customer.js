@@ -139,9 +139,20 @@ export class Customer extends Component {
                 <td>{customer.lastName}</td>
                 {customer.isActive === true ? <td>Active</td> : <td>Not Active</td>}
                 <td>
-                    <button className="btn btn-default" id={customer.id} onClick={() => this.handleShowEdit(customer)}><Glyphicon glyph="pencil" /></button>
+                    <button
+                        className="btn btn-default"
+                        id={customer.id}
+                        onClick={() => this.handleShowEdit(customer)}>
+                        <Glyphicon glyph="pencil" />
+                    </button>
                     &nbsp;
-                    <button className="btn btn-default" id={customer.id} onClick={(e) => this.deactivateCustomer(e)}>Deactivate</button>
+                    <button
+                        className="btn btn-default"
+                        id={customer.id}
+                        onClick={(e) => this.deactivateCustomer(e)}
+                        disabled={!customer.isActive}>
+                        <Glyphicon glyph="remove" />
+                    </button>
                 </td>
             </tr>
         );
