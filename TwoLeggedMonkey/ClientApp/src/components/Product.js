@@ -1,9 +1,31 @@
 import React, { Component } from 'react';
 import productRequest from '../DBRequests/productRequest';
+import { Modal, Button } from 'react-bootstrap';
+
+const baseProduct =
+{
+    name: '',
+    quanitity: 0,
+    description: '',
+    price: 0,
+    prouctTypeId: 0
+};
+
 
 export class Product extends Component {
+
+
+    constructor(props, context) {
+        super(props, context);
+
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+
     state = {
-        products: []
+        products: [],
+        show: false,
+        newProduct: baseProduct
     }
 
     componentDidMount() {
@@ -19,10 +41,45 @@ export class Product extends Component {
             });
     }
 
+    postProduct = (e) => {
+        e.preventDefault();
+        productRequest.postRequest(this.state.newProduct);
+        this.handleClose();
+        this.componentDidMount();
+    }
+
+    productState = (name, e) => {
+        const tempProduct = { ...this.state.newProduct };
+        tempProduct[name] = e.target.value;
+        this.setState({ newProduct: tempProduct });
+    }
+
+    nameCreate = (e) => {
+        this.productState("name", e);
+    }
+
+    quantityCreate = (e) => {
+        this.productState("quantity", e);
+    }
+
+    descriptionCreate = (e) => {
+        this.productState("description", e);
+    }
+
+    priceCreate = (e) => {
+        this.productState("price", e);
+    }
+
+    productTypeIdCreate = (e) => {
+        this.productState("productTypeId", e);
+    }
+
     editClick = (e) => {
         const tempProducts = [...this.state.products];
-        tempProducts[0].showEdit = e.target.id;
+        const theTarget = e.target.id;
+        tempProducts[theTarget].showEdit = e.target.id;
         this.setState({ products: tempProducts });
+        console.log(theTarget);
     }
 
     cancelEdit = () => {
@@ -39,6 +96,14 @@ export class Product extends Component {
             .catch((err) => {
                 console.error('error with delete request', err);
             });
+    }
+
+    handleClose() {
+        this.setState({ show: false });
+    }
+
+    handleShow() {
+        this.setState({ show: true });
     }
 
     render() {
@@ -72,6 +137,7 @@ export class Product extends Component {
     return (
       <div>
             <h1>Product</h1>
+            <button onClick={this.handleShow}>Add New Product</button>
             <div className="container">
                 <table className="table">
                     <tbody>
@@ -86,6 +152,25 @@ export class Product extends Component {
                     </tbody>
                 </table>
             </div>
+
+            <Modal show={this.state.show} onHide={this.handleClose}>
+                <Modal.Header>
+                    <Modal.Title>New Order</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <input placeholder="Name" onChange={this.nameCreate} />
+                    <input placeholder="Quantity" onChange={this.quantityCreate} />
+                    <input placeholder="Description" onChange={this.descriptionCreate} />
+                    <input placeholder="Price" onChange={this.priceCreate} />
+                    <input placeholder="ProductType Id" onChange={this.productTypeIdCreate} />
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <Button onClick={this.handleClose}>Close</Button>
+                    <Button bsStyle="primary" onClick={this.postProduct}>Save changes</Button>
+                </Modal.Footer>
+            </Modal>
       </div>
     );
   }

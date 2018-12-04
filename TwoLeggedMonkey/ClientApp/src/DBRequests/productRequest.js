@@ -13,6 +13,21 @@ const getRequest = () => {
     });
 };
 
+const postRequest = (product) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .post(`/api/product`, product)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                reject(err);
+            });
+    });
+};
+
+
+
 const putRequest = (productId, price, name, desc, quanity) => {
     return new Promise((resolve, reject) => {
         axios
@@ -41,6 +56,7 @@ const deleteRequest = (productId) => {
 
 export default {
     getRequest,
+    postRequest,
     deleteRequest,
     putRequest
 };
