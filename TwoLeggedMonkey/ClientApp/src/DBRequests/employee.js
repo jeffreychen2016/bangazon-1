@@ -29,7 +29,7 @@ const deleteEmployee = (id) => {
 const addEmployee = (newEmployee) => {
   return new Promise((resolve,reject) => {
     axios
-      .post(`/api/Employee/AddEmployee`,newEmployee)
+      .post(`/api/Employee`,newEmployee)
       .then((res) => {
         resolve(res);
       })

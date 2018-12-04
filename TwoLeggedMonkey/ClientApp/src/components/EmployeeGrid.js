@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { EmployeeDelete } from './EmployeeDelete';
+import { EmployeeAdd } from './EmployeeAdd';
 
 export class EmployeeGrid extends Component {
 
@@ -51,6 +52,9 @@ export class EmployeeGrid extends Component {
               <th>Action</th>
             </tr>
             {this.printGrid()}
+            <EmployeeAdd 
+              updateState = {this.props.updateState}
+            />
           </tbody>
         </table>
       </div>
