@@ -31,7 +31,7 @@ const postRequest = (product) => {
 const putRequest = (productId, updatedProduct) => {
     return new Promise((resolve, reject) => {
         axios
-            .put(`api/product/updateproduct/${productId}.json`, updatedProduct)
+            .put(`api/product/updateproduct/${productId}`, updatedProduct)
             .then(res => {
                 resolve(res.data);
             })
