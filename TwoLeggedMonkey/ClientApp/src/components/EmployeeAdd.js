@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import employeeRequest from '../DBRequests/employee';
+import departmentRequest from '../DBRequests/department';
+import { EmployeeDepartmentList } from './EmployeeDepartmentList'; 
 
 export class EmployeeAdd extends Component {
   state = {
@@ -10,7 +12,7 @@ export class EmployeeAdd extends Component {
       employeeTypeId: 0,
       assignedComputer: 0
     }
-  }
+  };
 
   firstNameChange = (e) => {
     const tempNewEmployee = { ...this.state.newEmployee };
@@ -70,11 +72,7 @@ export class EmployeeAdd extends Component {
           />
         </td>
         <td>
-          <input 
-            onChange={this.departmentIdChange} 
-            value={this.state.newEmployee.departmentId}
-            placeholder="Department Id"
-          />
+          <EmployeeDepartmentList />
         </td>
         <td>
           <input 
