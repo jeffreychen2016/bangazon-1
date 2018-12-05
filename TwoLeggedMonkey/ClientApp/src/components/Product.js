@@ -87,7 +87,6 @@ export class Product extends Component {
     submitEdit = (e) => {
         e.preventDefault();
         productRequest.putRequest(e.target.id, this.state.newProduct);
-        console.log(this.state.newProduct);
         this.componentDidMount();
     }
 
