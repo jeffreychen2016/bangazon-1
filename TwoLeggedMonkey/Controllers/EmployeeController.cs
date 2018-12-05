@@ -44,5 +44,11 @@ namespace ThreeLeggedMonkey.Controllers
         {
             return Ok(_storage.UpdateEmployee(id, newEmployee));
         }
+
+        [HttpDelete("deleteemployee/{id}")]
+        public IActionResult DeleteEmployee(int id)
+        {
+            return Ok(_storage.Delete(id));
+        }
     }
 }
