@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import employeeRequest from '../DBRequests/employee';
 import { EmployeeDepartmentList } from './EmployeeDepartmentList'; 
 import { EmployeeTypeList } from './EmployeeTypeList';
+import { ComputerList } from './EmployeeComputerList';
 
 export class EmployeeAdd extends Component {
   state = {
@@ -78,11 +79,7 @@ export class EmployeeAdd extends Component {
           <EmployeeTypeList />
         </td>
         <td>
-          <input 
-            onChange={this.assignedComputerChange} 
-            value={this.state.newEmployee.assignedComputer}
-            placeholder="Assigned Computer"
-          />
+          <ComputerList />
         </td>
         <td><button onClick={this.addEmployee}>Add</button></td>
       </tr>
