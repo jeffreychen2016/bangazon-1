@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import employeeRequest from '../DBRequests/employee';
-import departmentRequest from '../DBRequests/department';
 import { EmployeeDepartmentList } from './EmployeeDepartmentList'; 
+import { EmployeeTypeList } from './EmployeeTypeList';
 
 export class EmployeeAdd extends Component {
   state = {
@@ -75,11 +75,7 @@ export class EmployeeAdd extends Component {
           <EmployeeDepartmentList />
         </td>
         <td>
-          <input 
-            onChange={this.employeeTypeIdChange} 
-            value={this.state.newEmployee.employeeTypeId}
-            placeholder="Employee Type Id"
-          />
+          <EmployeeTypeList />
         </td>
         <td>
           <input 
