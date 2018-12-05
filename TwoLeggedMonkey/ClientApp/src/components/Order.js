@@ -48,21 +48,11 @@ export class Order extends Component {
     });
   };
 
-  updateOrder = () =>
+  updateOrder = (e) =>
   {
-    return new Promise((resolve, reject) =>
-    {
-      orderRequests.updateOrder(this.state.id, this.state)
-      .then(res =>
-        {
-          this.setState({editing: 0});
-          resolve(res);
-        })
-        .catch((err) =>
-        {
-          reject(err);
-        });
-    });
+    e.preventDefault();
+    orderRequests.updateOrder(e.target.id, this.state.newOrder);
+    this.componentDidMount();
   };
 
   postOrder = (e) =>
@@ -129,7 +119,7 @@ export class Order extends Component {
           {order.isComplete === true ? <td>Complete</td> : <td>Not Complete</td>}
           {order.isActive === true ? <td>Active</td> : <td>Not Active</td>}
           <td><button onClick={this.deleteOrderClick} id={order.id}>X</button></td>
-          <td><button onClick={() => this.setState({isEditing: 1})} id={order.id}>Update</button></td>
+          <td><button onClick={() => this.setState({editing: 1})} id={order.id}>Update</button></td>
         </tr>
       );
     }

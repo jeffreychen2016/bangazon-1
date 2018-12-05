@@ -56,7 +56,7 @@ const updateOrder = (id, updatedOrder) =>
   return new Promise((resolve, reject) =>
   {
     axios
-      .put(`/api/order/updateOrder/${id}`)
+      .put(`/api/order/updateOrder/${id}`, updatedOrder)
       .then((res) =>
       {
         resolve(res);
@@ -69,4 +69,4 @@ const updateOrder = (id, updatedOrder) =>
 };
 
 
-export default {getAllOrdersRequest, postNewOrder, deleteOrder}
+export default {getAllOrdersRequest, postNewOrder, deleteOrder, updateOrder}
