@@ -5,10 +5,10 @@ import { Modal, Button } from 'react-bootstrap';
 const baseProduct =
 {
     name: '',
-    quanitity: 0,
+    quantity: 0,
     description: '',
     price: 0,
-    prouctTypeId: 0
+    productTypeId: 0
 };
 
 
@@ -74,15 +74,20 @@ export class Product extends Component {
         this.productState("productTypeId", e);
     }
 
-    editClick = (e) => {
+    editClick = (index) => {
         const tempProducts = [...this.state.products];
-        const theTarget = e.target.id;
-        tempProducts[theTarget].showEdit = e.target.id;
+        tempProducts[index].showEdit = index;
         this.setState({ products: tempProducts });
-        console.log(theTarget);
     }
 
     cancelEdit = () => {
+        this.componentDidMount();
+    }
+
+    submitEdit = (e) => {
+        e.preventDefault();
+        productRequest.putRequest(e.target.id, this.state.newProduct);
+        console.log(this.state.newProduct);
         this.componentDidMount();
     }
 
@@ -100,6 +105,7 @@ export class Product extends Component {
 
     handleClose() {
         this.setState({ show: false });
+        this.componentDidMount();
     }
 
     handleShow() {
@@ -107,7 +113,7 @@ export class Product extends Component {
     }
 
     render() {
-        const productComponenet = this.state.products.map((product) => {
+        const productComponenet = this.state.products.map((product, index) => {
             if (product.showEdit === '') {
                 return (
                     <tr key={product.id}>
@@ -116,18 +122,18 @@ export class Product extends Component {
                         <td>{product.description}</td>
                         <td>{product.price}</td>
                         <td>{product.productTypeId}</td>
-                        <td className="btn btn-success" id={product.id} onClick={this.editClick}>Edit</td>
+                        <td className="btn btn-success" id={product.id} onClick={() => { this.editClick(index); }}>Edit</td>
                         <td className="btn btn-danger" id={product.id} onClick={this.deleteClick}>Delete</td>
                     </tr>
                 );
             } else {
                 return (
                     <tr key={product.id}>
-                        <td><input type="text" className="form-control" placeholder="Name" aria-describedby="basic-addon1" /></td>
-                        <td><input type="text" className="form-control" placeholder="Quantity" aria-describedby="basic-addon1" /></td>
-                        <td><input type="text" className="form-control" placeholder="Description" aria-describedby="basic-addon1" /></td>
-                        <td><input type="text" className="form-control" placeholder="Price" aria-describedby="basic-addon1" /></td>
-                        <td><input type="text" className="form-control" placeholder="Product Type Id" aria-describedby="basic-addon1" /></td>
+                        <td><input type="text" className="form-control" placeholder="Name" aria-describedby="basic-addon1" onChange={this.nameCreate} /></td>
+                        <td><input type="text" className="form-control" placeholder="Quantity" aria-describedby="basic-addon1" onChange={this.quantityCreate} /></td>
+                        <td><input type="text" className="form-control" placeholder="Description" aria-describedby="basic-addon1" onChange={this.descriptionCreate} /></td>
+                        <td><input type="text" className="form-control" placeholder="Price" aria-describedby="basic-addon1" onChange={this.priceCreate} /></td>
+                        <td><input type="text" className="form-control" placeholder="Product Type Id" aria-describedby="basic-addon1" onChange={this.productTypeIdCreate} /></td>
                         <td className="btn btn-success" id={product.id} onClick={this.submitEdit}>Submit Changes</td>
                         <td className="btn btn-info" id={product.id} onClick={this.cancelEdit}>Cancel</td>
                     </tr>
