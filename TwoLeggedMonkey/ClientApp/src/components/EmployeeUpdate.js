@@ -15,21 +15,27 @@ export class EmployeeUpdate extends Component {
     this.setState({ show: true });
   }
 
+  componentDidMount () {
+    
+  }
+
   modal = () => {
     return (
-      <Modal show={this.state.show} onHide={this.state.handleClose}>
+      <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Header>
           <Modal.Title>New Order</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <input placeholder="Customer Id" onChange={this.customerIdCreate}/>
-          <input placeholder="Completeion Status" onChange={this.isCompleteCreate}/>
-          <input placeholder="Active Status" onChange={this.isActiveCreate}/>
+          <input placeholder="First Name" value={}/>
+          <input placeholder="Last Name" onChange={this.isCompleteCreate}/>
+          <input placeholder="Department" onChange={this.isActiveCreate}/>
+          <input placeholder="Employee Type" onChange={this.isActiveCreate}/>
+          <input placeholder="Assigned Computer" onChange={this.isActiveCreate}/>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={this.state.handleClose}>Close</Button>
+          <Button onClick={this.handleClose}>Close</Button>
           <Button bsStyle="primary" onClick={this.postOrder}>Save changes</Button>
         </Modal.Footer>
       </Modal>
