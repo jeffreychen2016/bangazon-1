@@ -45,6 +45,7 @@ namespace ThreeLeggedMonkey.DataAccess
                 connection.Open();
 
                 var result = connection.Query<Employee>(@"SELECT 
+                                                                Id = E.Id,
 	                                                            FullName = FirstName + ' ' + LastName,
 	                                                            Department = D.DepartmentName,
 	                                                            Computer = C.SerialNumber
@@ -85,6 +86,19 @@ namespace ThreeLeggedMonkey.DataAccess
                                                 EmployeeTypeId = @EmployeeTypeId,
                                                 AssignedComputer = @AssignedComputer
                                             WHERE Id = @id", newEmployee);
+                return result == 1;
+            }
+        }
+
+        public bool Delete(int id)
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var result = db.Execute(@"DELETE FROM Employee 
+                                            WHERE Id = @Id", new { Id = id});
+
                 return result == 1;
             }
         }

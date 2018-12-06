@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ComputerDelete } from './ComputerDelete';
-import { ComputerAdd} from './ComputerAdd';
+import { ComputerAdd } from './ComputerAdd';
 import { ComputerUpdate } from './ComputerUpdate';
 
 export class ComputerGrid extends Component {
