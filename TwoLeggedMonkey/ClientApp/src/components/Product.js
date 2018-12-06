@@ -87,7 +87,6 @@ export class Product extends Component {
     submitEdit = (e) => {
         e.preventDefault();
         productRequest.putRequest(e.target.id, this.state.newProduct);
-        console.log(this.state.newProduct);
         this.componentDidMount();
     }
 
@@ -143,7 +142,7 @@ export class Product extends Component {
     return (
       <div>
             <h1>Product</h1>
-            <button onClick={this.handleShow}>Add New Product</button>
+                <button onClick={this.handleShow}>Add New Product</button>
             <div className="container">
                 <table className="table">
                     <tbody>
