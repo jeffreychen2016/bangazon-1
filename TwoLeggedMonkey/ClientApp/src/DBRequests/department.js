@@ -5,14 +5,7 @@ const getAllDepartments = () => {
     axios
       .get(`/api/Department/depts`)
       .then(res => {
-        const departments = [];
-        if (res.data !== null) {
-          Object.keys(res.data).forEach(pkey => {
-            res.data[pkey].id = pkey;
-            departments.push(res.data[pkey]);
-          });
-        }
-        resolve(departments);
+        resolve(res.data);
       })
       .catch(err => {
         reject(err);

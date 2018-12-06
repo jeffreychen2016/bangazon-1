@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import employeeRequest from '../DBRequests/employee';
 import { EmployeeDepartmentList } from './EmployeeDepartmentList'; 
 import { EmployeeTypeList } from './EmployeeTypeList';
-import { ComputerList } from './EmployeeComputerList';
+import { EmployeeComputerList } from './EmployeeComputerList';
 
 export class EmployeeAdd extends Component {
   state = {
@@ -41,6 +41,7 @@ export class EmployeeAdd extends Component {
 
   assignedComputerChange = (e) => {
     const tempNewEmployee = { ...this.state.newEmployee };
+    console.error(e.target.value);
     tempNewEmployee.assignedComputer = e.target.value;
     this.setState({ newEmployee: tempNewEmployee });
   }
@@ -73,13 +74,19 @@ export class EmployeeAdd extends Component {
           />
         </td>
         <td>
-          <EmployeeDepartmentList />
+          <EmployeeDepartmentList 
+            departmentIdChange={this.departmentIdChange}
+          />
         </td>
         <td>
-          <EmployeeTypeList />
+          <EmployeeTypeList 
+            employeeTypeIdChange={this.employeeTypeIdChange}
+          />
         </td>
         <td>
-          <ComputerList />
+          <EmployeeComputerList 
+            assignedComputerChange={this.assignedComputerChange}
+          />
         </td>
         <td><button onClick={this.addEmployee}>Add</button></td>
       </tr>
