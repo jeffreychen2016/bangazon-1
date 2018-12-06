@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 
 export class DepartmentGrid extends Component {
 
+    componentDidMount = () => {
+     
+    }
+
   printGrid = () => {
     const allDepartments = this.props.departments;
     return allDepartments.map((department) => {
       return (
         <tr key={department.id}>
-          <td>{department.departmentName}</td>
+              <td>{department.departmentName}</td>
         </tr>
       );
     });
