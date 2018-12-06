@@ -69,7 +69,7 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
-        public List<DeptEmployee> GetDeptEmployees(int id)
+        public List<DeptEmployee> GetDeptEmployees(int id, string include)
         {
             using (var db = new SqlConnection(ConnectionString))
             {
