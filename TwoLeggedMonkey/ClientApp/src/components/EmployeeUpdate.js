@@ -1,36 +1,46 @@
 import React, { Component } from 'react';
-import employeeRequest from '../DBRequests/employee';
+import { Modal, Button } from 'react-bootstrap';
 
 export class EmployeeUpdate extends Component {
 
-  unlockInputFields = () => {
-    this.props.changeInputStatus(this.props.employees,this.props.employeeId);
+  state = {
+    show: false
   };
-
-  updateEmployee = (e) => {
-    employeeRequest.updateEmployee(e.target.id,this.props.employee)
-    .then((res) => {
-      this.props.updateState();
-    })
-    .catch((err) => {
-      console.error('Error deleting a computer: ', err);
-    });
-
-    this.props.updateState();
+  
+  handleClose = () => {
+    this.setState({ show: false });
   }
 
-  renderButton = () => {
-    if (this.props.employee.disabled) {
-      return <button onClick={this.unlockInputFields}>Unclock</button>;
-    } else {
-      return <button id={this.props.id} onClick={this.updateEmployee}>Update</button>;      
-    }
+  handleShow = () =>{
+    this.setState({ show: true });
   }
+
+  modal = () => {
+    return (
+      <Modal show={this.state.show} onHide={this.state.handleClose}>
+        <Modal.Header>
+          <Modal.Title>New Order</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <input placeholder="Customer Id" onChange={this.customerIdCreate}/>
+          <input placeholder="Completeion Status" onChange={this.isCompleteCreate}/>
+          <input placeholder="Active Status" onChange={this.isActiveCreate}/>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button onClick={this.state.handleClose}>Close</Button>
+          <Button bsStyle="primary" onClick={this.postOrder}>Save changes</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  };
 
   render() {
     return (
       <div>
-        {this.renderButton()}
+        <button onClick={this.handleShow}>Update</button>
+        {this.modal()}
       </div>
     );
   }
