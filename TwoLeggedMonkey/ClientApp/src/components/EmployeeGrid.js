@@ -41,6 +41,7 @@ export class EmployeeGrid extends Component {
           <td>
             <EmployeeUpdate
               employeeId = {employee.id}
+              updateState = {this.props.updateState}
             />
           </td>
         </tr>

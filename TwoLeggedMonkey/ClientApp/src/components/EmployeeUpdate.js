@@ -24,40 +24,83 @@ export class EmployeeUpdate extends Component {
     employeeRequest.getEmployeeById(id)
       .then((employee) => {
         this.setState({newEmployee: employee}, () => {
+          // the modal needs value from state
+          // use this call back to ensure the state has been set
+          // before provide value to modal
           this.setState({ show: true });
         });
       })
       .catch((err) => {
-        console.error('Error updating the employee: ', err);
+        console.error('Error getting the employee: ', err);
       })
   };
 
+  firstNameChange = (e) => {
+    const tempNewEmployee = { ...this.state.newEmployee };
+    tempNewEmployee.firstName = e.target.value;
+    this.setState({ newEmployee: tempNewEmployee });
+  }
+
+  lastNameChange = (e) => {
+    const tempNewEmployee = { ...this.state.newEmployee };
+    tempNewEmployee.lastName = e.target.value;
+    this.setState({ newEmployee: tempNewEmployee });
+  }
+
+  departmentIdChange = (e) => {
+    const tempNewEmployee = { ...this.state.newEmployee };
+    tempNewEmployee.departmentId = e.target.value;
+    this.setState({ newEmployee: tempNewEmployee });
+  }
+
+  employeeTypeIdChange = (e) => {
+    const tempNewEmployee = { ...this.state.newEmployee };
+    tempNewEmployee.employeeTypeId = e.target.value;
+    this.setState({ newEmployee: tempNewEmployee });
+  }
+
+  assignedComputerChange = (e) => {
+    const tempNewEmployee = { ...this.state.newEmployee };
+    tempNewEmployee.assignedComputer = e.target.value;
+    this.setState({ newEmployee: tempNewEmployee });
+  }
+
+  updateEmployee = (e) => {
+    employeeRequest.updateEmployee(this.props.employeeId,this.state.newEmployee)
+      .then((res) => {
+        this.props.updateState();
+        this.handleClose();
+      })
+      .catch((err) => {
+        console.error('Error updating the employee: ', err);
+      })
+  }
+
   modal = () => {
-    // if (this.state.newEmployee.firstName) {
-      return (
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header>
-            <Modal.Title>New Order</Modal.Title>
-          </Modal.Header>
-  
-          <Modal.Body>
-            <label>First Name:</label><input value={this.state.newEmployee.firstName}/>
-            <label>Last Name:</label><input value={this.state.newEmployee.lastName}/>
-            <label>Department:</label><EmployeeDepartmentList />
-            <label>Employee Type:</label><EmployeeTypeList />
-            <label>Assigned Computer:</label><EmployeeComputerList />
-          </Modal.Body>
-  
-          <Modal.Footer>
-            <Button onClick={this.handleClose}>Close</Button>
-            <Button bsStyle="primary" onClick={this.postOrder}>Save changes</Button>
-          </Modal.Footer>
-        </Modal>
-      );
-    // }
+    return (
+      <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal.Header>
+          <Modal.Title>New Order</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <label>First Name:</label><input onChange={this.firstNameChange} value={this.state.newEmployee.firstName}/>
+          <label>Last Name:</label><input onChange={this.lastNameChange} value={this.state.newEmployee.lastName}/>
+          <label>Department:</label><EmployeeDepartmentList departmentIdChange={this.departmentIdChange}/>
+          <label>Employee Type:</label><EmployeeTypeList employeeTypeIdChange={this.employeeTypeIdChange}/>
+          <label>Assigned Computer:</label><EmployeeComputerList assignedComputerChange={this.assignedComputerChange}/>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button onClick={this.handleClose}>Close</Button>
+          <Button bsStyle="primary" onClick={this.updateEmployee}>Save changes</Button>
+        </Modal.Footer>
+      </Modal>
+    );
   };
 
   render() {
+    console.error(this.state.newEmployee);
     return (
       <div>
         <button id={this.props.employeeId} onClick={this.handleShow}>Update</button>
