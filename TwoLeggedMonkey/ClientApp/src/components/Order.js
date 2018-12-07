@@ -16,7 +16,6 @@ export class Order extends Component {
     orders: [],
     show: false,
     newOrder: plainOrder,
-    editing: 0
   }
 
   componentDidMount ()
@@ -25,6 +24,10 @@ export class Order extends Component {
     .getAllOrdersRequest()
     .then((orders) =>
     {
+      orders.forEach(order =>
+        {
+          order.edit = "";
+        })
       this.setState({orders});
     })
     .catch((err) =>
@@ -47,6 +50,13 @@ export class Order extends Component {
       console.error(err);
     });
   };
+
+  editOrder = (index) =>
+  {
+    const tempOrder = {...this.state.orders};
+    tempOrder[index].edit = index;
+    this.setState({orders: tempOrder})
+  }
 
   updateOrder = (e) =>
   {
@@ -108,9 +118,9 @@ export class Order extends Component {
   }
 
   render() {
-    const myOrders = this.state.orders.map((order) =>
+    const myOrders = this.state.orders.map((order, index) =>
   {
-    if(!this.state.editing)
+    if(order.edit === "")
     {
       return (
         <tr key = {order.id}>
@@ -119,7 +129,7 @@ export class Order extends Component {
           {order.isComplete === true ? <td>Complete</td> : <td>Not Complete</td>}
           {order.isActive === true ? <td>Active</td> : <td>Not Active</td>}
           <td><button onClick={this.deleteOrderClick} id={order.id}>X</button></td>
-          <td><button onClick={() => this.setState({editing: 1})} id={order.id}>Update</button></td>
+          <td><button onClick={() => { this.editOrder(index); }} id={order.id}>Update</button></td>
         </tr>
       );
     }
