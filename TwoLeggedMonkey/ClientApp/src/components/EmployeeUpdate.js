@@ -100,7 +100,6 @@ export class EmployeeUpdate extends Component {
   };
 
   render() {
-    console.error(this.state.newEmployee);
     return (
       <div>
         <button id={this.props.employeeId} onClick={this.handleShow}>Update</button>

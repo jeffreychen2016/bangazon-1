@@ -28,6 +28,7 @@ export class EmployeeDepartmentList extends Component {
   render() {
     return (
       <select onChange={this.props.departmentIdChange}>
+        <option defaultValue="Choose here">Choose here</option>
         {this.printDepartments()}
       </select>
     );
