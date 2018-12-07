@@ -41,7 +41,6 @@ export class EmployeeAdd extends Component {
 
   assignedComputerChange = (e) => {
     const tempNewEmployee = { ...this.state.newEmployee };
-    console.error(e.target.value);
     tempNewEmployee.assignedComputer = e.target.value;
     this.setState({ newEmployee: tempNewEmployee });
   }
