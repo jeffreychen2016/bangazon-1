@@ -9,9 +9,9 @@ export class EmployeeAdd extends Component {
     newEmployee:{
       firstName: '',
       lastName: '',
-      departmentId: 0,
-      employeeTypeId: 0,
-      assignedComputer: 0
+      departmentId: '',
+      employeeTypeId: '',
+      assignedComputer: ''
     }
   };
 

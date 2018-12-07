@@ -28,7 +28,7 @@ export class EmployeeComputerList extends Component {
   render() {
     return (
       <select onChange={this.props.assignedComputerChange}>
-        <option defaultValue="Choose here">Choose here</option>
+        <option value="Choose here">Choose here</option>
         {this.printComputers()}
       </select>
     );

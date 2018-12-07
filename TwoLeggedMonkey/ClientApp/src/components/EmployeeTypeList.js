@@ -28,7 +28,7 @@ export class EmployeeTypeList extends Component {
   render() {
     return (
       <select onChange={this.props.employeeTypeIdChange}>
-        <option defaultValue="Choose here">Choose here</option>
+        <option value="Choose here">Choose here</option>
         {this.printEmployeeTypes()}
       </select>
     );
