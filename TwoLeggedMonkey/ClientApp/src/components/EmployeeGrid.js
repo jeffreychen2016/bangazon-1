@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { EmployeeDelete } from './EmployeeDelete';
 import { EmployeeAdd } from './EmployeeAdd';
+import { EmployeeUpdate } from './EmployeeUpdate';
 
 export class EmployeeGrid extends Component {
 
@@ -13,6 +14,7 @@ export class EmployeeGrid extends Component {
               value={employee.fullName} 
               disabled={employee.disabled} 
               className={index}
+              // onChange={this.props.fullNameChange} 
             />
           </td>
           <td>
@@ -20,6 +22,7 @@ export class EmployeeGrid extends Component {
               value={employee.department} 
               disabled={employee.disabled}
               className={index}
+              onChange={this.props.departmentChange} 
             />
           </td>
           <td>
@@ -31,6 +34,12 @@ export class EmployeeGrid extends Component {
           </td>
           <td>
             <EmployeeDelete
+              employeeId = {employee.id}
+              updateState = {this.props.updateState}
+            />
+          </td>
+          <td>
+            <EmployeeUpdate
               employeeId = {employee.id}
               updateState = {this.props.updateState}
             />

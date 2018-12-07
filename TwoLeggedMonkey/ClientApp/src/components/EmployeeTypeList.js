@@ -20,14 +20,15 @@ export class EmployeeTypeList extends Component {
     const employeeTypes = this.state.employeeTypes;
     if (employeeTypes.length) {
       return employeeTypes.map((employeeType) => {
-        return (<option key={employeeType.id}>{employeeType.employeeTypeName}</option>);
+        return (<option value={employeeType.id} key={employeeType.id}>{employeeType.employeeTypeName}</option>);
       });
     }
   };
 
   render() {
     return (
-      <select>
+      <select onChange={this.props.employeeTypeIdChange}>
+        <option value="Choose here">Choose here</option>
         {this.printEmployeeTypes()}
       </select>
     );

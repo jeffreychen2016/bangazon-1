@@ -27,6 +27,12 @@ namespace ThreeLeggedMonkey.Controllers
             return Ok(_storage.GetById(id));
         }
 
+        [HttpGet("Employee/{id}")]
+        public IActionResult GetEmployeeWithFirstAndLastNameById(int id)
+        {
+            return Ok(_storage.GetEmployeeWithFirstAndLastNameById(id));
+        }
+
         [HttpGet("employees")]
         public IActionResult GetAllEmployees()
         {

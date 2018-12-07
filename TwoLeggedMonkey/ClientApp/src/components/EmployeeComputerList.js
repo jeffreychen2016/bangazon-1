@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import computerRequest from '../DBRequests/computer';
 
-export class ComputerList extends Component {
+export class EmployeeComputerList extends Component {
   state = {
     computers: []
   }
@@ -20,14 +20,15 @@ export class ComputerList extends Component {
     const computers = this.state.computers;
     if (computers.length) {
       return computers.map((computer) => {
-        return (<option key={computer.id}>{computer.serialNumber}</option>);
+        return (<option value={computer.id} key={computer.id}>{computer.serialNumber}</option>);
       });
     }
   };
 
   render() {
     return (
-      <select>
+      <select onChange={this.props.assignedComputerChange}>
+        <option value="Choose here">Choose here</option>
         {this.printComputers()}
       </select>
     );

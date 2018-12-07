@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using ThreeLeggedMonkey.Models;
+using TwoLeggedMonkey.Models;
 
 namespace ThreeLeggedMonkey.DataAccess
 {
@@ -25,9 +26,30 @@ namespace ThreeLeggedMonkey.DataAccess
                 connection.Open();
 
                 var result = connection.QueryFirst<Employee>(@"SELECT 
+                                                                Id = E.Id,
 	                                                            FullName = FirstName + ' ' + LastName,
 	                                                            Department = D.DepartmentName,
 	                                                            Computer = C.SerialNumber
+                                                            FROM Employee E
+                                                            JOIN Department D
+                                                            ON E.DepartmentId = D.Id
+                                                            JOIN Computers C
+                                                            ON E.AssignedComputer = C.Id
+                                                            WHERE E.Id = @id", new { id });
+                return result;
+            }
+        }
+
+        public EmployeeWithFirstAndLastName GetEmployeeWithFirstAndLastNameById(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.QueryFirst<EmployeeWithFirstAndLastName>(@"SELECT 
+                                                                Id = E.Id,
+	                                                            FirstName = E.FirstName,
+                                                                LastName = E.LastName
                                                             FROM Employee E
                                                             JOIN Department D
                                                             ON E.DepartmentId = D.Id

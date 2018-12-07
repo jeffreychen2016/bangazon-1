@@ -20,14 +20,15 @@ export class EmployeeDepartmentList extends Component {
     const departments = this.state.departments;
     if (departments.length) {
       return departments.map((department) => {
-        return (<option key={department.id}>{department.departmentName}</option>);
+        return (<option value={department.id} key={department.id}>{department.departmentName}</option>);
       });
     }
   };
 
   render() {
     return (
-      <select>
+      <select onChange={this.props.departmentIdChange}>
+        <option value="Choose here">Choose here</option>
         {this.printDepartments()}
       </select>
     );

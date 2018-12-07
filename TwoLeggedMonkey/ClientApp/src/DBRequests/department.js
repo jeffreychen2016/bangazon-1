@@ -2,14 +2,13 @@ import axios from 'axios';
 
 const getAllDepartments = () => {
   return new Promise((resolve, reject) => {
-    axios
-          .get(`/api/Department/depts`)
-            .then(results => {
-                resolve(results.data);
-            })
-            .catch(error => {
-                reject(error);
-            });
+    axios.get(`/api/Department/depts`)
+        .then(results => {
+            resolve(results.data);
+        })
+        .catch(error => {
+            reject(error);
+        });
     });
 };
 

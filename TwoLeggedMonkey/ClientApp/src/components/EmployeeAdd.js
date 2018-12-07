@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import employeeRequest from '../DBRequests/employee';
 import { EmployeeDepartmentList } from './EmployeeDepartmentList'; 
 import { EmployeeTypeList } from './EmployeeTypeList';
-import { ComputerList } from './EmployeeComputerList';
+import { EmployeeComputerList } from './EmployeeComputerList';
 
 export class EmployeeAdd extends Component {
   state = {
     newEmployee:{
       firstName: '',
       lastName: '',
-      departmentId: 0,
-      employeeTypeId: 0,
-      assignedComputer: 0
+      departmentId: '',
+      employeeTypeId: '',
+      assignedComputer: ''
     }
   };
 
@@ -73,13 +73,19 @@ export class EmployeeAdd extends Component {
           />
         </td>
         <td>
-          <EmployeeDepartmentList />
+          <EmployeeDepartmentList 
+            departmentIdChange={this.departmentIdChange}
+          />
         </td>
         <td>
-          <EmployeeTypeList />
+          <EmployeeTypeList 
+            employeeTypeIdChange={this.employeeTypeIdChange}
+          />
         </td>
         <td>
-          <ComputerList />
+          <EmployeeComputerList 
+            assignedComputerChange={this.assignedComputerChange}
+          />
         </td>
         <td><button onClick={this.addEmployee}>Add</button></td>
       </tr>
