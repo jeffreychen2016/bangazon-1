@@ -3,6 +3,7 @@ import employeeRequest from '../DBRequests/employee';
 import { EmployeeDepartmentList } from './EmployeeDepartmentList'; 
 import { EmployeeTypeList } from './EmployeeTypeList';
 import { EmployeeComputerList } from './EmployeeComputerList';
+import computerRequest from '../DBRequests/computer';
 
 export class EmployeeAdd extends Component {
   state = {
@@ -12,7 +13,8 @@ export class EmployeeAdd extends Component {
       departmentId: '',
       employeeTypeId: '',
       assignedComputer: ''
-    }
+    },
+    computers: []
   };
 
   firstNameChange = (e) => {
@@ -45,14 +47,30 @@ export class EmployeeAdd extends Component {
     this.setState({ newEmployee: tempNewEmployee });
   }
 
+  getComputers = () => {
+    computerRequest.GetAllAvailableAndOperableComputers()
+    .then((computers) => {
+      this.setState({computers});
+    })
+    .catch((err) => {
+      console.error('Error adding an employee types: ', err);
+    })
+  };
+
   addEmployee = () => {
     employeeRequest.addEmployee(this.state.newEmployee)
     .then((res) => {
       this.props.updateState();
+      // reset computers drop-down to 'Choose Here'
+      this.getComputers();
     })
     .catch((err) => {
       console.error('Error adding an employee: ', err);
     });
+  };
+
+  updateComputers = (computers) => {
+    this.setState({computers});
   };
 
   render() {
@@ -85,6 +103,8 @@ export class EmployeeAdd extends Component {
         <td>
           <EmployeeComputerList 
             assignedComputerChange={this.assignedComputerChange}
+            updateComputers={this.updateComputers}
+            computers={this.state.computers}
           />
         </td>
         <td><button onClick={this.addEmployee}>Add</button></td>

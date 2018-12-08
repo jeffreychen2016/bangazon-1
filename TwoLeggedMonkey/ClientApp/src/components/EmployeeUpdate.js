@@ -4,12 +4,14 @@ import { EmployeeTypeList } from './EmployeeTypeList';
 import { EmployeeDepartmentList } from './EmployeeDepartmentList';
 import { EmployeeComputerList } from './EmployeeComputerList';
 import employeeRequest from '../DBRequests/employee';
+import computerRequest from '../DBRequests/computer';
 
 export class EmployeeUpdate extends Component {
 
   state = {
     newEmployee: {},
-    show: false
+    show: false,
+    computers: []
   };
   
   handleClose = () => {
@@ -33,6 +35,16 @@ export class EmployeeUpdate extends Component {
       .catch((err) => {
         console.error('Error getting the employee: ', err);
       })
+  };
+
+  getComputers = () => {
+    computerRequest.GetAllAvailableAndOperableComputers()
+    .then((computers) => {
+      this.setState({computers});
+    })
+    .catch((err) => {
+      console.error('Error adding an employee types: ', err);
+    })
   };
 
   firstNameChange = (e) => {
@@ -69,12 +81,17 @@ export class EmployeeUpdate extends Component {
     employeeRequest.updateEmployee(this.props.employeeId,this.state.newEmployee)
       .then((res) => {
         this.props.updateState();
+        this.getComputers();
         this.handleClose();
       })
       .catch((err) => {
         console.error('Error updating the employee: ', err);
       })
   }
+
+  updateComputers = (computers) => {
+    this.setState({computers});
+  };
 
   modal = () => {
     return (
@@ -88,7 +105,12 @@ export class EmployeeUpdate extends Component {
           <label>Last Name:</label><input onChange={this.lastNameChange} value={this.state.newEmployee.lastName}/>
           <label>Department:</label><EmployeeDepartmentList departmentIdChange={this.departmentIdChange}/>
           <label>Employee Type:</label><EmployeeTypeList employeeTypeIdChange={this.employeeTypeIdChange}/>
-          <label>Assigned Computer:</label><EmployeeComputerList assignedComputerChange={this.assignedComputerChange}/>
+          <label>Assigned Computer:</label>
+          <EmployeeComputerList 
+            assignedComputerChange={this.assignedComputerChange}
+            updateComputers={this.updateComputers}
+            computers={this.state.computers}
+          />
         </Modal.Body>
 
         <Modal.Footer>
