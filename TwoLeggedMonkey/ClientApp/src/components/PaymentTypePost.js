@@ -1,6 +1,5 @@
 ﻿import React, { Component } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-
 import paymentTypeCalls from '../DBRequests/PaymentTypeCalls';
 
 export class PaymentTypePost extends Component {
@@ -33,26 +32,13 @@ export class PaymentTypePost extends Component {
         paymentTypeCalls
             .postPaymentType(newPaymentType)
             .then(() => {
-                this.props.successfulFormPost();
+                this.props.paymentTypeState();
             })
             .catch((error) => {
                 console.error('error with postPayTypes request', error);
             });
     }
 
-    postSubmission = (e) => {
-        const { newPaymentType } = this.state;
-        e.preventDefault();
-        if (
-            newPaymentType.paymentTypeName &&
-            newPaymentType.customerId
-        ) {
-            this.postPaymentTypes(this.state.newPaymentType);
-            this.setState({ newState: newPaymentType });
-        } else {
-            alert('Error. Please fill out all inputs.');
-        }
-    }
 
     constructor(props, context) {
         super(props, context);
@@ -99,7 +85,7 @@ export class PaymentTypePost extends Component {
                             type="input"
                             id="customerId"
                             value={newPaymentType.customerId}
-                            onChange={this.paymentTypeNameChanged}
+                            onChange={this.customerIdChanged}
                         />
                     </Modal.Body>
 
@@ -110,7 +96,7 @@ export class PaymentTypePost extends Component {
                         <Button
                             bsStyle="primary"
                             type="submit"
-                            onClick={this.postPaymentType}
+                            onClick={this.postPaymentTypes}
                         >Save changes</Button>
                     </Modal.Footer>
                 </Modal>
