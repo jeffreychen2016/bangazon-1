@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import orderRequests from '../DBRequests/orderRequest';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Glyphicon } from 'react-bootstrap';
 
 const plainOrder =
 {
@@ -128,8 +128,8 @@ export class Order extends Component {
           <td>{order.customerId}</td>
           {order.isComplete === true ? <td>Complete</td> : <td>Not Complete</td>}
           {order.isActive === true ? <td>Active</td> : <td>Not Active</td>}
-          <td><button onClick={this.deleteOrderClick} id={order.id}>X</button></td>
-          <td><button onClick={() => this.setState({isEditing: 1})} id={order.id}>Update</button></td>
+          <td><button className="btn btn-danger" onClick={this.deleteOrderClick} id={order.id}><Glyphicon glyph="trash" /></button></td>
+          <td><button className="btn btn-default" onClick={() => this.setState({isEditing: 1})} id={order.id}><Glyphicon glyph="pencil" /></button></td>
         </tr>
       );
     }
@@ -141,8 +141,8 @@ export class Order extends Component {
           <td><input placeholder={order.customerId}/></td>
           {order.isComplete === true ? <td><input placeholder="Complete"/></td> : <td><input placeholder="Not Complete"/></td>}
           {order.isActive === true ? <td><input placeholder="Active"/></td> : <td><input placeholder="Not Active"/></td>}
-          <td><button onClick={this.deleteOrderClick} id={order.id}>X</button></td>
-          <td><button onClick={this.updateOrder} id={order.id}>Save</button></td>
+          <td><button className="btn btn-danger" onClick={this.deleteOrderClick} id={order.id}><Glyphicon glyph="trash" /></button></td>
+          <td><button className="btn btn-default" onClick={this.updateOrder} id={order.id}><Glyphicon glyph="floppy-save" /></button></td>
         </tr>
       );
     }

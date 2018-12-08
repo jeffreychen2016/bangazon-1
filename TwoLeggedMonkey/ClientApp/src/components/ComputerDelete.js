@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import computerRequest from '../DBRequests/computer';
+import {Button, Glyphicon } from 'react-bootstrap';
 
 export class ComputerDelete extends Component {
   deleteComputer = () => {
@@ -15,7 +16,7 @@ export class ComputerDelete extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.deleteComputer}>Delete</button>
+        <button className="btn btn-danger" onClick={this.deleteComputer}><Glyphicon glyph="trash" /></button>
       </div>
     );
   }
