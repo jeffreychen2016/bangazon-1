@@ -27,6 +27,12 @@ namespace ThreeLeggedMonkey.Controllers
             return Ok(_storage.GetById(id));
         }
 
+        [HttpGet("Employee/{id}")]
+        public IActionResult GetEmployeeWithFirstAndLastNameById(int id)
+        {
+            return Ok(_storage.GetEmployeeWithFirstAndLastNameById(id));
+        }
+
         [HttpGet("employees")]
         public IActionResult GetAllEmployees()
         {
@@ -43,6 +49,12 @@ namespace ThreeLeggedMonkey.Controllers
         public IActionResult UpdateEmployee(int id, NewEmployee newEmployee)
         {
             return Ok(_storage.UpdateEmployee(id, newEmployee));
+        }
+
+        [HttpDelete("deleteemployee/{id}")]
+        public IActionResult DeleteEmployee(int id)
+        {
+            return Ok(_storage.Delete(id));
         }
     }
 }

@@ -2,22 +2,27 @@ import axios from 'axios';
 
 const getAllDepartments = () => {
   return new Promise((resolve, reject) => {
-    axios
-      .get(`/api/Department/depts`)
-      .then(res => {
-        const departments = [];
-        if (res.data !== null) {
-          Object.keys(res.data).forEach(pkey => {
-            res.data[pkey].id = pkey;
-            departments.push(res.data[pkey]);
-          });
-        }
-        resolve(departments);
-      })
-      .catch(err => {
-        reject(err);
-      });
-  });
+    axios.get(`/api/Department/depts`)
+        .then(results => {
+            resolve(results.data);
+        })
+        .catch(error => {
+            reject(error);
+        });
+    });
 };
 
-export default { getAllDepartments };
+const getDeptEmployees = (id) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`/api/Department/${id}`)
+        .then(results => {
+            resolve(results.data);
+        })
+        .catch(error => {
+            reject(error);
+        });
+    });
+};
+
+export default { getAllDepartments, getDeptEmployees };
