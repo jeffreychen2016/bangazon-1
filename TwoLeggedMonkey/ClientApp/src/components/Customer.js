@@ -147,11 +147,11 @@ export class Customer extends Component {
                     </button>
                     &nbsp;
                     <button
-                        className="btn btn-default"
+                        className="btn btn-danger"
                         id={customer.id}
                         onClick={(e) => this.deactivateCustomer(e)}
                         disabled={!customer.isActive}>
-                        <Glyphicon glyph="remove" />
+                        <Glyphicon glyph="trash" />
                     </button>
                 </td>
             </tr>

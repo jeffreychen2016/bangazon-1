@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Glyphicon } from 'react-bootstrap';
 import { EmployeeTypeList } from './EmployeeTypeList';
 import { EmployeeDepartmentList } from './EmployeeDepartmentList';
 import { EmployeeComputerList } from './EmployeeComputerList';
@@ -11,7 +11,7 @@ export class EmployeeUpdate extends Component {
     newEmployee: {},
     show: false
   };
-  
+
   handleClose = () => {
     this.setState({ show: false });
   };
@@ -93,7 +93,7 @@ export class EmployeeUpdate extends Component {
 
         <Modal.Footer>
           <Button onClick={this.handleClose}>Close</Button>
-          <Button bsStyle="primary" onClick={this.updateEmployee}>Save changes</Button>
+          <Button bsStyle="primary" onClick={this.updateEmployee}><Glyphicon glyph="floppy-save" /></Button>
         </Modal.Footer>
       </Modal>
     );
@@ -102,7 +102,7 @@ export class EmployeeUpdate extends Component {
   render() {
     return (
       <div>
-        <button id={this.props.employeeId} onClick={this.handleShow}>Update</button>
+        <button className="btn btn-default" id={this.props.employeeId} onClick={this.handleShow}><Glyphicon glyph="pencil" /></button>
         {this.modal()}
       </div>
     );
