@@ -5,12 +5,12 @@ export class EmployeeComputerList extends Component {
 
   componentDidMount = () => {
     computerRequest.GetAllAvailableAndOperableComputers()
-      .then((computers) => {
-        this.props.updateComputers(computers);
-      })
-      .catch((err) => {
-        console.error('Error adding an employee types: ', err);
-      })
+    .then((computers) => {
+      this.props.updateComputers(computers);
+    })
+    .catch((err) => {
+      console.error('Error adding an employee types: ', err);
+    })
   };
 
   printComputers = () => {
@@ -24,7 +24,7 @@ export class EmployeeComputerList extends Component {
 
   render() {
     return (
-      <select onChange={this.props.assignedComputerChange} onClick={this.printComputers}>
+      <select onChange={this.props.assignedComputerChange}>
         <option value="Choose here">Choose here</option>
         {this.printComputers()}
       </select>

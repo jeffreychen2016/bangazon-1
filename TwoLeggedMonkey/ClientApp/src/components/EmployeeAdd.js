@@ -14,7 +14,9 @@ export class EmployeeAdd extends Component {
       employeeTypeId: '',
       assignedComputer: ''
     },
-    computers: []
+    computers: [],
+    departments: [],
+    employeeTypes: []
   };
 
   firstNameChange = (e) => {
@@ -47,16 +49,6 @@ export class EmployeeAdd extends Component {
     this.setState({ newEmployee: tempNewEmployee });
   }
 
-  getComputers = () => {
-    computerRequest.GetAllAvailableAndOperableComputers()
-    .then((computers) => {
-      this.setState({computers});
-    })
-    .catch((err) => {
-      console.error('Error adding an employee types: ', err);
-    })
-  };
-
   addEmployee = () => {
     employeeRequest.addEmployee(this.state.newEmployee)
     .then((res) => {
@@ -69,9 +61,37 @@ export class EmployeeAdd extends Component {
     });
   };
 
+  getComputers = () => {
+    computerRequest.GetAllAvailableAndOperableComputers()
+    .then((computers) => {
+      this.setState({computers});
+    })
+    .catch((err) => {
+      console.error('Error adding an employee types: ', err);
+    })
+  };
+
+  getComputers = () => {
+    computerRequest.GetAllAvailableAndOperableComputers()
+    .then((computers) => {
+      this.setState({computers});
+    })
+    .catch((err) => {
+      console.error('Error adding an employee types: ', err);
+    })
+  };
+
   updateComputers = (computers) => {
     this.setState({computers});
   };
+
+  // updateDepartments = () => {
+  //   this.setState({departments});
+  // }
+
+  // updateEmployeeTypes = () => {
+  //   this.setState({employeeTypes});
+  // }
 
   render() {
     return (
