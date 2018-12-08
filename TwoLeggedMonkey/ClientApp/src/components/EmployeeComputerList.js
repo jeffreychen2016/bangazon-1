@@ -2,30 +2,16 @@ import React, { Component } from 'react';
 import computerRequest from '../DBRequests/computer';
 
 export class EmployeeComputerList extends Component {
-  // state = {
-  //   computers: []
-  // }
 
   componentDidMount = () => {
     computerRequest.GetAllAvailableAndOperableComputers()
       .then((computers) => {
-        // this.setState({computers});
         this.props.updateComputers(computers);
       })
       .catch((err) => {
         console.error('Error adding an employee types: ', err);
       })
   };
-
-  // getComputers = () => {
-  //   computerRequest.GetAllAvailableAndOperableComputers()
-  //   .then((computers) => {
-  //     this.props.updateComputers({computers});
-  //   })
-  //   .catch((err) => {
-  //     console.error('Error adding an employee types: ', err);
-  //   })
-  // };
 
   printComputers = () => {
     const computers = this.props.computers;
@@ -38,7 +24,7 @@ export class EmployeeComputerList extends Component {
 
   render() {
     return (
-      <select onChange={this.props.assignedComputerChange}>
+      <select onChange={this.props.assignedComputerChange} onClick={this.printComputers}>
         <option value="Choose here">Choose here</option>
         {this.printComputers()}
       </select>
