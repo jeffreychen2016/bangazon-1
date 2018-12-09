@@ -12,7 +12,8 @@ export class EmployeeUpdate extends Component {
     newEmployee: {},
     show: false,
     computers: [],
-    departments:[]
+    departments:[],
+    employeeTypes:[]
   };
   
   handleClose = () => {
@@ -99,6 +100,9 @@ export class EmployeeUpdate extends Component {
     this.setState({departments});
   };
 
+  updateEmployeeTypes = (employeeTypes) => {
+    this.setState({employeeTypes});
+  };
 
   modal = () => {
     return (
@@ -116,7 +120,12 @@ export class EmployeeUpdate extends Component {
             updateDepartments={this.updateDepartments}
             departments={this.state.departments}
           />
-          <label>Employee Type:</label><EmployeeTypeList employeeTypeIdChange={this.employeeTypeIdChange}/>
+          <label>Employee Type:</label>
+          <EmployeeTypeList 
+            employeeTypeIdChange={this.employeeTypeIdChange}
+            updateEmployeeTypes={this.updateEmployeeTypes}
+            employeeTypes={this.state.employeeTypes}
+          />
           <label>Assigned Computer:</label>
           <EmployeeComputerList 
             assignedComputerChange={this.assignedComputerChange}
