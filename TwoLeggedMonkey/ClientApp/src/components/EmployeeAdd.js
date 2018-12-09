@@ -13,10 +13,7 @@ export class EmployeeAdd extends Component {
       departmentId: '',
       employeeTypeId: '',
       assignedComputer: ''
-    },
-    computers: [],
-    departments: [],
-    employeeTypes: []
+    }
   };
 
   firstNameChange = (e) => {
@@ -54,44 +51,12 @@ export class EmployeeAdd extends Component {
     .then((res) => {
       this.props.updateState();
       // reset computers drop-down to 'Choose Here'
-      this.getComputers();
+      this.props.resetComputers();
     })
     .catch((err) => {
       console.error('Error adding an employee: ', err);
     });
   };
-
-  getComputers = () => {
-    computerRequest.GetAllAvailableAndOperableComputers()
-    .then((computers) => {
-      this.setState({computers});
-    })
-    .catch((err) => {
-      console.error('Error adding an employee types: ', err);
-    })
-  };
-
-  getComputers = () => {
-    computerRequest.GetAllAvailableAndOperableComputers()
-    .then((computers) => {
-      this.setState({computers});
-    })
-    .catch((err) => {
-      console.error('Error adding an employee types: ', err);
-    })
-  };
-
-  updateComputers = (computers) => {
-    this.setState({computers});
-  };
-
-  // updateDepartments = () => {
-  //   this.setState({departments});
-  // }
-
-  // updateEmployeeTypes = () => {
-  //   this.setState({employeeTypes});
-  // }
 
   render() {
     return (
@@ -123,8 +88,8 @@ export class EmployeeAdd extends Component {
         <td>
           <EmployeeComputerList 
             assignedComputerChange={this.assignedComputerChange}
-            updateComputers={this.updateComputers}
-            computers={this.state.computers}
+            updateComputers={this.props.updateComputers}
+            computers={this.props.computers}
           />
         </td>
         <td><button onClick={this.addEmployee}>Add</button></td>

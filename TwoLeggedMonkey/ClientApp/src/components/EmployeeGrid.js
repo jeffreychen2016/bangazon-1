@@ -2,8 +2,26 @@ import React, { Component } from 'react';
 import { EmployeeDelete } from './EmployeeDelete';
 import { EmployeeAdd } from './EmployeeAdd';
 import { EmployeeUpdate } from './EmployeeUpdate';
+import computerRequest from '../DBRequests/computer';
 
 export class EmployeeGrid extends Component {
+  state = {
+    computers: []
+  }
+
+  resetComputers = () => {
+    computerRequest.GetAllAvailableAndOperableComputers()
+    .then((computers) => {
+      this.setState({computers});
+    })
+    .catch((err) => {
+      console.error('Error adding an employee types: ', err);
+    })
+  };
+
+  updateComputers = (computers) => {
+    this.setState({computers});
+  };
 
   printGrid = () => {
     return this.props.employees.map((employee,index) => {
@@ -63,6 +81,9 @@ export class EmployeeGrid extends Component {
             {this.printGrid()}
             <EmployeeAdd 
               updateState = {this.props.updateState}
+              resetComputers = {this.resetComputers}
+              updateComputers = {this.updateComputers}
+              computers = {this.state.computers}
             />
           </tbody>
         </table>
