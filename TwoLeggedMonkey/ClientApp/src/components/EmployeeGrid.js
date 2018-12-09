@@ -4,11 +4,13 @@ import { EmployeeAdd } from './EmployeeAdd';
 import { EmployeeUpdate } from './EmployeeUpdate';
 import computerRequest from '../DBRequests/computer';
 import departmentRequest from '../DBRequests/department';
+import employeeTypeRequest from '../DBRequests/employeeType';
 
 export class EmployeeGrid extends Component {
   state = {
     computers: [],
-    departments: []
+    departments: [],
+    employeeTypes: []
   }
 
   resetComputers = () => {
@@ -37,12 +39,28 @@ export class EmployeeGrid extends Component {
       })
   };
 
+  resetEmployeeTypes = () => {
+    employeeTypeRequest.getAllEmployeeTypes()
+      .then((employeeTypes) => {
+        this.setState({employeeTypes:[]},() => {
+          this.setState({employeeTypes});
+        });
+      })
+      .catch((err) => {
+        console.error('Error adding an employee types: ', err);
+      })
+  };
+
   updateComputers = (computers) => {
     this.setState({computers});
   };
 
   updateDepartments = (departments) => {
     this.setState({departments});
+  }
+
+  updateEmployeeTypes = (employeeTypes) => {
+    this.setState({employeeTypes});
   }
 
   printGrid = () => {
@@ -106,10 +124,13 @@ export class EmployeeGrid extends Component {
               updateState = {this.props.updateState}
               resetComputers = {this.resetComputers}
               resetDepartments = {this.resetDepartments}
+              resetEmployeeTypes = {this.resetEmployeeTypes}
               updateComputers = {this.updateComputers}
               updateDepartments = {this.updateDepartments}
+              updateEmployeeTypes = {this.updateEmployeeTypes}
               computers = {this.state.computers}
               departments = {this.state.departments}
+              employeeTypes = {this.state.employeeTypes}
             />
           </tbody>
         </table>
