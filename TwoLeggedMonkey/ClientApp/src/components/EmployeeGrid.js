@@ -54,6 +54,7 @@ export class EmployeeGrid extends Component {
             <EmployeeDelete
               employeeId = {employee.id}
               updateState = {this.props.updateState}
+              resetComputers = {this.resetComputers}
             />
           </td>
           <td>

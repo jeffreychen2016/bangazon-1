@@ -3,7 +3,6 @@ import employeeRequest from '../DBRequests/employee';
 import { EmployeeDepartmentList } from './EmployeeDepartmentList'; 
 import { EmployeeTypeList } from './EmployeeTypeList';
 import { EmployeeComputerList } from './EmployeeComputerList';
-import computerRequest from '../DBRequests/computer';
 
 export class EmployeeAdd extends Component {
   state = {
