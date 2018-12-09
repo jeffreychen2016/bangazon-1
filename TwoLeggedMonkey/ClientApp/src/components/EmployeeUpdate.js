@@ -11,7 +11,8 @@ export class EmployeeUpdate extends Component {
   state = {
     newEmployee: {},
     show: false,
-    computers: []
+    computers: [],
+    departments:[]
   };
   
   handleClose = () => {
@@ -94,6 +95,11 @@ export class EmployeeUpdate extends Component {
     this.setState({computers});
   };
 
+  updateDepartments = (departments) => {
+    this.setState({departments});
+  };
+
+
   modal = () => {
     return (
       <Modal show={this.state.show} onHide={this.handleClose}>
@@ -104,7 +110,12 @@ export class EmployeeUpdate extends Component {
         <Modal.Body>
           <label>First Name:</label><input onChange={this.firstNameChange} value={this.state.newEmployee.firstName}/>
           <label>Last Name:</label><input onChange={this.lastNameChange} value={this.state.newEmployee.lastName}/>
-          <label>Department:</label><EmployeeDepartmentList departmentIdChange={this.departmentIdChange}/>
+          <label>Department:</label>
+          <EmployeeDepartmentList 
+            departmentIdChange={this.departmentIdChange}
+            updateDepartments={this.updateDepartments}
+            departments={this.state.departments}
+          />
           <label>Employee Type:</label><EmployeeTypeList employeeTypeIdChange={this.employeeTypeIdChange}/>
           <label>Assigned Computer:</label>
           <EmployeeComputerList 

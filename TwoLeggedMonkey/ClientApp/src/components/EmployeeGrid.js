@@ -3,25 +3,41 @@ import { EmployeeDelete } from './EmployeeDelete';
 import { EmployeeAdd } from './EmployeeAdd';
 import { EmployeeUpdate } from './EmployeeUpdate';
 import computerRequest from '../DBRequests/computer';
+import departmentRequest from '../DBRequests/department';
 
 export class EmployeeGrid extends Component {
   state = {
-    computers: []
+    computers: [],
+    departments: []
   }
 
   resetComputers = () => {
     computerRequest.GetAllAvailableAndOperableComputers()
-    .then((computers) => {
-      this.setState({computers});
-    })
-    .catch((err) => {
-      console.error('Error adding an employee types: ', err);
-    })
+      .then((computers) => {
+        this.setState({computers});
+      })
+      .catch((err) => {
+        console.error('Error adding an employee types: ', err);
+      })
+  };
+
+  resetDepartments = () => {
+    departmentRequest.getAllDepartments()
+      .then((departments) => {
+        this.setState({departments});
+      })
+      .catch((err) => {
+        console.error('Error adding an deparments: ', err);
+      })
   };
 
   updateComputers = (computers) => {
     this.setState({computers});
   };
+
+  updateDepartments = (departments) => {
+    this.setState({departments});
+  }
 
   printGrid = () => {
     return this.props.employees.map((employee,index) => {
@@ -39,7 +55,7 @@ export class EmployeeGrid extends Component {
               value={employee.department} 
               disabled={employee.disabled}
               className={index}
-              onChange={this.props.departmentChange} 
+              // onChange={this.props.departmentChange} 
             />
           </td>
           <td>
@@ -83,8 +99,11 @@ export class EmployeeGrid extends Component {
             <EmployeeAdd 
               updateState = {this.props.updateState}
               resetComputers = {this.resetComputers}
+              resetDepartments = {this.resetDepartments}
               updateComputers = {this.updateComputers}
+              updateDepartments = {this.updateDepartments}
               computers = {this.state.computers}
+              departments = {this.state.departments}
             />
           </tbody>
         </table>

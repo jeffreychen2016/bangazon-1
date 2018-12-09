@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import departmentRequest from '../DBRequests/department';
 
 export class EmployeeDepartmentList extends Component {
-  state = {
-    departments: []
-  }
 
   componentDidMount = () => {
     departmentRequest.getAllDepartments()
       .then((departments) => {
-        this.setState({departments});
+        this.props.updateDepartments(departments);
       })
       .catch((err) => {
         console.error('Error adding an deparments: ', err);
@@ -17,7 +14,7 @@ export class EmployeeDepartmentList extends Component {
   };
 
   printDepartments = () => {
-    const departments = this.state.departments;
+    const departments = this.props.departments;
     if (departments.length) {
       return departments.map((department) => {
         return (<option value={department.id} key={department.id}>{department.departmentName}</option>);

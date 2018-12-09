@@ -51,6 +51,7 @@ export class EmployeeAdd extends Component {
       this.props.updateState();
       // reset computers drop-down to 'Choose Here'
       this.props.resetComputers();
+      this.props.resetDepartments();
     })
     .catch((err) => {
       console.error('Error adding an employee: ', err);
@@ -77,6 +78,8 @@ export class EmployeeAdd extends Component {
         <td>
           <EmployeeDepartmentList 
             departmentIdChange={this.departmentIdChange}
+            updateDepartments={this.props.updateDepartments}
+            departments = {this.props.departments}
           />
         </td>
         <td>
