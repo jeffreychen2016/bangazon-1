@@ -24,7 +24,13 @@ export class EmployeeGrid extends Component {
   resetDepartments = () => {
     departmentRequest.getAllDepartments()
       .then((departments) => {
-        this.setState({departments});
+        // since if there department data does not change
+        // the react will not re-render the component
+        // so set the derpartment to empty first then re-populate the data
+        // to trigger render
+        this.setState({departments:[]}, () => {
+          this.setState({departments});
+        })
       })
       .catch((err) => {
         console.error('Error adding an deparments: ', err);
