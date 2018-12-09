@@ -81,7 +81,8 @@ export class EmployeeUpdate extends Component {
     employeeRequest.updateEmployee(this.props.employeeId,this.state.newEmployee)
       .then((res) => {
         this.props.updateState();
-        this.getComputers();
+        // this.getComputers();
+        this.props.resetComputers();
         this.handleClose();
       })
       .catch((err) => {

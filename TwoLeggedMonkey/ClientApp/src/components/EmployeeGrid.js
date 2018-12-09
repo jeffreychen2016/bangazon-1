@@ -32,7 +32,6 @@ export class EmployeeGrid extends Component {
               value={employee.fullName} 
               disabled={employee.disabled} 
               className={index}
-              // onChange={this.props.fullNameChange} 
             />
           </td>
           <td>
@@ -61,6 +60,7 @@ export class EmployeeGrid extends Component {
             <EmployeeUpdate
               employeeId = {employee.id}
               updateState = {this.props.updateState}
+              resetComputers = {this.resetComputers}
             />
           </td>
         </tr>
