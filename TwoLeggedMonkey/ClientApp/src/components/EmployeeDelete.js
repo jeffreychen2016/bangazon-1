@@ -7,6 +7,7 @@ export class EmployeeDelete extends Component {
     employeeRequest.deleteEmployee(this.props.employeeId)
     .then((res) => {
       this.props.updateState();
+      this.props.resetComputers();
     })
     .catch((err) => {
       console.error('Error deleting a computer: ', err);
