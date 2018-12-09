@@ -79,7 +79,6 @@ export class EmployeeGrid extends Component {
               value={employee.department} 
               disabled={employee.disabled}
               className={index}
-              // onChange={this.props.departmentChange} 
             />
           </td>
           <td>
