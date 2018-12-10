@@ -1,21 +1,17 @@
 import React, { Component } from 'react';
-import { Glyphicon, Modal, Button } from 'react-bootstrap';
+import { PaymentTypeDelete } from './PaymentTypeDelete';
+import { PaymentTypePost } from './PaymentTypePost';
+import { PaymentTypeUpdate } from './PaymentTypeUpdate';
 
 import paymentTypeCalls from '../DBRequests/PaymentTypeCalls';
-
-const blankPaymentType = {
-    paymentTypeName: '',
-    customerId: '',
-}
 
 export class PaymentType extends Component {
 
     state = {
-        allPaymentTypes: [],
-        show: false,
+        allPaymentTypes: []
     }
 
-    componentDidMount() {
+    getPaymentTypes = () => {
         paymentTypeCalls
             .getAllPaymentTypes()
             .then((allPaymentTypes) => {
@@ -24,36 +20,15 @@ export class PaymentType extends Component {
             .catch((error) => {
                 console.error('error with allPayementTypes Get Call', error);
             });
+    }
+
+    componentDidMount() {
+        this.getPaymentTypes();
     };
 
-
-    deletePaymentTypeEvent = (e) => {
-        const paymentTypeToAx = e.target.id;
-        paymentTypeCalls
-            .deletePaymentType(paymentTypeToAx)
-            .then(() => {
-                this.componentDidMount();
-            })
-            .catch((error) => {
-                console.error('problem with delete Payment Type', error);
-            });
-    }
-
-    constructor(props, context) {
-        super(props, context);
-
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-    }
-
-    handleClose() {
-        this.setState({ show: false });
-    }
-
-    handleShow() {
-        this.setState({ show: true });
-    }
-
+    paymentTypeState = () => {
+        this.getPaymentTypes()
+    };
 
     render() {
         const paymentTypes = this.state.allPaymentTypes.map((paymentType) => {
@@ -62,12 +37,18 @@ export class PaymentType extends Component {
                     <td>{paymentType.id}</td>
                     <td>{paymentType.paymentTypeName}</td>
                     <td>{paymentType.customerId}</td>
-                    <button
-                        className="btn btn-danger"
-                        onClick={this.deletePaymentTypeEvent}
-                        id={paymentType.id}>
-                        <Glyphicon glyph="trash" />
-                    </button>
+                    <td>
+                        <PaymentTypeUpdate
+                        paymentTypeName = {paymentType.id}
+                        paymentTypes = {this.props.paymentTypes}
+                        paymentType = {paymentType}
+                        />
+                     </td>
+                    <td>
+                        <PaymentTypeDelete
+                        paymentTypeId={paymentType.id}
+                        />
+                    </td>
                 </tr>
             );
         })
@@ -75,35 +56,23 @@ export class PaymentType extends Component {
         <div>
             <h1>Payment Types</h1>
             <div>
-                <button
-                    className="btn btn-default"
-                    onClick="show"> Add a Payment Type</button>
+                
                 <table className="table">
                     <tbody>
                         <tr>
                             <th>Payment Type Id</th>
                             <th>Payment Type Name</th>
                             <th>Customer Id</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+
                         </tr>
-                        {paymentTypes}
+                        {paymentTypes}   
+                        <PaymentTypePost />
                     </tbody>
                 </table>
             </div>
-            <Modal show={this.state.show} onHide={this.handleClose}>
-                <Modal.Header>
-                    <Modal.Title>New Order</Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body>
-                    <input placeholder="Payment Type Name" />
-                    <input placeholder="Customer Id" />
-                </Modal.Body>
-
-                <Modal.Footer>
-                    <Button onClick={this.handleClose}>Close</Button>
-                    <Button bsStyle="primary">Save changes</Button>
-                </Modal.Footer>
-            </Modal>
+            
         </div>
     );
   }
