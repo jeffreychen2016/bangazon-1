@@ -35,7 +35,7 @@ export class PaymentTypeUpdate extends React.Component {
             .catch((error) => {
                 console.error('error with edit paymenttype', error);
             })
-    }wkt
+    }
 
     editInputFields = (e) => {
         this.props.chang
@@ -47,7 +47,8 @@ export class PaymentTypeUpdate extends React.Component {
                 <button
                     className="btn btn-warning"
                     id={this.props.id}
-                    onClick={}>
+                //onClick={}
+                >
                     <Glyphicon glyph="pencil" />
                 </button>
             </div>
