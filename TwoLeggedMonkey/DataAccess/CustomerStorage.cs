@@ -111,6 +111,18 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
+        public bool DeactivateCustomer(int id)
+        {
+            using (var db = new SqlConnection(connectionstring))
+            {
+                db.Open();
+                var result = db.Execute(@"update Customer
+                                            set IsActive = 0
+                                            where Id = @id", new { id });
+                return result == 1;
+            }
+        }
+
         public bool Add(Customers customer)
         {
             using (var db = new SqlConnection(connectionstring))

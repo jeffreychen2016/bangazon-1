@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import computerRequest from '../DBRequests/computer';
+import {Button, Glyphicon } from 'react-bootstrap';
 
 export class ComputerUpdate extends Component {
 
@@ -16,15 +17,14 @@ export class ComputerUpdate extends Component {
       console.error('Error deleting a computer: ', err);
     });
 
-    console.error(this.props.computer);
     this.props.updateState();
   }
 
   renderButton = () => {
     if (this.props.computer.disabled) {
-      return <button onClick={this.unlockInputFields}>Unclock</button>;
+      return <button className="btn btn-default" onClick={this.unlockInputFields}><Glyphicon glyph="pencil" /></button>;
     } else {
-      return <button id={this.props.id} onClick={this.updateComputer}>Update</button>;      
+      return <button className="btn btn-default" id={this.props.id} onClick={this.updateComputer}><Glyphicon glyph="floppy-save" /></button>;
     }
   }
 
