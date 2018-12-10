@@ -25,4 +25,38 @@ const getDeptEmployees = (id) => {
     });
 };
 
-export default { getAllDepartments, getDeptEmployees };
+const postNewDepartment = (dept) =>
+{
+  return new Promise((resolve, reject) =>
+  {
+    axios
+      .post(`/api/department`, dept)
+      .then((res) =>
+      {
+        resolve(res);
+      })
+      .catch((err) =>
+      {
+        reject(err);
+      });
+  });
+};
+
+const deleteDept = (id) =>
+{
+  return new Promise((resolve, reject) =>
+  {
+    axios
+      .delete(`/api/order/deleteOrder/${id}`)
+      .then((res) =>
+      {
+        resolve(res);
+      })
+      .catch((err) =>
+      {
+        reject(err);
+      });
+  });
+};
+
+export default { getAllDepartments, getDeptEmployees, postNewDepartment };
