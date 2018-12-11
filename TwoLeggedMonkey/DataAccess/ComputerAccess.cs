@@ -36,6 +36,26 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
+        public List<Computer> GetAllAvailableAndOperableComputers()
+        {
+            using (var dbConnection = new SqlConnection(ConnectionString))
+            {
+                dbConnection.Open();
+
+                var computers = dbConnection.Query<Computer>(@"SELECT 
+                                                                    Id
+                                                                    ,SerialNumber
+                                                                    ,DateOfPurchase
+                                                                    ,DecommissionedDate
+                                                                    ,IsOperable
+                                                               FROM Computers
+                                                               WHERE Id NOT IN (SELECT DISTINCT Employee.AssignedComputer FROM Employee)
+                                                               AND IsOperable = 1");
+
+                return computers.ToList();
+            }
+        }
+
         public Computer GetComputerPerId(int id)
         {
             using (var dbConnection = new SqlConnection(ConnectionString))

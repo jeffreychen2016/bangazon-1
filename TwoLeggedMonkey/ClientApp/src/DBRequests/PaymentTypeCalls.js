@@ -41,4 +41,17 @@ const deletePaymentType = (id) => {
     })
 };
 
-export default { getAllPaymentTypes, deletePaymentType, postPaymentType }
+const updatePaymentType = (paymentType, id) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .put(`/api/paymenttype/edit/${id}`)
+            .then((res) => {
+                resolve(res);
+            })
+            .catch((err) => {
+                reject(err);
+            })
+    })
+};
+
+export default { getAllPaymentTypes, deletePaymentType, postPaymentType, updatePaymentType }

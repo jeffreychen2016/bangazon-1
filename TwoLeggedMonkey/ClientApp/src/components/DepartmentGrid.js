@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 //import React, { Component } from 'react';
 //import { Panel, Button } from 'react-bootstrap';
+=======
+import React, { Component } from 'react';
+import { Button, Glyphicon } from 'react-bootstrap';
+>>>>>>> master
 
 //export class DepartmentGrid extends Component {
 
+<<<<<<< HEAD
 //    printGrid = () => {
 //        const allDepartments = this.props.departments;
 //        return allDepartments.map((department) => {
@@ -22,6 +28,11 @@
 //            );
 //        });
 //    }
+=======
+    componentDidMount = () => {
+
+    }
+>>>>>>> master
 
 //    printEmployees = () => {
 //        const employees = this.props.employees;
