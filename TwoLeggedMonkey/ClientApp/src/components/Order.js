@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import orderRequests from '../DBRequests/orderRequest';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Button, Glyphicon } from 'react-bootstrap';
 
 const plainOrder =
 {
@@ -55,7 +55,7 @@ export class Order extends Component {
   {
     const tempOrder = {...this.state.orders};
     tempOrder[index].edit = index;
-    this.setState({orders: tempOrder})
+    this.setState({orders: tempOrder});
   }
 
   updateOrder = (e) =>
@@ -124,12 +124,12 @@ export class Order extends Component {
     {
       return (
         <tr key = {order.id}>
-          <td>{order.id}</td>
+          <td className={order.edit}>{order.id}</td>
           <td>{order.customerId}</td>
           {order.isComplete === true ? <td>Complete</td> : <td>Not Complete</td>}
           {order.isActive === true ? <td>Active</td> : <td>Not Active</td>}
-          <td><button onClick={this.deleteOrderClick} id={order.id}>X</button></td>
-          <td><button onClick={() => { this.editOrder(index); }} id={order.id}>Update</button></td>
+          <td><button className="btn btn-danger" onClick={this.deleteOrderClick} id={order.id}><Glyphicon glyph="trash" /></button></td>
+          <td><button className="btn btn-default" onClick={() => {this.editOrder(index); }} id={order.id}><Glyphicon glyph="pencil" /></button></td>
         </tr>
       );
     }
@@ -138,11 +138,11 @@ export class Order extends Component {
       return (
         <tr key = {order.id}>
           <td>{order.id}</td>
-          <td><input placeholder={order.customerId}/></td>
-          {order.isComplete === true ? <td><input placeholder="Complete"/></td> : <td><input placeholder="Not Complete"/></td>}
-          {order.isActive === true ? <td><input placeholder="Active"/></td> : <td><input placeholder="Not Active"/></td>}
-          <td><button onClick={this.deleteOrderClick} id={order.id}>X</button></td>
-          <td><button onClick={this.updateOrder} id={order.id}>Save</button></td>
+          <td>{order.customerId}</td>
+          {order.isComplete === true ? <td><input onChange={this.isCompleteCreate} placeholder="Complete"/></td> : <td><input onChange={this.isCompleteCreate} placeholder="Not Complete"/></td>}
+          {order.isActive === true ? <td><input onChange={this.isActiveCreate} placeholder="Active"/></td> : <td><input onChange={this.isActiveCreate} placeholder="Not Active"/></td>}
+          <td><button className="btn btn-danger" onClick={this.deleteOrderClick} id={order.id}><Glyphicon glyph="trash" /></button></td>
+          <td><button className="btn btn-default" onClick={this.updateOrder} id={order.id}><Glyphicon glyph="floppy-save" /></button></td>
         </tr>
       );
     }

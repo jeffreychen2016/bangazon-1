@@ -2,22 +2,44 @@ import axios from 'axios';
 
 const getAllDepartments = () => {
   return new Promise((resolve, reject) => {
+    axios.get(`/api/Department/depts`)
+        .then(results => {
+            resolve(results.data);
+        })
+        .catch(error => {
+            reject(error);
+        });
+    });
+};
+
+const getDeptEmployees = (id) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`/api/Department/${id}`)
+        .then(results => {
+            resolve(results.data);
+        })
+        .catch(error => {
+            reject(error);
+        });
+    });
+};
+
+const postNewDepartment = (dept) =>
+{
+  return new Promise((resolve, reject) =>
+  {
     axios
-      .get(`/api/Department/depts`)
-      .then(res => {
-        const departments = [];
-        if (res.data !== null) {
-          Object.keys(res.data).forEach(pkey => {
-            res.data[pkey].id = pkey;
-            departments.push(res.data[pkey]);
-          });
-        }
-        resolve(departments);
+      .post(`/api/department`, dept)
+      .then((res) =>
+      {
+        resolve(res);
       })
-      .catch(err => {
+      .catch((err) =>
+      {
         reject(err);
       });
   });
 };
 
-export default { getAllDepartments };
+export default { getAllDepartments, getDeptEmployees, postNewDepartment };
