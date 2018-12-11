@@ -4,21 +4,26 @@ import departmentRequest from '../DBRequests/department';
 //import { Panel, Button } from 'react-bootstrap';
 import { Modal, Button, Glyphicon } from 'react-bootstrap';
 
+const plainDept =
+{
+    departmentName: ""
+};
+
 export class Department extends Component {
+
+    constructor(props, context) {
+        super(props, context);
+
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+
   state = {
       departments: [],
       employees: [],
       newDept: plainDept
     };
 
-    //async componentDidMount() {
-    //    const deptRequest = departmentRequest.getAllDepartments();
-    //    const employeeRequest = departmentRequest.getDeptEmployees();
-    //    const data = await Promise.all([deptRequest, employeeRequest]).catch(error => console.error({ error }));
-    //    const departments = data[0].data;
-    //    const employees = data[1].data;
-    //    this.setState({ departments, employees });
-    //}
 
   componentDidMount () {
     departmentRequest.getAllDepartments()
@@ -27,15 +32,18 @@ export class Department extends Component {
       })
       .catch((err) => {
         console.error('Error getting all department: ', err);
-          });
-      //departmentRequest.getDeptEmployees()
-      //    .then((employees) => {
-      //        this.setState({ employees });
-      //    })
-      //    .catch((err) => {
-      //        console.error('Error getting employees', err);
-      //    });
-  }
+        });
+    }
+
+        //gettingEmployees() {
+    //    departmentRequest.getDeptEmployees()
+    //        .then((employees) => {
+    //            this.setState({ employees });
+    //        })
+    //        .catch((err) => {
+    //            console.error('Error getting employees', err);
+    //        });
+    // }
 
   postDept = (e) =>
   {
@@ -56,12 +64,6 @@ export class Department extends Component {
     this.orderState("departmentName", e);
   }
 
-  constructor (props, context) {
-    super(props, context);
-
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-  }
 
   handleClose () {
     this.setState({ show: false });
@@ -71,14 +73,31 @@ export class Department extends Component {
     this.setState({ show: true });
   }
 
-  render() {
+    render() {
+        const printGrid = this.state.departments.map((department) => {
+            return (
+                <tr key={department.id}>
+                    <td>{department.departmentName}</td>
+                    <td><button>See Employees</button></td>
+                </tr>
+            );
+        });
     return (
       <div>
         <h1>Department</h1>
         <button onClick={this.handleShow}>Post</button>
-        <DepartmentGrid
-            departments = {this.state.departments}
-        />
+            <div>
+                <div className="container">
+                    <table className="table">
+                        <tbody>
+                            <tr>
+                                <th>Department</th>
+                            </tr>
+                            {printGrid}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
               <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header>
             <Modal.Title>New Department</Modal.Title>
