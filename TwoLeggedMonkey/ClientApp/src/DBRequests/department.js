@@ -15,7 +15,7 @@ const getAllDepartments = () => {
 const getDeptEmployees = (id) => {
     return new Promise((resolve, reject) => {
         axios
-            .get(`/api/Department/${id}`)
+            .get(`/api/Department/${id}?_include=employees`)
         .then(results => {
             resolve(results.data);
         })
