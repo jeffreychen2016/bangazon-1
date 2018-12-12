@@ -127,7 +127,9 @@ export class EmployeeAdd extends Component {
             />
           </Col>
         </FormGroup>
-        <Button bsStyle="success"  onClick={this.addEmployee}>Add</Button>
+        <FormGroup controlId="formHorizontalEmail">
+          <Button bsStyle="success"  onClick={this.addEmployee} className="employee-add-btn">Add</Button>
+        </FormGroup>
       </Form>
     );
   }
