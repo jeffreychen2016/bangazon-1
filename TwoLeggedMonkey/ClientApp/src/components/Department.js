@@ -37,11 +37,11 @@ export class Department extends Component {
     }
 
     summonEmps = (e) => {
-
         const id = e.target.id;
-        this.getEmployees(id);
+        const index = e.target.className;
         const tempDept = [...this.state.departments];
-        tempDept[id].showEmployee = id;
+        this.getEmployees(id);
+        tempDept[index].showEmployee = index;
         this.setState({ department: tempDept });
     }
 
@@ -96,12 +96,12 @@ export class Department extends Component {
   }
 
     render() {
-        const printGrid = this.state.departments.map((department) => {
+        const printGrid = this.state.departments.map((department, index) => {
             if (department.showEmployee === '') {
                 return (
                     <tr key={department.id}>
                         <td>{department.departmentName}</td>
-                        <td><button id={department.id} onClick={this.summonEmps}>See Employees</button></td>
+                        <td><button id={department.id} className={index} onClick={this.summonEmps}>See Employees</button></td>
                     </tr>
                 );
             } else {
