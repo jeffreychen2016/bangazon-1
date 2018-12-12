@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import departmentRequest from '../DBRequests/department';
-//import { DepartmentGrid } from './DepartmentGrid';
-//import { Panel, Button } from 'react-bootstrap';
 import { Modal, Button, Glyphicon } from 'react-bootstrap';
 
 const plainDept =
@@ -27,7 +25,10 @@ export class Department extends Component {
 
   componentDidMount () {
     departmentRequest.getAllDepartments()
-      .then((departments) => {
+        .then((departments) => {
+            departments.forEach(departments => {
+                departments.showEmployee = '';
+            });
         this.setState({departments});
       })
       .catch((err) => {
@@ -35,15 +36,36 @@ export class Department extends Component {
         });
     }
 
-        //gettingEmployees() {
-    //    departmentRequest.getDeptEmployees()
-    //        .then((employees) => {
-    //            this.setState({ employees });
-    //        })
-    //        .catch((err) => {
-    //            console.error('Error getting employees', err);
-    //        });
-    // }
+    summonEmps = (e) => {
+
+        const id = e.target.id;
+        this.getEmployees(id);
+        const tempDept = [...this.state.departments];
+        tempDept[id].showEmployee = id;
+        this.setState({ department: tempDept });
+    }
+
+    getEmployees(id) {
+    departmentRequest.getDeptEmployees(id)
+        .then((employees) => {
+            this.setState({ employees });
+        })
+        .catch((err) => {
+            console.error('Error getting employees', err);
+        });
+    }
+
+    printEmployee = () => {
+        if (this.state.employees) {
+            return this.state.employees.map((employee, index) => {
+                return (
+                    <tr key={index}>
+                        <td>{employee.employee}</td>
+                    </tr>
+                );
+            });
+        }
+    };
 
   postDept = (e) =>
   {
@@ -75,13 +97,33 @@ export class Department extends Component {
 
     render() {
         const printGrid = this.state.departments.map((department) => {
-            return (
-                <tr key={department.id}>
-                    <td>{department.departmentName}</td>
-                    <td><button>See Employees</button></td>
-                </tr>
-            );
+            if (department.showEmployee === '') {
+                return (
+                    <tr key={department.id}>
+                        <td>{department.departmentName}</td>
+                        <td><button id={department.id} onClick={this.summonEmps}>See Employees</button></td>
+                    </tr>
+                );
+            } else {
+                return (
+                    <tr key={department.id}>
+                        <td>{department.departmentName}</td>
+                        <td>
+                            <table className="table">
+                                <tbody>
+                                    <tr>
+                                        <th>Employees</th>
+                                    </tr>
+                                    {this.printEmployee()}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                );
+            }
+
         });
+
     return (
       <div>
         <h1>Department</h1>
