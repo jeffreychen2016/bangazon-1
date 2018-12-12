@@ -18,6 +18,7 @@ namespace ThreeLeggedMonkey.DataAccess
             ConnectionString = config.GetSection("ConnectionString").Value;
         }
 
+        // Get All
         public IEnumerable<TrainingProgramForGet> GetAllTrainingPrograms()
         {
             using (var db = new SqlConnection(ConnectionString))
@@ -29,21 +30,23 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
+        // GET Completed
         public List<TrainingProgramForGetMap> GetTrainingPrograms(bool completed)
         {
             using (var dbConnection = new SqlConnection(ConnectionString))
             {
                 dbConnection.Open();
 
-                var programsWithEmployeeName = dbConnection.Query<TrainingProgramForGetMap>(@"SELECT ProgramName
-	                                                                        ,EmployeeName = FirstName + ' ' + LastName
-                                                                            ,StartDate
-                                                                        FROM TrainingProgram
-                                                                        LEFT JOIN EmployeeTrainings 
-                                                                        ON TrainingProgram.Id = EmployeeTrainings.TrainingProgramId
-                                                                        LEFT JOIN Employee 
-                                                                        ON EmployeeTrainings.EmployeeId = Employee.Id
-                                                                        ORDER BY ProgramName");
+                var programsWithEmployeeName = dbConnection.Query<TrainingProgramForGetMap>(@"SELECT DISTINCT T.Id
+	                                                                                                ,ProgramName
+	                                                                                                ,EmployeeName = FirstName + ' ' + LastName
+                                                                                                    ,StartDate
+                                                                                                FROM TrainingProgram as T
+                                                                                                LEFT JOIN EmployeeTrainings 
+                                                                                                ON T.Id = EmployeeTrainings.TrainingProgramId
+                                                                                                LEFT JOIN Employee 
+                                                                                                ON EmployeeTrainings.EmployeeId = Employee.Id
+                                                                                                ORDER BY Id");
 
                 // created new class to hold the value, and return the list of new class instead
                 if (completed == false)
@@ -81,13 +84,14 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
-        public TrainingProgramForGetMap GetTrainingProgramPerId(int id)
+        // GET program by id
+        public TrainingProgramForEmployees GetTrainingProgramPerId(int id)
         {
             using (var dbConnection = new SqlConnection(ConnectionString))
             {
                 dbConnection.Open();
 
-                var result  = dbConnection.QueryFirst<TrainingProgramForGetMap>(@"SELECT 
+                var result  = dbConnection.QueryFirst<TrainingProgramForEmployees>(@"SELECT 
 	                                                                        ProgramName
 	                                                                        ,EmployeeName = FirstName + ' ' + LastName
                                                                         FROM TrainingProgram
@@ -97,10 +101,11 @@ namespace ThreeLeggedMonkey.DataAccess
                                                                         ON EmployeeTrainings.EmployeeId = Employee.Id
                                                                         WHERE TrainingProgram.id = @id
                                                                         ORDER BY ProgramName", new { id });
-                return result;
+                return result.ToList();
             }
         }
 
+        // DELETE
         public bool DeleteTrainingProgram(int id)
         {
             using (var dbConnection = new SqlConnection(ConnectionString))
@@ -114,6 +119,7 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
+        // Add new
         public bool AddTraningProgram(TrainingProgramForPost trainingProgramForPost)
         {
             using (var dbConnection = new SqlConnection(ConnectionString))
@@ -127,6 +133,7 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
+        // Update existing
         public bool UpdateTrainingProgram(int id, TrainingProgramForPut trainingProgramForPut)
         {
             using (var dbConnection = new SqlConnection(ConnectionString))

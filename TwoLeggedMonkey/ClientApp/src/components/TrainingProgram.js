@@ -8,6 +8,14 @@ export class TrainingProgram extends Component {
         trainingPrograms: [],
     }
 
+    getEmployees = (id) => {
+        programRequests
+            .getEmployeesByProgram(id)
+            .then((x) => {
+                console.log(x);
+            });
+    }
+
     componentDidMount() {
         programRequests
             .getTrainingPrograms()
@@ -29,7 +37,7 @@ export class TrainingProgram extends Component {
                         <button
                             className="btn btn-default"
                             id={program.id}
-                            onClick={() => this.handleShowEdit(program)}>
+                            onClick={() => this.getEmployees(program.id)}>
                             <Glyphicon glyph="pencil" />
                         </button>
                         &nbsp;
