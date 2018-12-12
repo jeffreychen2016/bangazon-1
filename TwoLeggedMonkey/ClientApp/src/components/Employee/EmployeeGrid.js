@@ -108,6 +108,18 @@ export class EmployeeGrid extends Component {
   render() {
     return (
       <div className="container">
+        <EmployeeAdd 
+          updateState = {this.props.updateState}
+          resetComputers = {this.resetComputers}
+          resetDepartments = {this.resetDepartments}
+          resetEmployeeTypes = {this.resetEmployeeTypes}
+          updateComputers = {this.updateComputers}
+          updateDepartments = {this.updateDepartments}
+          updateEmployeeTypes = {this.updateEmployeeTypes}
+          computers = {this.state.computers}
+          departments = {this.state.departments}
+          employeeTypes = {this.state.employeeTypes}
+        />
         <table className="table">
           <tbody>
             <tr>
@@ -117,18 +129,6 @@ export class EmployeeGrid extends Component {
               <th>Action</th>
             </tr>
             {this.printGrid()}
-            <EmployeeAdd 
-              updateState = {this.props.updateState}
-              resetComputers = {this.resetComputers}
-              resetDepartments = {this.resetDepartments}
-              resetEmployeeTypes = {this.resetEmployeeTypes}
-              updateComputers = {this.updateComputers}
-              updateDepartments = {this.updateDepartments}
-              updateEmployeeTypes = {this.updateEmployeeTypes}
-              computers = {this.state.computers}
-              departments = {this.state.departments}
-              employeeTypes = {this.state.employeeTypes}
-            />
           </tbody>
         </table>
       </div>

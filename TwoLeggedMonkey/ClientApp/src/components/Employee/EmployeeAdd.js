@@ -3,6 +3,8 @@ import employeeRequest from '../../DBRequests/employee';
 import { EmployeeDepartmentList } from './EmployeeDepartmentList'; 
 import { EmployeeTypeList } from './EmployeeTypeList';
 import { EmployeeComputerList } from './EmployeeComputerList';
+import { Form, FormGroup, Col, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import './EmployeeAdd.css';
 
 export class EmployeeAdd extends Component {
   state = {
@@ -61,44 +63,72 @@ export class EmployeeAdd extends Component {
 
   render() {
     return (
-      <tr>
-        <td>
-          <input 
-            onChange={this.firstNameChange} 
-            value={this.state.newEmployee.firstName}
-            placeholder="First Name"
-          />
-        </td>
-        <td>
-          <input 
-            onChange={this.lastNameChange} 
-            value={this.state.newEmployee.lastName}
-            placeholder="Last Name"
-          />
-        </td>
-        <td>
-          <EmployeeDepartmentList 
-            departmentIdChange={this.departmentIdChange}
-            updateDepartments={this.props.updateDepartments}
-            departments = {this.props.departments}
-          />
-        </td>
-        <td>
-          <EmployeeTypeList 
-            employeeTypeIdChange={this.employeeTypeIdChange}
-            updateEmployeeTypes = {this.props.updateEmployeeTypes}
-            employeeTypes = {this.props.employeeTypes}
-          />
-        </td>
-        <td>
-          <EmployeeComputerList 
-            assignedComputerChange={this.assignedComputerChange}
-            updateComputers={this.props.updateComputers}
-            computers={this.props.computers}
-          />
-        </td>
-        <td><button onClick={this.addEmployee}>Add</button></td>
-      </tr>
+
+      <Form horizontal className="form-add-employee">
+        <FormGroup controlId="formHorizontalEmail">
+          <Col componentClass={ControlLabel} sm={4}>
+            First Name
+          </Col>
+          <Col sm={8}>
+            <FormControl 
+              type="text" 
+              placeholder="First Name"  
+              onChange={this.firstNameChange} 
+              value={this.state.newEmployee.firstName}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup controlId="formHorizontalEmail">
+          <Col componentClass={ControlLabel} sm={4}>
+            Last Name
+          </Col>
+          <Col sm={8}>
+            <FormControl 
+              type="text" 
+              placeholder="Last Name"  
+              onChange={this.lastNameChange} 
+              value={this.state.newEmployee.lastName}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup controlId="formHorizontalEmail">
+          <Col componentClass={ControlLabel} sm={4}>
+            Department
+          </Col>
+          <Col sm={8}>
+            <EmployeeDepartmentList 
+              departmentIdChange={this.departmentIdChange}
+              updateDepartments={this.props.updateDepartments}
+              departments = {this.props.departments}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup controlId="formHorizontalEmail">
+          <Col componentClass={ControlLabel} sm={4}>
+            Employee Type
+          </Col>
+          <Col sm={8}>
+            <EmployeeTypeList 
+              employeeTypeIdChange={this.employeeTypeIdChange}
+              updateEmployeeTypes = {this.props.updateEmployeeTypes}
+              employeeTypes = {this.props.employeeTypes}
+            />
+          </Col>
+        </FormGroup>
+        <FormGroup controlId="formHorizontalEmail">
+          <Col componentClass={ControlLabel} sm={4}>
+            Assigned Computer
+          </Col>
+          <Col sm={8}>
+            <EmployeeComputerList 
+              assignedComputerChange={this.assignedComputerChange}
+              updateComputers={this.props.updateComputers}
+              computers={this.props.computers}
+            />
+          </Col>
+        </FormGroup>
+        <Button bsStyle="success"  onClick={this.addEmployee}>Add</Button>
+      </Form>
     );
   }
 }
