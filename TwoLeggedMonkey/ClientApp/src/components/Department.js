@@ -36,13 +36,29 @@ export class Department extends Component {
         });
     }
 
+    //summonEmps = (e) => {
+    //    const id = e.target.id;
+    //    const index = e.target.className;
+    //    const tempDept = [...this.state.departments];
+    //    this.getEmployees(id);
+    //    tempDept[index].showEmployee = index;
+    //    this.setState({ department: tempDept });
+    //}
+
     summonEmps = (e) => {
         const id = e.target.id;
         const index = e.target.className;
         const tempDept = [...this.state.departments];
         this.getEmployees(id);
         tempDept[index].showEmployee = index;
-        this.setState({ department: tempDept });
+        tempDept.forEach(dept => {
+            if (dept.showEmployee === index) {
+                dept.showEmployee = index;
+                this.setState({ department: tempDept });
+            } else
+                dept.showEmployee = '';
+            this.setState({ department: tempDept });
+        });
     }
 
     getEmployees(id) {
