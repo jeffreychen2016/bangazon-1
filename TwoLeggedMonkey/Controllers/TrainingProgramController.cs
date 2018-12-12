@@ -14,11 +14,21 @@ namespace ThreeLeggedMonkey.Controllers
     [ApiController]
     public class TrainingProgramController : ControllerBase
     {
+
+        // passes configuration thru to storage
+
         private readonly TrainingProgramAccess _trainingProgramAccess;
 
         public TrainingProgramController(IConfiguration config)
         {
             _trainingProgramAccess = new TrainingProgramAccess(config);
+        }
+
+        // GET api/TrainingProgram/
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(_trainingProgramAccess.GetAllTrainingPrograms());
         }
 
         [HttpGet("GetTrainingPrograms")]

@@ -18,14 +18,24 @@ namespace ThreeLeggedMonkey.DataAccess
             ConnectionString = config.GetSection("ConnectionString").Value;
         }
 
+        public IEnumerable<TrainingProgramForGet> GetAllTrainingPrograms()
+        {
+            using (var db = new SqlConnection(ConnectionString))
+            {
+                db.Open();
+
+                var results = db.Query<TrainingProgramForGet>("select * from TrainingProgram");
+                return results.ToList();
+            }
+        }
+
         public List<TrainingProgramForGetMap> GetTrainingPrograms(bool completed)
         {
             using (var dbConnection = new SqlConnection(ConnectionString))
             {
                 dbConnection.Open();
 
-                var programsWithEmployeeName = dbConnection.Query<TrainingProgramForGet>(@"SELECT 
-	                                                                        ProgramName
+                var programsWithEmployeeName = dbConnection.Query<TrainingProgramForGetMap>(@"SELECT ProgramName
 	                                                                        ,EmployeeName = FirstName + ' ' + LastName
                                                                             ,StartDate
                                                                         FROM TrainingProgram
@@ -40,13 +50,23 @@ namespace ThreeLeggedMonkey.DataAccess
                 {
                     var result = from p in programsWithEmployeeName
                                  where p.StartDate >= DateTime.Today
-                                 select new TrainingProgramForGetMap() { ProgramName = p.ProgramName, EmployeeName = p.EmployeeName };
+                                 select new TrainingProgramForGetMap() {
+                                     Id = p.Id,
+                                     ProgramName = p.ProgramName,
+                                     EmployeeName = p.EmployeeName,
+                                     StartDate = p.StartDate
+                                 };
                     return result.ToList();
                 }
                 else
                 {
                     var result = from p in programsWithEmployeeName
-                                 select new TrainingProgramForGetMap() { ProgramName = p.ProgramName, EmployeeName = p.EmployeeName };
+                                 select new TrainingProgramForGetMap() {
+                                     Id = p.Id,
+                                     ProgramName = p.ProgramName,
+                                     EmployeeName = p.EmployeeName,
+                                     StartDate = p.StartDate
+                                 };
                     return result.ToList();
                 }
 
