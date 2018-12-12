@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { EmployeeDelete } from './EmployeeDelete';
 import { EmployeeAdd } from './EmployeeAdd';
 import { EmployeeUpdate } from './EmployeeUpdate';
-import computerRequest from '../DBRequests/computer';
-import departmentRequest from '../DBRequests/department';
-import employeeTypeRequest from '../DBRequests/employeeType';
+import computerRequest from '../../DBRequests/computer';
+import departmentRequest from '../../DBRequests/department';
+import employeeTypeRequest from '../../DBRequests/employeeType';
 
 export class EmployeeGrid extends Component {
   state = {
@@ -94,8 +94,6 @@ export class EmployeeGrid extends Component {
               updateState = {this.props.updateState}
               resetComputers = {this.resetComputers}
             />
-          </td>
-          <td>
             <EmployeeUpdate
               employeeId = {employee.id}
               updateState = {this.props.updateState}

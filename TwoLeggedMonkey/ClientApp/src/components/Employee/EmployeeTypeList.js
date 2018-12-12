@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import employeeTypeRequest from '../DBRequests/employeeType';
+import employeeTypeRequest from '../../DBRequests/employeeType';
 
 export class EmployeeTypeList extends Component {
 

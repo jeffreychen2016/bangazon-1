@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import employeeRequest from '../DBRequests/employee';
+import employeeRequest from '../../DBRequests/employee';
 import {Button, Glyphicon } from 'react-bootstrap';
 
 export class EmployeeDelete extends Component {

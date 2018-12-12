@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import computerRequest from '../DBRequests/computer';
+import computerRequest from '../../DBRequests/computer';
 import {Button, Glyphicon } from 'react-bootstrap';
 
 export class ComputerDelete extends Component {

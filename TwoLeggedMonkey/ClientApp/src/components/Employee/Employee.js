@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import employeeRequest from '../DBRequests/employee';
+import employeeRequest from '../../DBRequests/employee';
 import { EmployeeGrid } from './EmployeeGrid';
 
 export class Employee extends Component {

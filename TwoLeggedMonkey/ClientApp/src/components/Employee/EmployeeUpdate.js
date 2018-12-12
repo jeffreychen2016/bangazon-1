@@ -3,8 +3,8 @@ import { Modal, Button, Glyphicon } from 'react-bootstrap';
 import { EmployeeTypeList } from './EmployeeTypeList';
 import { EmployeeDepartmentList } from './EmployeeDepartmentList';
 import { EmployeeComputerList } from './EmployeeComputerList';
-import employeeRequest from '../DBRequests/employee';
-import computerRequest from '../DBRequests/computer';
+import employeeRequest from '../../DBRequests/employee';
+import computerRequest from '../../DBRequests/computer';
 
 export class EmployeeUpdate extends Component {
 

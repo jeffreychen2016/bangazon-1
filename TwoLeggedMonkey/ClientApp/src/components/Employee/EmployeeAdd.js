@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import employeeRequest from '../DBRequests/employee';
+import employeeRequest from '../../DBRequests/employee';
 import { EmployeeDepartmentList } from './EmployeeDepartmentList'; 
 import { EmployeeTypeList } from './EmployeeTypeList';
 import { EmployeeComputerList } from './EmployeeComputerList';
