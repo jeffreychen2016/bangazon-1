@@ -5,6 +5,7 @@ import { EmployeeUpdate } from './EmployeeUpdate';
 import computerRequest from '../../DBRequests/computer';
 import departmentRequest from '../../DBRequests/department';
 import employeeTypeRequest from '../../DBRequests/employeeType';
+import './EmployeeGrid.css';
 
 export class EmployeeGrid extends Component {
   state = {
@@ -107,7 +108,7 @@ export class EmployeeGrid extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="employee-grid container">
         <EmployeeAdd 
           updateState = {this.props.updateState}
           resetComputers = {this.resetComputers}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import employeeRequest from '../../DBRequests/employee';
 import { EmployeeGrid } from './EmployeeGrid';
+import './Employee.css';
 
 export class Employee extends Component {
   state = {
@@ -43,7 +44,7 @@ export class Employee extends Component {
 
   render() {
     return (
-      <div>
+      <div className="employee">
         <h1>Employee</h1>
         <EmployeeGrid 
           employees = {this.state.employees}

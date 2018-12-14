@@ -16,7 +16,7 @@ export class EmployeeDelete extends Component {
 
   render() {
     return (
-      <div>
+      <div className="employee-delete">
         <button className="btn btn-danger" onClick={this.deleteEmployee}><Glyphicon glyph="trash" /></button>
       </div>
     );

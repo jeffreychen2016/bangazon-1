@@ -144,7 +144,7 @@ export class EmployeeUpdate extends Component {
 
   render() {
     return (
-      <div>
+      <div className="employee-update">
         <button className="btn btn-default" id={this.props.employeeId} onClick={this.handleShow}><Glyphicon glyph="pencil" /></button>
         {this.modal()}
       </div>

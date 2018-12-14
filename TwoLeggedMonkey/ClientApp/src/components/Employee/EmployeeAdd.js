@@ -73,7 +73,7 @@ export class EmployeeAdd extends Component {
 
   render() {
     return (
-      <div>
+      <div className="employee-add">
         <Button onClick={this.handleShow}>Add</Button>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header>
