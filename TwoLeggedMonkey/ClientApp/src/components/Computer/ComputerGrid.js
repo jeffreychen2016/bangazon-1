@@ -36,7 +36,6 @@ export class ComputerGrid extends Component {
           </td>
           <td>
             <input 
-              // value={computer.isOperable ? 'Yes' : 'No'} 
               value={computer.isOperable} 
               disabled={computer.disabled} 
               onChange={this.props.isOperableChange}   

@@ -1,0 +1,22 @@
+.employee-grid .employee-update {
+  display: inline-block;
+}
+
+.employee-grid .employee-delete {
+  display: inline-block;
+}
+
+.employee-grid .employee-add {
+  margin-bottom: 10px;
+}
+
+.employee-grid th,
+.employee-grid td {
+  text-align: center;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 970px;
+  }
+}
