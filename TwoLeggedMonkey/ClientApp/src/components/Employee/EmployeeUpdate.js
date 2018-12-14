@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Modal, Button, Glyphicon } from 'react-bootstrap';
 import { EmployeeTypeList } from './EmployeeTypeList';
 import { EmployeeDepartmentList } from './EmployeeDepartmentList';
 import { EmployeeComputerList } from './EmployeeComputerList';
 import employeeRequest from '../../DBRequests/employee';
 import computerRequest from '../../DBRequests/computer';
+import { Form, FormGroup, Col, FormControl, ControlLabel, Button, Modal, Glyphicon } from 'react-bootstrap';
+import './EmployeeUpdate.css';
 
 export class EmployeeUpdate extends Component {
 
@@ -25,6 +26,7 @@ export class EmployeeUpdate extends Component {
   };
 
   getEmployeeById (id) {
+    console.error('id:',id);
     employeeRequest.getEmployeeById(id)
       .then((employee) => {
         this.setState({newEmployee: employee}, () => {
@@ -108,30 +110,74 @@ export class EmployeeUpdate extends Component {
     return (
       <Modal show={this.state.show} onHide={this.handleClose}>
         <Modal.Header>
-          <Modal.Title>New Order</Modal.Title>
+          <Modal.Title>Update Employee</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <label>First Name:</label><input onChange={this.firstNameChange} value={this.state.newEmployee.firstName}/>
-          <label>Last Name:</label><input onChange={this.lastNameChange} value={this.state.newEmployee.lastName}/>
-          <label>Department:</label>
-          <EmployeeDepartmentList 
-            departmentIdChange={this.departmentIdChange}
-            updateDepartments={this.updateDepartments}
-            departments={this.state.departments}
-          />
-          <label>Employee Type:</label>
-          <EmployeeTypeList 
-            employeeTypeIdChange={this.employeeTypeIdChange}
-            updateEmployeeTypes={this.updateEmployeeTypes}
-            employeeTypes={this.state.employeeTypes}
-          />
-          <label>Assigned Computer:</label>
-          <EmployeeComputerList 
-            assignedComputerChange={this.assignedComputerChange}
-            updateComputers={this.updateComputers}
-            computers={this.state.computers}
-          />
+          <Form horizontal className="form-update-employee">
+            <FormGroup controlId="formHorizontalEmail">
+              <Col componentClass={ControlLabel} sm={4}>
+                First Name
+              </Col>
+              <Col sm={8}>
+                <FormControl 
+                  type="text" 
+                  placeholder="First Name"  
+                  onChange={this.firstNameChange} 
+                  value={this.state.newEmployee.firstName}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup controlId="formHorizontalEmail">
+              <Col componentClass={ControlLabel} sm={4}>
+                Last Name
+              </Col>
+              <Col sm={8}>
+                <FormControl 
+                  type="text" 
+                  placeholder="Last Name"  
+                  onChange={this.lastNameChange} 
+                  value={this.state.newEmployee.lastName}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup controlId="formHorizontalEmail">
+              <Col componentClass={ControlLabel} sm={4}>
+                Department
+              </Col>
+              <Col sm={8}>
+                <EmployeeDepartmentList 
+                  departmentIdChange={this.departmentIdChange}
+                  updateDepartments={this.updateDepartments}
+                  departments={this.state.departments}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup controlId="formHorizontalEmail">
+              <Col componentClass={ControlLabel} sm={4}>
+                Employee Type
+              </Col>
+              <Col sm={8}>
+                <EmployeeTypeList 
+                  employeeTypeIdChange={this.employeeTypeIdChange}
+                  updateEmployeeTypes={this.updateEmployeeTypes}
+                  employeeTypes={this.state.employeeTypes}
+                />
+              </Col>
+            </FormGroup>
+            <FormGroup controlId="formHorizontalEmail">
+              <Col componentClass={ControlLabel} sm={4}>
+                Assigned Computer
+              </Col>
+              <Col sm={8}>
+                <EmployeeComputerList 
+                  assignedComputerChange={this.assignedComputerChange}
+                  updateComputers={this.updateComputers}
+                  computers={this.state.computers}
+                />
+              </Col>
+            </FormGroup>
+          </Form>
         </Modal.Body>
 
         <Modal.Footer>
@@ -145,7 +191,12 @@ export class EmployeeUpdate extends Component {
   render() {
     return (
       <div className="employee-update">
-        <button className="btn btn-default" id={this.props.employeeId} onClick={this.handleShow}><Glyphicon glyph="pencil" /></button>
+        <button 
+          className="btn btn-default" 
+          id={this.props.employeeId} 
+          onClick={this.handleShow}>
+          <Glyphicon glyph="pencil" />
+        </button>
         {this.modal()}
       </div>
     );
