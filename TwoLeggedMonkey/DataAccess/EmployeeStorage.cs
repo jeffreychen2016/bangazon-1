@@ -80,7 +80,7 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
-        public List<Employee> GetFilteredEmployees(string firstName,string lastName, int departmentId, int employeeTypeId, int assignedComputer)
+        public List<Employee> GetFilteredEmployees(string firstName,string lastName, int? departmentId, int? employeeTypeId, int? assignedComputer)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
@@ -91,7 +91,11 @@ namespace ThreeLeggedMonkey.DataAccess
 	                                                            FullName = FirstName + ' ' + LastName,
 	                                                            Department = D.DepartmentName,
 	                                                            Computer = C.SerialNumber
-                                                          FROM Employee
+                                                          FROM Employee E
+                                                          JOIN Department D
+                                                            ON E.DepartmentId = D.Id
+                                                          JOIN Computers C
+                                                            ON E.AssignedComputer = C.Id
                                                           WHERE (FirstName LIKE '%' + @firstName + '%' OR @firstName IS NULL)
                                                             AND (LastName LIKE '%' + @lastName + '%' OR @lastName IS NULL)
                                                             AND (DepartmentId = @departmentId OR @departmentId IS NULL)
