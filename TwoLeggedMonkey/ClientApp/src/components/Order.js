@@ -24,10 +24,6 @@ export class Order extends Component {
     .getAllOrdersRequest()
     .then((orders) =>
     {
-      orders.forEach(order =>
-        {
-          order.edit = "";
-        })
       this.setState({orders});
     })
     .catch((err) =>
@@ -120,8 +116,10 @@ export class Order extends Component {
   render() {
     const myOrders = this.state.orders.map((order, index) =>
   {
-    if(order.edit === "")
+    const singleOrder = () =>
     {
+      this.props.history.push(`/order/${order.id}`)
+    };
       return (
         <tr key = {order.id}>
           <td className={order.edit}>{order.id}</td>
@@ -129,24 +127,9 @@ export class Order extends Component {
           {order.isComplete === true ? <td>Complete</td> : <td>Not Complete</td>}
           {order.isActive === true ? <td>Active</td> : <td>Not Active</td>}
           <td><button className="btn btn-danger" onClick={this.deleteOrderClick} id={order.id}><Glyphicon glyph="trash" /></button></td>
-          <td><button className="btn btn-default" onClick={() => {this.editOrder(index); }} id={order.id}><Glyphicon glyph="pencil" /></button></td>
+          <td><button className="btn btn-default" onClick={singleOrder} id={order.id}><Glyphicon glyph="pencil" /></button></td>
         </tr>
       );
-    }
-    else
-    {
-      return (
-        <tr key = {order.id}>
-          <td>{order.id}</td>
-          <td>{order.customerId}</td>
-          {order.isComplete === true ? <td><input onChange={this.isCompleteCreate} placeholder="Complete"/></td> : <td><input onChange={this.isCompleteCreate} placeholder="Not Complete"/></td>}
-          {order.isActive === true ? <td><input onChange={this.isActiveCreate} placeholder="Active"/></td> : <td><input onChange={this.isActiveCreate} placeholder="Not Active"/></td>}
-          <td><button className="btn btn-danger" onClick={this.deleteOrderClick} id={order.id}><Glyphicon glyph="trash" /></button></td>
-          <td><button className="btn btn-default" onClick={this.updateOrder} id={order.id}><Glyphicon glyph="floppy-save" /></button></td>
-        </tr>
-      );
-    }
-
   });
   return (
     <div>

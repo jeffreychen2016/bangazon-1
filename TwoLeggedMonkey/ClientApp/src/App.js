@@ -30,6 +30,7 @@ export default class App extends Component {
         <Route path='/product' component={Product} />
         <Route path='/producttype' component={ProductType} />
         <Route path='/trainingprogram' component={TrainingProgram} />
+        <Route path='/order/:id' component={SingleOrder} />
       </Layout>
     );
   }

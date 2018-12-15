@@ -17,6 +17,23 @@ const getAllOrdersRequest = () =>
   });
 };
 
+const getOrderById = () =>
+{
+  return new Promise((resolve, reject) =>
+  {
+    axios
+    .get(`/api/order/${id}`)
+    .then(res =>
+      {
+        resolve(res.data);
+      })
+      .catch(err =>
+        {
+          reject(err)
+        });
+  });
+};
+
 const postNewOrder = (order) =>
 {
   return new Promise((resolve, reject) =>

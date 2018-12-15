@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreeLeggedMonkey", "ThreeLeggedMonkey\ThreeLeggedMonkey.csproj", "{AA5C503E-D32A-4F50-A15E-E6758436A43B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoLeggedMonkey", "TwoLeggedMonkey\TwoLeggedMonkey.csproj", "{A75993A0-5C63-43A6-8877-0AB0984F8FFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TwoLeggedMonkey", "TwoLeggedMonkey\TwoLeggedMonkey.csproj", "{A75993A0-5C63-43A6-8877-0AB0984F8FFD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AA5C503E-D32A-4F50-A15E-E6758436A43B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA5C503E-D32A-4F50-A15E-E6758436A43B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA5C503E-D32A-4F50-A15E-E6758436A43B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA5C503E-D32A-4F50-A15E-E6758436A43B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A75993A0-5C63-43A6-8877-0AB0984F8FFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A75993A0-5C63-43A6-8877-0AB0984F8FFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A75993A0-5C63-43A6-8877-0AB0984F8FFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
