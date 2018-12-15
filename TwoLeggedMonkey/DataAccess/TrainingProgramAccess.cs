@@ -85,13 +85,13 @@ namespace ThreeLeggedMonkey.DataAccess
         }
 
         // GET program by id
-        public TrainingProgramForEmployees GetTrainingProgramPerId(int id)
+        public IEnumerable<TrainingProgramForEmployees> GetTrainingProgramPerId(int id)
         {
             using (var dbConnection = new SqlConnection(ConnectionString))
             {
                 dbConnection.Open();
 
-                var result  = dbConnection.QueryFirst<TrainingProgramForEmployees>(@"SELECT 
+                var result = dbConnection.Query<TrainingProgramForEmployees>(@"SELECT 
 	                                                                        ProgramName
 	                                                                        ,EmployeeName = FirstName + ' ' + LastName
                                                                         FROM TrainingProgram

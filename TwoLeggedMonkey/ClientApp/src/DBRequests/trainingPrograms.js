@@ -3,7 +3,7 @@ import axios from 'axios';
 const getTrainingPrograms = () => {
     return new Promise((resolve, reject) => {
         axios
-            .get(`/api/TrainingProgram/GetTrainingPrograms?completed=true`)
+            .get(`/api/TrainingProgram`)
             .then((res) => {
                 resolve(res.data);
             })
