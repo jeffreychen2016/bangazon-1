@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Col, FormControl, ControlLabel, Button, Modal, Glyphicon } from 'react-bootstrap';
+import './EmployeeFilterButton.css';
+
 
 
 export class EmployeeFilterButton extends Component {
