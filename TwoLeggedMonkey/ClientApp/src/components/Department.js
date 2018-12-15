@@ -28,6 +28,7 @@ export class Department extends Component {
         .then((departments) => {
             departments.forEach(departments => {
                 departments.showEmployee = '';
+                departments.showEdit = '';
             });
         this.setState({departments});
       })
@@ -35,15 +36,6 @@ export class Department extends Component {
         console.error('Error getting all department: ', err);
         });
     }
-
-    //summonEmps = (e) => {
-    //    const id = e.target.id;
-    //    const index = e.target.className;
-    //    const tempDept = [...this.state.departments];
-    //    this.getEmployees(id);
-    //    tempDept[index].showEmployee = index;
-    //    this.setState({ department: tempDept });
-    //}
 
     summonEmps = (e) => {
         const id = e.target.id;
@@ -100,8 +92,35 @@ export class Department extends Component {
   departmentNameCreate = (e) =>
   {
     this.orderState("departmentName", e);
-  }
+    }
 
+    editClick = (index) => {
+        const tempDept = [...this.state.departments];
+        tempDept[index].showEdit = index;
+        this.setState({ departments: tempDept });
+    }
+
+    cancelEdit = () => {
+        this.componentDidMount();
+    }
+
+    deptState = (name, e) => {
+        const tempDept = { ...this.state.newDept };
+        tempDept[name] = e.target.value;
+        this.setState({ newDept: tempDept });
+    }
+
+    nameCreate = (e) => {
+        this.deptState("departmentName", e);
+    }
+
+    submitEdit = (e) => {
+        e.preventDefault();
+        departmentRequest.putRequest(e.target.id, this.state.newDept)
+            .then(() => {
+                this.componentDidMount();
+            });
+    }
 
   handleClose () {
     this.setState({ show: false });
@@ -113,14 +132,15 @@ export class Department extends Component {
 
     render() {
         const printGrid = this.state.departments.map((department, index) => {
-            if (department.showEmployee === '') {
+            if (department.showEmployee === '' && department.showEdit === '') {
                 return (
                     <tr key={department.id}>
                         <td>{department.departmentName}</td>
                         <td><button id={department.id} className={index} onClick={this.summonEmps}>See Employees</button></td>
+                        <td className="btn btn-default" id={department.id} onClick={() => { this.editClick(index); }}><Glyphicon glyph="pencil" /></td>
                     </tr>
                 );
-            } else {
+            } else if (department.showEmployee !== '') {
                 return (
                     <tr key={department.id}>
                         <td>{department.departmentName}</td>
@@ -134,6 +154,14 @@ export class Department extends Component {
                                 </tbody>
                             </table>
                         </td>
+                    </tr>
+                );
+            } else if (department.showEdit !== '') {
+                return (
+                    <tr key={department.id}>
+                        <td><input type="text" className="form-control" placeholder="Department Name" aria-describedby="basic-addon1" onChange={this.nameCreate} /></td>
+                        <td className="btn btn-default" id={department.id} onClick={this.submitEdit}><Glyphicon glyph="floppy-save" /></td>
+                        <td className="btn btn-info" id={department.id} onClick={this.cancelEdit}>Cancel</td>
                     </tr>
                 );
             }
