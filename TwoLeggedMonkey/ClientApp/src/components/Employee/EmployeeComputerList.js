@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import computerRequest from '../DBRequests/computer';
+import computerRequest from '../../DBRequests/computer';
+import './EmployeeComputerList.css';
 
 export class EmployeeComputerList extends Component {
 
@@ -24,7 +25,7 @@ export class EmployeeComputerList extends Component {
 
   render() {
     return (
-      <select onChange={this.props.assignedComputerChange}>
+      <select onChange={this.props.assignedComputerChange} className="employee-computer-list">
         <option value="Choose here">Choose here</option>
         {this.printComputers()}
       </select>

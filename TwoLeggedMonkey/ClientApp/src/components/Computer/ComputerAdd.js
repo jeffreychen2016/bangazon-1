@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import computerRequest from '../DBRequests/computer';
+import computerRequest from '../../DBRequests/computer';
 
 export class ComputerAdd extends Component {
   state = {

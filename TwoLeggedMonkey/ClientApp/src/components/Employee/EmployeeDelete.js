@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import employeeRequest from '../DBRequests/employee';
+import employeeRequest from '../../DBRequests/employee';
 import {Button, Glyphicon } from 'react-bootstrap';
 
 export class EmployeeDelete extends Component {
@@ -16,7 +16,7 @@ export class EmployeeDelete extends Component {
 
   render() {
     return (
-      <div>
+      <div className="employee-delete">
         <button className="btn btn-danger" onClick={this.deleteEmployee}><Glyphicon glyph="trash" /></button>
       </div>
     );

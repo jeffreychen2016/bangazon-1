@@ -86,8 +86,10 @@ export class Product extends Component {
 
     submitEdit = (e) => {
         e.preventDefault();
-        productRequest.putRequest(e.target.id, this.state.newProduct);
-        this.componentDidMount();
+        productRequest.putRequest(e.target.id, this.state.newProduct)
+            .then(() => {
+                this.componentDidMount();
+            });
     }
 
     deleteClick = (e) => {
