@@ -1,18 +1,45 @@
 import React, { Component } from 'react';
 import programRequests from '../DBRequests/trainingPrograms';
-import { Glyphicon } from 'react-bootstrap';
+import { Glyphicon, Modal } from 'react-bootstrap';
 
 export class TrainingProgram extends Component {
 
     state = {
         trainingPrograms: [],
+        programClicked: [],
+        employees: [],
+        show: false
     }
 
-    getEmployees = (id) => {
+    constructor(props, context) {
+        super(props, context);
+
+        this.handleShow = this.handleShow.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+
+    handleClose() {
+        this.setState({ show: false });
+    }
+
+    handleShow(id) {
         programRequests
             .getEmployeesByProgram(id)
-            .then((x) => {
-                console.log(x);
+            .then((employees) => {
+                let allEmployees = [];
+                employees.map((x) => {
+                    if (allEmployees == null) {
+                        allEmployees = x.employeeName
+                    } else {
+                        allEmployees.push(x.employeeName)
+                    }
+                })
+                
+                this.setState({
+                    employees: allEmployees,
+                    programClicked: id,
+                    show: true
+                });
             });
     }
 
@@ -37,7 +64,7 @@ export class TrainingProgram extends Component {
                         <button
                             className="btn btn-default"
                             id={program.id}
-                            onClick={() => this.getEmployees(program.id)}>
+                            onClick={() => this.handleShow(program.id)}>
                             View
                         </button>
                         &nbsp;
@@ -53,6 +80,12 @@ export class TrainingProgram extends Component {
             )
         })
 
+        const employeesComponents = this.state.employees.map((employee) => {
+            return (
+                <li key={employee.id}>{employee}</li>
+                )
+        })
+
         return (
             <div>
                 <h1>TrainingProgram</h1>
@@ -65,6 +98,18 @@ export class TrainingProgram extends Component {
                         {programComponents}
                     </tbody>
                 </table>
+
+                <Modal show={this.state.show} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Modal heading</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <h4>Employees Currently Enrolled</h4>
+                        <ul>
+                            {employeesComponents}
+                        </ul>
+                    </Modal.Body>
+                </Modal>
             </div>
         );
     }
