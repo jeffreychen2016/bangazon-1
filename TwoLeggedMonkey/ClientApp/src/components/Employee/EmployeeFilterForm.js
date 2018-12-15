@@ -7,9 +7,9 @@ export class EmployeeFilterForm extends Component {
   state = {
     firstName : '',
     lastName : '',
-    departmentId : 0,
-    employeeTypeId : 0,
-    assignedComputer : 0
+    department : '',
+    employeeType : '',
+    assignedComputer : ''
   }
 
   firstNameChange = (e) => {
@@ -20,12 +20,12 @@ export class EmployeeFilterForm extends Component {
     this.setState({ lastName: e.target.value });
   }
 
-  departmentIdChange = (e) => {
-    this.setState({ departmentId: e.target.value });
+  departmentChange = (e) => {
+    this.setState({ department: e.target.value });
   }
 
-  employeeTypeIdChange = (e) => {
-    this.setState({ employeeTypeId: e.target.value });
+  employeeTypeChange = (e) => {
+    this.setState({ employeeType: e.target.value });
   }
 
   assignedComputerChange = (e) => {
@@ -65,7 +65,7 @@ export class EmployeeFilterForm extends Component {
                 type="text" 
                 className="form-control"
                 value={this.state.departmentId}
-                onChange={this.departmentIdChange}  
+                onChange={this.departmentChange}  
               />
             </div>
           </div>
@@ -76,7 +76,7 @@ export class EmployeeFilterForm extends Component {
                 type="text" 
                 className="form-control"  
                 value={this.state.employeeTypeId}
-                onChange={this.employeeTypeIdChange}  
+                onChange={this.employeeTypeChange}  
               />
             </div>
           </div>
@@ -93,11 +93,11 @@ export class EmployeeFilterForm extends Component {
           </div>
         </div>
         <EmployeeSearchButton 
-          firstName : '',
-          lastName : '',
-          departmentId : 0,
-          employeeTypeId : 0,
-          assignedComputer : 0
+          firstName={this.state.firstName}
+          lastName={this.state.lastName}
+          department={this.state.department}
+          employeeType={this.state.employeeType}
+          assignedComputer={this.state.assignedComputer}
         />
       </div>
     );

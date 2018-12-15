@@ -28,8 +28,26 @@ const getEmployeeById = (id) => {
 
 const getFilteredEmployees = (firstName,lastName,departmentId,employeeTypeId,assignedComputer) => {
   return new Promise((resolve, reject) => {
+    let URL = `/api/Employee/getFilteredEmployees?`;
+    const paramArray = [{'_firstName':firstName},{'_lastName':lastName},{'_departmentId':departmentId},{'_employeeTypeId':employeeTypeId},{'_assignedComputer':assignedComputer}];
+    const paramForURL = [];
+    paramArray.filter(param => {
+      // console.error('key:',Object.keys(param)[0]);
+      // console.error('value:',param[Object.keys(param)[0]]);
+      if (param[Object.keys(param)[0]] !== null) {
+        paramForURL.push(param);
+      }
+    });
+
+    paramForURL.forEach(param => {
+      // console.error('test',Object.keys(param)[0]);
+      // console.error('test2',param[Object.keys(param)[0]]);
+      URL += `${Object.keys(param)[0]}=${param[Object.keys(param)[0]]}`;
+    })
+    console.error('URL',URL);
     axios
-      .get(`/api/Employee/getFilteredEmployees?_fristName=${firstName}&_lastName=${lastName}&_deparmentId=${departmentId}&_employeeId=${employeeTypeId}&_assignedComputer=${assignedComputer}`)
+      // .get(`/api/Employee/getFilteredEmployees?_firstName=${firstName}&_lastName=${lastName}&_departmentId=${departmentId}&_employeeTypeId=${employeeTypeId}&_assignedComputer=${assignedComputer}`)
+      .get(URL)
       .then(res => {
         resolve(res.data);
       })
