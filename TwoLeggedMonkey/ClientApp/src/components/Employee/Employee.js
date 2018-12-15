@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import employeeRequest from '../../DBRequests/employee';
 import { EmployeeGrid } from './EmployeeGrid';
 import { EmployeeFilterButton } from './EmployeeFilterButton';
-import './Employee.css';
 import { EmployeeFilterForm } from './EmployeeFilterForm';
+import './Employee.css';
 
 export class Employee extends Component {
   state = {

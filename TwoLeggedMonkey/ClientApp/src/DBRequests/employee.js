@@ -26,6 +26,19 @@ const getEmployeeById = (id) => {
   });
 };
 
+const getFilteredEmployees = (firstName,lastName,departmentId,employeeTypeId,assignedComputer) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(`/api/Employee/getFilteredEmployees?_fristName=${firstName}&_lastName=${lastName}&_deparmentId=${departmentId}&_employeeId=${employeeTypeId}&_assignedComputer=${assignedComputer}`)
+      .then(res => {
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err);
+      });
+  });
+};
+
 const deleteEmployee = (id) => {
   return new Promise((resolve,reject) => {
     axios
@@ -65,5 +78,5 @@ const updateEmployee = (EmployeeId, updatedEmployee) => {
   });
 };
 
-export default { getAllEmployees,deleteEmployee,addEmployee,updateEmployee,getEmployeeById };
+export default { getAllEmployees,deleteEmployee,addEmployee,updateEmployee,getEmployeeById,getFilteredEmployees };
 
