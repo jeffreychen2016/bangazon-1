@@ -13,6 +13,7 @@ import { Order } from './components/Order';
 import { Product } from './components/Product';
 import { ProductType } from './components/ProductType';
 import { TrainingProgram } from './components/TrainingProgram';
+import {SingleOrder} from './components/SingleOrder';
 
 export default class App extends Component {
   displayName = App.name

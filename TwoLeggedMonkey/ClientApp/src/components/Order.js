@@ -114,7 +114,7 @@ export class Order extends Component {
   }
 
   render() {
-    const myOrders = this.state.orders.map((order, index) =>
+    const myOrders = this.state.orders.map((order) =>
   {
     const singleOrder = () =>
     {

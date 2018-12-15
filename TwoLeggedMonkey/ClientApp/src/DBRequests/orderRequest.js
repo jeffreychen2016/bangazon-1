@@ -17,7 +17,7 @@ const getAllOrdersRequest = () =>
   });
 };
 
-const getOrderById = () =>
+const getOrderById = (id) =>
 {
   return new Promise((resolve, reject) =>
   {
@@ -86,4 +86,4 @@ const updateOrder = (id, updatedOrder) =>
 };
 
 
-export default {getAllOrdersRequest, postNewOrder, deleteOrder, updateOrder}
+export default {getAllOrdersRequest, postNewOrder, deleteOrder, updateOrder, getOrderById}
