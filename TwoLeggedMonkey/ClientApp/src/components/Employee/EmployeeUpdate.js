@@ -26,7 +26,6 @@ export class EmployeeUpdate extends Component {
   };
 
   getEmployeeById (id) {
-    console.error('id:',id);
     employeeRequest.getEmployeeById(id)
       .then((employee) => {
         this.setState({newEmployee: employee}, () => {

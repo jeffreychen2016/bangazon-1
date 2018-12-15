@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import employeeRequest from '../../DBRequests/employee';
 import { EmployeeGrid } from './EmployeeGrid';
+import { EmployeeFilterButton } from './EmployeeFilterButton';
 import './Employee.css';
+import { EmployeeFilterForm } from './EmployeeFilterForm';
 
 export class Employee extends Component {
   state = {
-    employees: []
+    employees: [],
+    filterActive: false
   };
 
   getAllEmployees = () => {
@@ -42,10 +45,20 @@ export class Employee extends Component {
     this.setState({employees});
   };
 
+  toggleFilterForm = () => {
+    this.setState({filterActive : !this.state.filterActive}, () => {
+      console.error('test');
+    });
+  }
+
   render() {
     return (
       <div className="employee">
         <h1>Employee</h1>
+        <EmployeeFilterButton 
+          toggleFilterForm = {this.toggleFilterForm}
+        />
+        {this.state.filterActive ? <EmployeeFilterForm /> : null}
         <EmployeeGrid 
           employees = {this.state.employees}
           updateState = {this.updateState}
