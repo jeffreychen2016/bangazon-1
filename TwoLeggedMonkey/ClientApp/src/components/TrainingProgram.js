@@ -35,15 +35,10 @@ export class TrainingProgram extends Component {
                     <td>{program.startDate}</td>
                     <td>
                         <button
-                            className="btn btn-default">
-                            View
-                        </button>
-                        &nbsp;
-                        <button
                             className="btn btn-default"
                             id={program.id}
                             onClick={() => this.getEmployees(program.id)}>
-                            <Glyphicon glyph="pencil" />
+                            View
                         </button>
                         &nbsp;
                         <button
