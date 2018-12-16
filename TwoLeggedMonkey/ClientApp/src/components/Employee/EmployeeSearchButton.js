@@ -18,6 +18,7 @@ export class EmployeeSearchButton extends Component {
     employeeRequest.getFilteredEmployees(firstName,lastName,departmentId,employeeTypeId,assignedComputer)
       .then((employees) => {
         console.error(employees);
+        this.props.updateEmployees(employees);
       })
       .catch((err) => {
         console.error('Error getting filtered employees: ',err);

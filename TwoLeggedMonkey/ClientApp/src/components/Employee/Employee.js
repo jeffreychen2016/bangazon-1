@@ -47,8 +47,11 @@ export class Employee extends Component {
 
   toggleFilterForm = () => {
     this.setState({filterActive : !this.state.filterActive}, () => {
-      console.error('test');
     });
+  }
+
+  updateEmployees = (employees) => {
+    this.setState({employees});
   }
 
   render() {
@@ -58,7 +61,7 @@ export class Employee extends Component {
         <EmployeeFilterButton 
           toggleFilterForm = {this.toggleFilterForm}
         />
-        {this.state.filterActive ? <EmployeeFilterForm /> : null}
+        {this.state.filterActive ? <EmployeeFilterForm  updateEmployees = {this.updateEmployees} /> : null}
         <EmployeeGrid 
           employees = {this.state.employees}
           updateState = {this.updateState}

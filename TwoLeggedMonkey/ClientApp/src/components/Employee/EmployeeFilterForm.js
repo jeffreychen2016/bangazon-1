@@ -98,6 +98,7 @@ export class EmployeeFilterForm extends Component {
           department={this.state.department}
           employeeType={this.state.employeeType}
           assignedComputer={this.state.assignedComputer}
+          updateEmployees={this.props.updateEmployees}
         />
       </div>
     );
