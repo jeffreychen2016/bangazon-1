@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { EmployeeSearchButton } from './EmployeeSearchButton';
+import { EmployeeDepartmentList } from './EmployeeDepartmentList'; 
+import { EmployeeTypeList } from './EmployeeTypeList';
+import { EmployeeComputerList } from './EmployeeComputerList';
 import './EmployeeFilterForm.css';
 
 export class EmployeeFilterForm extends Component {
@@ -20,11 +23,11 @@ export class EmployeeFilterForm extends Component {
     this.setState({ lastName: e.target.value });
   }
 
-  departmentChange = (e) => {
+  departmentIdChange = (e) => {
     this.setState({ department: e.target.value });
   }
 
-  employeeTypeChange = (e) => {
+  employeeTypeIdChange = (e) => {
     this.setState({ employeeType: e.target.value });
   }
 
@@ -61,11 +64,16 @@ export class EmployeeFilterForm extends Component {
           <div className="filter-option">
             <div className="input-group">
               <span className="input-group-addon">Department Name</span>
-              <input 
+              {/* <input 
                 type="text" 
                 className="form-control"
                 value={this.state.departmentId}
-                onChange={this.departmentChange}  
+                onChange={this.departmentIdChange}  
+              /> */}
+              <EmployeeDepartmentList 
+                updateDepartments = {this.props.updateDepartments}
+                departments = {this.props.departments}
+                departmentIdChange={this.departmentIdChange}
               />
             </div>
           </div>
@@ -76,7 +84,7 @@ export class EmployeeFilterForm extends Component {
                 type="text" 
                 className="form-control"  
                 value={this.state.employeeTypeId}
-                onChange={this.employeeTypeChange}  
+                onChange={this.employeeTypeIdChange}  
               />
             </div>
           </div>

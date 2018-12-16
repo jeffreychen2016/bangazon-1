@@ -8,6 +8,7 @@ import './Employee.css';
 export class Employee extends Component {
   state = {
     employees: [],
+    departments: [],
     filterActive: false
   };
 
@@ -54,6 +55,10 @@ export class Employee extends Component {
     this.setState({employees});
   }
 
+  updateDepartments = (departments) => {
+    this.setState({departments});
+  }
+
   render() {
     return (
       <div className="employee">
@@ -61,7 +66,12 @@ export class Employee extends Component {
         <EmployeeFilterButton 
           toggleFilterForm = {this.toggleFilterForm}
         />
-        {this.state.filterActive ? <EmployeeFilterForm  updateEmployees = {this.updateEmployees} /> : null}
+        {this.state.filterActive ? 
+        <EmployeeFilterForm  
+          updateEmployees = {this.updateEmployees} 
+          updateDepartments = {this.updateDepartments}
+          departments = {this.state.departments}
+        /> : null}
         <EmployeeGrid 
           employees = {this.state.employees}
           updateState = {this.updateState}
