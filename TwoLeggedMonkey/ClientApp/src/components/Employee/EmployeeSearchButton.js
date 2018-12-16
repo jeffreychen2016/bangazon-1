@@ -11,13 +11,9 @@ export class EmployeeSearchButton extends Component {
     const departmentId = this.props.department === '' ? null : this.props.department;
     const employeeTypeId = this.props.employeeType === '' ? null : this.props.employeeType;
     const assignedComputer = this.props.assignedComputer === '' ? null : this.props.assignedComputer;
-    console.error('firstName:',firstName);
-    console.error('lastName:',lastName);
-
 
     employeeRequest.getFilteredEmployees(firstName,lastName,departmentId,employeeTypeId,assignedComputer)
       .then((employees) => {
-        console.error(employees);
         this.props.updateEmployees(employees);
       })
       .catch((err) => {

@@ -42,9 +42,11 @@ const getFilteredEmployees = (firstName,lastName,departmentId,employeeTypeId,ass
     paramForURL.forEach(param => {
       // console.error('test',Object.keys(param)[0]);
       // console.error('test2',param[Object.keys(param)[0]]);
-      URL += `${Object.keys(param)[0]}=${param[Object.keys(param)[0]]}`;
+      URL += `${Object.keys(param)[0]}=${param[Object.keys(param)[0]]}&`;
     })
-    // console.error('URL',URL);
+
+    URL = URL.substring('&', URL.length - 1);
+    console.error('URL',URL);
     axios
       // .get(`/api/Employee/getFilteredEmployees?_firstName=${firstName}&_lastName=${lastName}&_departmentId=${departmentId}&_employeeTypeId=${employeeTypeId}&_assignedComputer=${assignedComputer}`)
       .get(URL)
