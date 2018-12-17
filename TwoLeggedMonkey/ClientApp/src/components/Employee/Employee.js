@@ -9,6 +9,8 @@ export class Employee extends Component {
   state = {
     employees: [],
     departments: [],
+    employeeTypes: [],
+    computers: [],
     filterActive: false
   };
 
@@ -59,6 +61,14 @@ export class Employee extends Component {
     this.setState({departments});
   }
 
+  updateEmployeeTypes = (employeeTypes) => {
+    this.setState({employeeTypes});
+  }
+
+  updateComputers = (computers) => {
+    this.setState({computers});
+  }
+
   render() {
     return (
       <div className="employee">
@@ -71,6 +81,10 @@ export class Employee extends Component {
           updateEmployees = {this.updateEmployees} 
           updateDepartments = {this.updateDepartments}
           departments = {this.state.departments}
+          updateEmployeeTypes = {this.updateEmployeeTypes}
+          employeeTypes = {this.state.employeeTypes}
+          updateComputers = {this.updateComputers}
+          computers = {this.state.computers}
         /> : null}
         <EmployeeGrid 
           employees = {this.state.employees}

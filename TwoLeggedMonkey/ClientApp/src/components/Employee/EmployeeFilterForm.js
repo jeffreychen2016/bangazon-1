@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { EmployeeSearchButton } from './EmployeeSearchButton';
 import { EmployeeDepartmentList } from './EmployeeDepartmentList'; 
 import { EmployeeTypeList } from './EmployeeTypeList';
-import { EmployeeComputerList } from './EmployeeComputerList';
+import { EmployeeComputerFullList } from './EmployeeComputerFullList';
 import './EmployeeFilterForm.css';
 
 export class EmployeeFilterForm extends Component {
@@ -64,12 +64,6 @@ export class EmployeeFilterForm extends Component {
           <div className="filter-option">
             <div className="input-group">
               <span className="input-group-addon">Department Name</span>
-              {/* <input 
-                type="text" 
-                className="form-control"
-                value={this.state.departmentId}
-                onChange={this.departmentIdChange}  
-              /> */}
               <EmployeeDepartmentList 
                 updateDepartments = {this.props.updateDepartments}
                 departments = {this.props.departments}
@@ -80,22 +74,20 @@ export class EmployeeFilterForm extends Component {
           <div className="filter-option">
             <div className="input-group">
               <span className="input-group-addon">Employee Type</span>
-              <input 
-                type="text" 
-                className="form-control"  
-                value={this.state.employeeTypeId}
-                onChange={this.employeeTypeIdChange}  
+              <EmployeeTypeList 
+                employeeTypeIdChange={this.employeeTypeIdChange}
+                updateEmployeeTypes = {this.props.updateEmployeeTypes}
+                employeeTypes = {this.props.employeeTypes}
               />
             </div>
           </div>
           <div className="filter-option">
             <div className="input-group">
               <span className="input-group-addon">Assigned Computer</span>
-              <input 
-                type="text" 
-                className="form-control"  
-                value={this.state.assignedComputer}
-                onChange={this.assignedComputerChange}  
+              <EmployeeComputerFullList 
+                assignedComputerChange={this.assignedComputerChange}
+                updateComputers={this.props.updateComputers}
+                computers={this.props.computers}
               />
             </div>
           </div>
