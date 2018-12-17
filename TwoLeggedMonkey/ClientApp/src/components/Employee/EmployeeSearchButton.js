@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, FormGroup, Col, FormControl, ControlLabel, Button, Modal, Glyphicon } from 'react-bootstrap';
-import './EmployeeFilterForm.css';
+import './EmployeeSearchButton.css';
 import employeeRequest from '../../DBRequests/employee';
 
 export class EmployeeSearchButton extends Component {
