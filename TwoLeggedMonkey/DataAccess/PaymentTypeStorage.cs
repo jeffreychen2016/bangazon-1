@@ -47,7 +47,7 @@ namespace ThreeLeggedMonkey.DataAccess
             {
                 db.Open();
 
-                var result = db.Execute(@"INSERT INTO [dbo].[PaymentType]([PaymentTypeName],[CustomerId])
+                int result = db.Execute(@"INSERT INTO [dbo].[PaymentType]([PaymentTypeName],[CustomerId])
                                         VALUES(@PaymentTypeName, @CustomerId)", paymentType);
                 return result == 1;
             }
