@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import productRequest from '../DBRequests/productRequest';
 import { Modal, Button, Glyphicon } from 'react-bootstrap';
+import './product.css';
 
 const baseProduct =
 {
@@ -140,8 +141,8 @@ export class Product extends Component {
                         <td>{product.description}</td>
                         <td>{product.price}</td>
                         <td>{product.productTypeId}</td>
-                        <td className="btn btn-default" id={product.id} onClick={() => { this.editClick(index); }}><Glyphicon glyph="pencil" /></td>
-                        <td className="btn btn-danger" id={product.id} onClick={this.deleteClick}><Glyphicon glyph="trash" /></td>
+                        <td className="btn btn-default" id={product.id} onClick={() => { this.editClick(index); }}><Glyphicon glyph="pencil" className="icons"/></td>
+                        <td className="btn btn-danger" id={product.id} onClick={this.deleteClick}><Glyphicon glyph="trash" className="icons" /></td>
                     </tr>
                 );
             } else {
@@ -152,7 +153,7 @@ export class Product extends Component {
                         <td><input type="text" className="form-control" placeholder="Description" aria-describedby="basic-addon1" onChange={this.descriptionCreate} /></td>
                         <td><input type="text" className="form-control" placeholder="Price" aria-describedby="basic-addon1" onChange={this.priceCreate} /></td>
                         <td><input type="text" className="form-control" placeholder="Product Type Id" aria-describedby="basic-addon1" onChange={this.productTypeIdCreate} /></td>
-                        <td className="btn btn-default" id={product.id} onClick={this.submitEdit}><Glyphicon glyph="floppy-save" /></td>
+                        <td className="btn btn-default" id={product.id} onClick={this.submitEdit}><Glyphicon glyph="floppy-save" className="icons" /></td>
                         <td className="btn btn-info" id={product.id} onClick={this.cancelEdit}>Cancel</td>
                     </tr>
                 );
