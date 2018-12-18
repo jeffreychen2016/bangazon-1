@@ -41,10 +41,10 @@ const deletePaymentType = (id) => {
     })
 };
 
-const updatePaymentType = (paymentType, id) => {
+const updatePaymentType = (id, paymentType) => {
     return new Promise((resolve, reject) => {
         axios
-            .put(`/api/paymenttype/edit/${id}`)
+            .put(`/api/paymenttype/edit/${id}`, paymentType)
             .then((res) => {
                 resolve(res);
             })

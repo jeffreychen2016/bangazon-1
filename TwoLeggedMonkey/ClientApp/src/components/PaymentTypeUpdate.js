@@ -5,10 +5,11 @@ import { Glyphicon } from 'react-bootstrap';
 export class PaymentTypeUpdate extends React.Component {
 
     state = {
+        paymentTypes: [],
         paymentType: {
             paymentTypeName: "",
             customerId: "",
-        }
+        },
     }
 
     formFieldStringState = (variable, e) => {
@@ -25,29 +26,39 @@ export class PaymentTypeUpdate extends React.Component {
         this.formFieldStringState('customerId', e);
     }
 
-    editPaymentType = (paymentType) => {
-        const paymentTypeId = this.props.match.params.id;
+    editCancel = () => {
+        this.componentDidMount;
+    }
+
+    clickOnEdit = (index) => {
+        const temporaryPaymentTypes = [...this.state.paymentTypes];
+        temporaryPaymentTypes[index].displayEdit = index;
+        this.setState({ paymentTypes: temporaryPaymentTypes});
+    }
+
+    editPaymentType = (e) => {
         paymentTypeCalls
-            .updatePaymentType()
+            .updatePaymentType(e.target.id, this.state.paymentType)
             .then(() => {
-                this.props.history.push("/paymenttypes");
+                this.componentDidMount() {
+                    paymentTypes.forEach(paymentType => {
+                        paymentType.displayEdit = '';
+                    })
+                };
             })
             .catch((error) => {
                 console.error('error with edit paymenttype', error);
             })
     }
 
-    editInputFields = (e) => {
-        this.props.chang
-    }
-
     render() {
+        const { paymentType } = this.state;
         return (
             <div>
                 <button
                     className="btn btn-warning"
                     id={this.props.id}
-                //onClick={}
+                    onClick={}
                 >
                     <Glyphicon glyph="pencil" />
                 </button>
