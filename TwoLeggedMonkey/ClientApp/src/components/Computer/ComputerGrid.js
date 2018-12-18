@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ComputerDelete } from './ComputerDelete';
 import { ComputerAdd } from './ComputerAdd';
 import { ComputerUpdate } from './ComputerUpdate';
+import moment from 'moment';
 import './ComputerGrid.css';
 
 export class ComputerGrid extends Component {
@@ -21,18 +22,21 @@ export class ComputerGrid extends Component {
           </td>
           <td>
             <input 
-              value={computer.dateOfPurchase} 
+              value={moment(computer.dateOfPurchase).format('YYYY-MM-DD')} 
+              // value='2018-01-01'
               disabled={computer.disabled} 
               onChange={this.props.dateOfPurchaseChange}
               className={index}
+              type='date'
             />
           </td>
           <td>
             <input 
-              value={computer.decommissionedDate}
+              value={moment(computer.decommissionedDate).format('YYYY-MM-DD')}
               disabled={computer.disabled} 
               onChange={this.props.decommissionedDateChange}  
               className={index}
+              type='date'
             />
           </td>
           <td>
