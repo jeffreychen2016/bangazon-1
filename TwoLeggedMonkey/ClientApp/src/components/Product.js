@@ -25,7 +25,8 @@ export class Product extends Component {
     state = {
         products: [],
         show: false,
-        newProduct: baseProduct
+        newProduct: baseProduct,
+        productType: []
     }
 
     componentDidMount() {
@@ -103,6 +104,22 @@ export class Product extends Component {
                 console.error('error with delete request', err);
             });
     }
+
+    //printProductTypes = () => {
+    //    productRequest.getProductType()
+    //        .then((productTypes) => {
+    //            this.state.productType(productTypes);
+    //            const pts = this.state.productType;
+    //            if (pts.length) {
+    //                return pts.map((productType) => {
+    //                    return (<option value={productType.id} key={productType.id}>{productType.productTypeName}</option>);
+    //                });
+    //            }
+    //        })
+    //        .catch((err) => {
+    //            console.error('Error with productType: ', err);
+    //        });
+    //};
 
     handleClose() {
         this.setState({ show: false });
