@@ -14,6 +14,9 @@ namespace ThreeLeggedMonkey.Controllers
     [ApiController]
     public class TrainingProgramController : ControllerBase
     {
+
+        // passes configuration thru to storage
+
         private readonly TrainingProgramAccess _trainingProgramAccess;
 
         public TrainingProgramController(IConfiguration config)
@@ -21,6 +24,14 @@ namespace ThreeLeggedMonkey.Controllers
             _trainingProgramAccess = new TrainingProgramAccess(config);
         }
 
+        // GET api/TrainingProgram/
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(_trainingProgramAccess.GetAllTrainingPrograms());
+        }
+
+        // GET Completed Programs
         [HttpGet("GetTrainingPrograms")]
         // https:///localhost:44323/api/TrainingProgram/GetTrainingPrograms?completed=true
         public IActionResult GetTrainingPrograms([FromQuery(Name = "completed")]bool completed)
@@ -28,24 +39,28 @@ namespace ThreeLeggedMonkey.Controllers
             return Ok(_trainingProgramAccess.GetTrainingPrograms(completed));
         }
 
+        // GET Program by Id
         [HttpGet("GetTrainingProgram/{id}")]
         public IActionResult GetTrainingProgramPerId(int id)
         {
             return Ok(_trainingProgramAccess.GetTrainingProgramPerId(id));
         }
 
+        // DELETE
         [HttpDelete("DeleteTrainingProgram/{id}")]
         public IActionResult DeleteTrainingProgram(int id)
         {
             return Ok(_trainingProgramAccess.DeleteTrainingProgram(id));
         }
 
+        // Add new
         [HttpPost("AddTrainingProgram")]
         public IActionResult AddTrainingProgram(TrainingProgramForPost trainingProgramForPost)
         {
             return Ok(_trainingProgramAccess.AddTraningProgram(trainingProgramForPost));
         }
 
+        // Update
         [HttpPut("UpdateTrainingProgram/{id}")]
         public IActionResult UpdateTrainingProgram(int id, TrainingProgramForPut trainingProgramForPut)
         {

@@ -15,7 +15,7 @@ const getAllDepartments = () => {
 const getDeptEmployees = (id) => {
     return new Promise((resolve, reject) => {
         axios
-            .get(`/api/Department/${id}`)
+            .get(`/api/Department/${id}?_include=employees`)
         .then(results => {
             resolve(results.data);
         })
@@ -42,21 +42,17 @@ const postNewDepartment = (dept) =>
   });
 };
 
-const deleteDept = (id) =>
-{
-  return new Promise((resolve, reject) =>
-  {
-    axios
-      .delete(`/api/order/deleteOrder/${id}`)
-      .then((res) =>
-      {
-        resolve(res);
-      })
-      .catch((err) =>
-      {
-        reject(err);
-      });
-  });
+const putRequest = (departmentId, updatedDepartment) => {
+    return new Promise((resolve, reject) => {
+        axios
+            .put(`api/department/updatedept/${departmentId}`, updatedDepartment)
+            .then(res => {
+                resolve(res.data);
+            })
+            .catch(err => {
+                reject(err);
+            });
+    });
 };
 
-export default { getAllDepartments, getDeptEmployees, postNewDepartment };
+export default { getAllDepartments, getDeptEmployees, postNewDepartment, putRequest };

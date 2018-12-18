@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { EmployeeDelete } from './EmployeeDelete';
 import { EmployeeAdd } from './EmployeeAdd';
 import { EmployeeUpdate } from './EmployeeUpdate';
-import computerRequest from '../DBRequests/computer';
-import departmentRequest from '../DBRequests/department';
-import employeeTypeRequest from '../DBRequests/employeeType';
+import computerRequest from '../../DBRequests/computer';
+import departmentRequest from '../../DBRequests/department';
+import employeeTypeRequest from '../../DBRequests/employeeType';
+import './EmployeeGrid.css';
 
 export class EmployeeGrid extends Component {
   state = {
@@ -72,6 +73,7 @@ export class EmployeeGrid extends Component {
               value={employee.fullName} 
               disabled={employee.disabled} 
               className={index}
+              disabled
             />
           </td>
           <td>
@@ -79,6 +81,7 @@ export class EmployeeGrid extends Component {
               value={employee.department} 
               disabled={employee.disabled}
               className={index}
+              disabled
             />
           </td>
           <td>
@@ -86,6 +89,7 @@ export class EmployeeGrid extends Component {
               value={employee.computer}
               disabled={employee.disabled} 
               className={index}
+              disabled
             />
           </td>
           <td>
@@ -94,8 +98,6 @@ export class EmployeeGrid extends Component {
               updateState = {this.props.updateState}
               resetComputers = {this.resetComputers}
             />
-          </td>
-          <td>
             <EmployeeUpdate
               employeeId = {employee.id}
               updateState = {this.props.updateState}
@@ -109,7 +111,19 @@ export class EmployeeGrid extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="employee-grid container">
+        <EmployeeAdd 
+          updateState = {this.props.updateState}
+          resetComputers = {this.resetComputers}
+          resetDepartments = {this.resetDepartments}
+          resetEmployeeTypes = {this.resetEmployeeTypes}
+          updateComputers = {this.updateComputers}
+          updateDepartments = {this.updateDepartments}
+          updateEmployeeTypes = {this.updateEmployeeTypes}
+          computers = {this.state.computers}
+          departments = {this.state.departments}
+          employeeTypes = {this.state.employeeTypes}
+        />
         <table className="table">
           <tbody>
             <tr>
@@ -119,18 +133,6 @@ export class EmployeeGrid extends Component {
               <th>Action</th>
             </tr>
             {this.printGrid()}
-            <EmployeeAdd 
-              updateState = {this.props.updateState}
-              resetComputers = {this.resetComputers}
-              resetDepartments = {this.resetDepartments}
-              resetEmployeeTypes = {this.resetEmployeeTypes}
-              updateComputers = {this.updateComputers}
-              updateDepartments = {this.updateDepartments}
-              updateEmployeeTypes = {this.updateEmployeeTypes}
-              computers = {this.state.computers}
-              departments = {this.state.departments}
-              employeeTypes = {this.state.employeeTypes}
-            />
           </tbody>
         </table>
       </div>

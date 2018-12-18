@@ -169,7 +169,7 @@ export class Customer extends Component {
       <div className="container">
             <h1>Customers</h1>
             <button
-                className="btn add-new"
+                className="btn btn-default pull-right"
                 onClick={this.handleShow} >
                 Add New
             </button>

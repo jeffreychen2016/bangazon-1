@@ -1,0 +1,14 @@
+.form-add-employee {
+  /* width: 50%; */
+  margin: auto;
+}
+
+.employee-add-btn {
+  display: block;
+  float: right;
+  margin-right: 15px;
+}
+
+.icons {
+    pointer-events: none;
+}

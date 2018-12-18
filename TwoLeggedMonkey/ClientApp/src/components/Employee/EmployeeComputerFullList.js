@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import computerRequest from '../DBRequests/computer';
+import computerRequest from '../../DBRequests/computer';
+// import './EmployeeComputerFullList.css';
 
-export class EmployeeComputerList extends Component {
+export class EmployeeComputerFullList extends Component {
 
   componentDidMount = () => {
-    computerRequest.GetAllAvailableAndOperableComputers()
+    computerRequest.getAllComputers()
     .then((computers) => {
       this.props.updateComputers(computers);
     })
@@ -24,7 +25,7 @@ export class EmployeeComputerList extends Component {
 
   render() {
     return (
-      <select onChange={this.props.assignedComputerChange}>
+      <select onChange={this.props.assignedComputerChange} className="employee-computer-list">
         <option value="Choose here">Choose here</option>
         {this.printComputers()}
       </select>
