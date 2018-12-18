@@ -56,11 +56,5 @@ namespace ThreeLeggedMonkey.Controllers
         {
             return Ok(_storage.Delete(id));
         }
-
-        [HttpGet("getfilteredemployees")]
-        public IActionResult GetFilteredEmployees([FromQuery] string _firstName, [FromQuery] string _lastName, [FromQuery] int? _departmentId = null, [FromQuery] int? _employeeTypeId = null, [FromQuery] int? _assignedComputer = null)
-        {
-            return Ok(_storage.GetFilteredEmployees(_firstName,_lastName,_departmentId,_employeeTypeId,_assignedComputer));
-        }
     }
 }

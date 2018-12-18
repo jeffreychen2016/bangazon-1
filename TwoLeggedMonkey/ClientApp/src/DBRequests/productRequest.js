@@ -13,6 +13,19 @@ const getRequest = () => {
     });
 };
 
+const getProductType = () => {
+    return new Promise((resolve, reject) => {
+        axios
+            .get(`/api/producttype/producttypes`)
+            .then(results => {
+                resolve(results.data);
+            })
+            .catch(error => {
+                reject(error);
+            });
+    });
+};
+
 const postRequest = (product) => {
     return new Promise((resolve, reject) => {
         axios
@@ -58,5 +71,6 @@ export default {
     getRequest,
     postRequest,
     deleteRequest,
-    putRequest
+    putRequest,
+    getProductType
 };
