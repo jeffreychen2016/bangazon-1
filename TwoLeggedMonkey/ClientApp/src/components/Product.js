@@ -158,7 +158,12 @@ export class Product extends Component {
                         <td><input type="text" className="form-control" placeholder="Quantity" aria-describedby="basic-addon1" onChange={this.quantityCreate} /></td>
                         <td><input type="text" className="form-control" placeholder="Description" aria-describedby="basic-addon1" onChange={this.descriptionCreate} /></td>
                         <td><input type="text" className="form-control" placeholder="Price" aria-describedby="basic-addon1" onChange={this.priceCreate} /></td>
-                        <td><input type="text" className="form-control" placeholder="Product Type Id" aria-describedby="basic-addon1" onChange={this.productTypeIdCreate} /></td>
+                        <td>
+                            <select onChange={this.productTypeIdCreate}>
+                                <option value="Choose here">Choose here</option>
+                                {this.actuallyPrint()}
+                            </select>
+                        </td>
                         <td className="btn btn-default" id={product.id} onClick={this.submitEdit}><Glyphicon glyph="floppy-save" className="icons" /></td>
                         <td className="btn btn-info" id={product.id} onClick={this.cancelEdit}>Cancel</td>
                     </tr>
