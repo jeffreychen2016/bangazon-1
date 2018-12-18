@@ -80,6 +80,31 @@ namespace ThreeLeggedMonkey.DataAccess
             }
         }
 
+        public List<Employee> GetFilteredEmployees(string firstName,string lastName, int? departmentId, int? employeeTypeId, int? assignedComputer)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.Query<Employee>(@"SELECT 
+                                                                Id = E.Id,
+	                                                            FullName = FirstName + ' ' + LastName,
+	                                                            Department = D.DepartmentName,
+	                                                            Computer = C.SerialNumber
+                                                          FROM Employee E
+                                                          JOIN Department D
+                                                            ON E.DepartmentId = D.Id
+                                                          JOIN Computers C
+                                                            ON E.AssignedComputer = C.Id
+                                                          WHERE (FirstName LIKE '%' + @firstName + '%' OR @firstName IS NULL)
+                                                            AND (LastName LIKE '%' + @lastName + '%' OR @lastName IS NULL)
+                                                            AND (DepartmentId = @departmentId OR @departmentId IS NULL)
+                                                            AND (EmployeeTypeId = @employeeTypeId OR @employeeTypeId IS NULL)
+                                                            AND (AssignedComputer = @assignedComputer OR @assignedComputer IS NULL)", new { firstName, lastName, departmentId, employeeTypeId, assignedComputer});
+                return result.ToList();
+            }
+        }
+
         public bool Add(NewEmployee newEmployee)
         {
             using (var db = new SqlConnection(ConnectionString))

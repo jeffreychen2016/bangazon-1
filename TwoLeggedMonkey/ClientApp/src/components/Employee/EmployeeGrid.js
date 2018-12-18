@@ -73,6 +73,7 @@ export class EmployeeGrid extends Component {
               value={employee.fullName} 
               disabled={employee.disabled} 
               className={index}
+              disabled
             />
           </td>
           <td>
@@ -80,6 +81,7 @@ export class EmployeeGrid extends Component {
               value={employee.department} 
               disabled={employee.disabled}
               className={index}
+              disabled
             />
           </td>
           <td>
@@ -87,6 +89,7 @@ export class EmployeeGrid extends Component {
               value={employee.computer}
               disabled={employee.disabled} 
               className={index}
+              disabled
             />
           </td>
           <td>
