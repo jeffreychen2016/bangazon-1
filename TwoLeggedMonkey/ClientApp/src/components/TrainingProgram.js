@@ -22,7 +22,7 @@ export class TrainingProgram extends Component {
         this.setState({ show: false });
     }
 
-    handleShow(id) {
+    handleShow(id, name) {
         programRequests
             .getEmployeesByProgram(id)
             .then((employees) => {
@@ -37,7 +37,7 @@ export class TrainingProgram extends Component {
                 
                 this.setState({
                     employees: allEmployees,
-                    programClicked: id,
+                    programClicked: name,
                     show: true
                 });
             });
@@ -55,6 +55,7 @@ export class TrainingProgram extends Component {
     }
 
     render() {
+
         const programComponents = this.state.trainingPrograms.map((program) => {
             return (
                 <tr key={program.id}>
@@ -64,7 +65,7 @@ export class TrainingProgram extends Component {
                         <button
                             className="btn btn-default"
                             id={program.id}
-                            onClick={() => this.handleShow(program.id)}>
+                            onClick={() => this.handleShow(program.id, program.programName)}>
                             View
                         </button>
                         &nbsp;
@@ -72,7 +73,7 @@ export class TrainingProgram extends Component {
                             className="btn btn-default"
                             id={program.id}
                             onClick={(e) => this.deactivateCustomer(e)}
-                            >
+                        >
                             <Glyphicon glyph="remove" />
                         </button>
                     </td>
@@ -80,15 +81,22 @@ export class TrainingProgram extends Component {
             )
         })
 
-        const employeesComponents = this.state.employees.map((employee) => {
-            return (
-                <li key={employee.id}>{employee}</li>
-                )
-        })
+        let employeesComponents;
+        const {employees} = this.state;
 
+        if (employees[0] != null) {
+            employeesComponents = employees.map((employee) => {
+                return (
+                    <li key={employee}>{employee}</li>
+                )
+            })
+        } else {
+            employeesComponents = <li>None yet!</li>
+        }
+        
         return (
             <div>
-                <h1>TrainingProgram</h1>
+                <h1>Training Programs</h1>
                 <table className="table">
                     <tbody>
                         <tr>
@@ -101,7 +109,7 @@ export class TrainingProgram extends Component {
 
                 <Modal show={this.state.show} onHide={this.handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
+                        <Modal.Title><strong>{this.state.programClicked}</strong></Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <h4>Employees Currently Enrolled</h4>
