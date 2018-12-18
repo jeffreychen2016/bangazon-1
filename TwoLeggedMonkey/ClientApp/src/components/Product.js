@@ -36,7 +36,9 @@ export class Product extends Component {
                 products.forEach(product => {
                     product.showEdit = '';
                 });
-                this.setState({ products });
+                this.setState({ products }, () => {
+                    this.printProductTypes();
+                });
             })
             .catch(err => {
                 console.error('Error with product getRequest', err);
@@ -106,21 +108,25 @@ export class Product extends Component {
             });
     }
 
-    //printProductTypes = () => {
-    //    productRequest.getProductType()
-    //        .then((productTypes) => {
-    //            this.state.productType(productTypes);
-    //            const pts = this.state.productType;
-    //            if (pts.length) {
-    //                return pts.map((productType) => {
-    //                    return (<option value={productType.id} key={productType.id}>{productType.productTypeName}</option>);
-    //                });
-    //            }
-    //        })
-    //        .catch((err) => {
-    //            console.error('Error with productType: ', err);
-    //        });
-    //};
+    printProductTypes = () => {
+        console.log("test");
+        productRequest.getProductType()
+            .then((productTypes) => {
+                this.setState({ productType: productTypes });
+            })
+            .catch((err) => {
+                console.error('Error with productType: ', err);
+            });
+    };
+
+    actuallyPrint = () => {
+        const pts = this.state.productType;
+        if (pts.length) {
+            return pts.map((productType) => {
+                return (<option value={productType.id} key={productType.id}>{productType.productTypeName}</option>);
+            });
+        }
+    }
 
     handleClose() {
         this.setState({ show: false });
@@ -188,7 +194,10 @@ export class Product extends Component {
                     <input placeholder="Quantity" onChange={this.quantityCreate} />
                     <input placeholder="Description" onChange={this.descriptionCreate} />
                     <input placeholder="Price" onChange={this.priceCreate} />
-                    <input placeholder="ProductType Id" onChange={this.productTypeIdCreate} />
+                    <select onChange={this.productTypeIdCreate}>
+                        <option value="Choose here">Choose here</option>
+                        {this.actuallyPrint()}
+                    </select>
                 </Modal.Body>
 
                 <Modal.Footer>
