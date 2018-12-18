@@ -26,7 +26,6 @@ export class EmployeeUpdate extends Component {
   };
 
   getEmployeeById (id) {
-    console.error('id:',id);
     employeeRequest.getEmployeeById(id)
       .then((employee) => {
         this.setState({newEmployee: employee}, () => {
@@ -195,7 +194,7 @@ export class EmployeeUpdate extends Component {
           className="btn btn-default" 
           id={this.props.employeeId} 
           onClick={this.handleShow}>
-          <Glyphicon glyph="pencil" />
+          <Glyphicon glyph="pencil" className="icons" />
         </button>
         {this.modal()}
       </div>
