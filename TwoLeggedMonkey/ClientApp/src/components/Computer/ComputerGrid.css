@@ -1,0 +1,22 @@
+.computer-grid .computer-update {
+  display: inline-block;
+}
+
+.computer-grid .computer-delete {
+  display: inline-block;
+}
+
+.computer-grid .computer-add {
+  margin-bottom: 10px;
+}
+
+.computer-grid th,
+.computer-grid td {
+  text-align: center;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 970px;
+  }
+}

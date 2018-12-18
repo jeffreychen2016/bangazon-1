@@ -30,7 +30,7 @@ export class ComputerUpdate extends Component {
 
   render() {
     return (
-      <div>
+      <div className="computer-update">
         {this.renderButton()}
       </div>
     );

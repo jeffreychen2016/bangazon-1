@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import computerRequest from '../../DBRequests/computer';
 import { ComputerGrid } from './ComputerGrid';
+import './Computer.css';
 
 export class Computer extends Component {
   state = {
@@ -67,7 +68,7 @@ export class Computer extends Component {
 
   render() {
     return (
-      <div>
+      <div className="computer">
         <h1>Computer</h1>
         <ComputerGrid 
           computers = {this.state.computers}

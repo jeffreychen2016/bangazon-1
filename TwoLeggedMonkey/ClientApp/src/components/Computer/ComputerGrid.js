@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ComputerDelete } from './ComputerDelete';
 import { ComputerAdd } from './ComputerAdd';
 import { ComputerUpdate } from './ComputerUpdate';
+import './ComputerGrid.css';
 
 export class ComputerGrid extends Component {
 
@@ -63,7 +64,7 @@ export class ComputerGrid extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="computer-grid container">
         <table className="table">
           <tbody>
             <tr>
