@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import productRequest from '../DBRequests/productRequest';
 import { Modal, Button, Glyphicon } from 'react-bootstrap';
+import './product.css';
 
 const baseProduct =
 {
@@ -25,7 +26,8 @@ export class Product extends Component {
     state = {
         products: [],
         show: false,
-        newProduct: baseProduct
+        newProduct: baseProduct,
+        productType: []
     }
 
     componentDidMount() {
@@ -34,7 +36,9 @@ export class Product extends Component {
                 products.forEach(product => {
                     product.showEdit = '';
                 });
-                this.setState({ products });
+                this.setState({ products }, () => {
+                    this.printProductTypes();
+                });
             })
             .catch(err => {
                 console.error('Error with product getRequest', err);
@@ -86,8 +90,10 @@ export class Product extends Component {
 
     submitEdit = (e) => {
         e.preventDefault();
-        productRequest.putRequest(e.target.id, this.state.newProduct);
-        this.componentDidMount();
+        productRequest.putRequest(e.target.id, this.state.newProduct)
+            .then(() => {
+                this.componentDidMount();
+            });
     }
 
     deleteClick = (e) => {
@@ -100,6 +106,26 @@ export class Product extends Component {
             .catch((err) => {
                 console.error('error with delete request', err);
             });
+    }
+
+    printProductTypes = () => {
+        console.log("test");
+        productRequest.getProductType()
+            .then((productTypes) => {
+                this.setState({ productType: productTypes });
+            })
+            .catch((err) => {
+                console.error('Error with productType: ', err);
+            });
+    };
+
+    actuallyPrint = () => {
+        const pts = this.state.productType;
+        if (pts.length) {
+            return pts.map((productType) => {
+                return (<option value={productType.id} key={productType.id}>{productType.productTypeName}</option>);
+            });
+        }
     }
 
     handleClose() {
@@ -121,8 +147,8 @@ export class Product extends Component {
                         <td>{product.description}</td>
                         <td>{product.price}</td>
                         <td>{product.productTypeId}</td>
-                        <td className="btn btn-default" id={product.id} onClick={() => { this.editClick(index); }}><Glyphicon glyph="pencil" /></td>
-                        <td className="btn btn-danger" id={product.id} onClick={this.deleteClick}><Glyphicon glyph="trash" /></td>
+                        <td className="btn btn-default" id={product.id} onClick={() => { this.editClick(index); }}><Glyphicon glyph="pencil" className="icons"/></td>
+                        <td className="btn btn-danger" id={product.id} onClick={this.deleteClick}><Glyphicon glyph="trash" className="icons" /></td>
                     </tr>
                 );
             } else {
@@ -132,8 +158,13 @@ export class Product extends Component {
                         <td><input type="text" className="form-control" placeholder="Quantity" aria-describedby="basic-addon1" onChange={this.quantityCreate} /></td>
                         <td><input type="text" className="form-control" placeholder="Description" aria-describedby="basic-addon1" onChange={this.descriptionCreate} /></td>
                         <td><input type="text" className="form-control" placeholder="Price" aria-describedby="basic-addon1" onChange={this.priceCreate} /></td>
-                        <td><input type="text" className="form-control" placeholder="Product Type Id" aria-describedby="basic-addon1" onChange={this.productTypeIdCreate} /></td>
-                        <td className="btn btn-default" id={product.id} onClick={this.submitEdit}><Glyphicon glyph="floppy-save" /></td>
+                        <td>
+                            <select onChange={this.productTypeIdCreate}>
+                                <option value="Choose here">Choose here</option>
+                                {this.actuallyPrint()}
+                            </select>
+                        </td>
+                        <td className="btn btn-default" id={product.id} onClick={this.submitEdit}><Glyphicon glyph="floppy-save" className="icons" /></td>
                         <td className="btn btn-info" id={product.id} onClick={this.cancelEdit}>Cancel</td>
                     </tr>
                 );
@@ -168,7 +199,10 @@ export class Product extends Component {
                     <input placeholder="Quantity" onChange={this.quantityCreate} />
                     <input placeholder="Description" onChange={this.descriptionCreate} />
                     <input placeholder="Price" onChange={this.priceCreate} />
-                    <input placeholder="ProductType Id" onChange={this.productTypeIdCreate} />
+                    <select onChange={this.productTypeIdCreate}>
+                        <option value="Choose here">Choose here</option>
+                        {this.actuallyPrint()}
+                    </select>
                 </Modal.Body>
 
                 <Modal.Footer>

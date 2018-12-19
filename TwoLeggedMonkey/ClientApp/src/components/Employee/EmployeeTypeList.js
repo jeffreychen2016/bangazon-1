@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import employeeTypeRequest from '../DBRequests/employeeType';
+import employeeTypeRequest from '../../DBRequests/employeeType';
+import './EmployeeTypeList.css';
 
 export class EmployeeTypeList extends Component {
 
@@ -24,7 +25,7 @@ export class EmployeeTypeList extends Component {
 
   render() {
     return (
-      <select onChange={this.props.employeeTypeIdChange}>
+      <select onChange={this.props.employeeTypeIdChange} className="employee-type-list">
         <option value="Choose here">Choose here</option>
         {this.printEmployeeTypes()}
       </select>

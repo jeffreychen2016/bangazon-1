@@ -1,109 +1,166 @@
 import React, { Component } from 'react';
-import { Glyphicon, Modal, Button } from 'react-bootstrap';
+import { PaymentTypeDelete } from './PaymentTypeDelete';
+import { PaymentTypePost } from './PaymentTypePost';
+import { Glyphicon } from 'react-bootstrap';
 
 import paymentTypeCalls from '../DBRequests/PaymentTypeCalls';
-
-const blankPaymentType = {
-    paymentTypeName: '',
-    customerId: '',
-}
 
 export class PaymentType extends Component {
 
     state = {
-        allPaymentTypes: [],
-        show: false,
+        allPaymentTypes: [], 
+        newPaymentType: {
+            paymentTypeName: "",
+            customerId: "",
+        }
     }
 
-    componentDidMount() {
+    getPaymentTypes = () => {
         paymentTypeCalls
             .getAllPaymentTypes()
             .then((allPaymentTypes) => {
+                allPaymentTypes.forEach(paymentType => {
+                    paymentType.displayEdit = '';
+                })
                 this.setState({ allPaymentTypes })
             })
             .catch((error) => {
                 console.error('error with allPayementTypes Get Call', error);
             });
+    }
+
+    componentDidMount() {
+        this.getPaymentTypes();
     };
 
+    paymentTypeState = () => {
+        this.getPaymentTypes()
+    };
 
-    deletePaymentTypeEvent = (e) => {
-        const paymentTypeToAx = e.target.id;
+    formFieldStringState = (variable, e) => {
+        const temporaryPaymentType = { ...this.state.paymentType };
+        temporaryPaymentType[variable] = e.target.value;
+        this.setState({ paymentType: temporaryPaymentType });
+    }
+
+    paymentTypeNameChanged = (e) => {
+        this.formFieldStringState('paymentTypeName', e);
+    }
+
+    customerIdChanged = (e) => {
+        this.formFieldStringState('customerId', e);
+    }
+
+    clickOnEdit = (index) => {
+        const temporaryPaymentTypes = [...this.state.allPaymentTypes];
+        temporaryPaymentTypes[index].displayEdit = index;
+        this.setState({ paymentTypes: temporaryPaymentTypes });
+    }
+
+    editPaymentType = (e) => {
+        e.preventDefault();
         paymentTypeCalls
-            .deletePaymentType(paymentTypeToAx)
-            .then(() => {
+            .updatePaymentType(e.target.id, this.state.paymentType);
                 this.componentDidMount();
-            })
-            .catch((error) => {
-                console.error('problem with delete Payment Type', error);
-            });
     }
-
-    constructor(props, context) {
-        super(props, context);
-
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-    }
-
-    handleClose() {
-        this.setState({ show: false });
-    }
-
-    handleShow() {
-        this.setState({ show: true });
-    }
-
 
     render() {
-        const paymentTypes = this.state.allPaymentTypes.map((paymentType) => {
-            return (
-                <tr key={paymentType.id}>
-                    <td>{paymentType.id}</td>
-                    <td>{paymentType.paymentTypeName}</td>
-                    <td>{paymentType.customerId}</td>
-                    <button
-                        className="btn btn-danger"
-                        onClick={this.deletePaymentTypeEvent}
-                        id={paymentType.id}>
-                        <Glyphicon glyph="trash" />
-                    </button>
-                </tr>
-            );
+        const paymentTypes = this.state.allPaymentTypes.map((paymentType, index) => {
+            if (paymentType.displayEdit === '') {
+                return (
+                    <tr key={paymentType.id}>
+                        <td>
+                            {paymentType.id}
+                        </td>
+                        <td>
+                            {paymentType.paymentTypeName}
+                        </td>
+                        <td>
+                            {paymentType.customerId}
+                        </td>
+                        <td>
+                            <button
+                                className="btn btn-warning"
+                                id={paymentType.id}
+                                onClick={() => { this.clickOnEdit(index); }}
+                            >
+                                <Glyphicon glyph="pencil" />
+                            </button>
+                        </td>
+                        <td>
+                            <PaymentTypeDelete
+                                paymentTypeId={paymentType.id}
+                            />
+                        </td>
+                    </tr>
+                );
+            } else {
+                return (
+                    <tr key={paymentType.id}>
+                        <td>
+                            {paymentType.id}
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id={paymentType.paymentTypeName}
+                                placeholder={paymentType.paymentTypeName}
+                                onChange={this.paymentTypeNameChanged}
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="text" 
+                                className="form-control"
+                                placeholder={paymentType.customerId}
+                                id={paymentType.customerId}
+                                onChange={this.customerIdChanged}
+                            />
+                        </td>
+                        <td>
+                            <button
+                                className="btn btn-warning"
+                                id={paymentType.id}
+                                paymentTypeName={paymentType.id}
+                                onClick={this.editPaymentType}
+                            >
+                                <Glyphicon glyph="floppy-save" />
+                            </button>
+                            
+                        </td>
+                        <td>
+                            <PaymentTypeDelete
+                                paymentTypeId={paymentType.id}
+                            />
+                        </td>
+                    </tr>
+                );
+            }
+
         })
+
     return (
         <div>
             <h1>Payment Types</h1>
             <div>
-                <button
-                    className="btn btn-default"
-                    onClick="show"> Add a Payment Type</button>
+                
                 <table className="table">
                     <tbody>
                         <tr>
                             <th>Payment Type Id</th>
                             <th>Payment Type Name</th>
                             <th>Customer Id</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+
                         </tr>
-                        {paymentTypes}
+                        {paymentTypes}   
+                        <PaymentTypePost />
                     </tbody>
                 </table>
             </div>
-            <Modal show={this.state.show} onHide={this.handleClose}>
-                <Modal.Header>
-                    <Modal.Title>New Order</Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body>
-                    <input placeholder="Payment Type Name" />
-                    <input placeholder="Customer Id" />
-                </Modal.Body>
-
-                <Modal.Footer>
-                    <Button onClick={this.handleClose}>Close</Button>
-                    <Button bsStyle="primary">Save changes</Button>
-                </Modal.Footer>
-            </Modal>
+            
         </div>
     );
   }
