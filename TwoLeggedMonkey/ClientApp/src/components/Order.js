@@ -41,17 +41,6 @@ export class Order extends Component {
       });
   };
 
-  editOrder = (index) => {
-    const tempOrder = { ...this.state.orders };
-    tempOrder[index].edit = index;
-    this.setState({ orders: tempOrder });
-  }
-
-  updateOrder = (e) => {
-    orderRequests.updateOrder(e.target.id, this.state.newOrder);
-    this.componentDidMount();
-  };
-
   postOrder = (e) => {
     e.preventDefault();
     orderRequests.postNewOrder(this.state.newOrder);
