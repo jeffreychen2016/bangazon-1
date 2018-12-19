@@ -48,7 +48,7 @@ const getFilteredEmployees = (firstName, lastName, departmentId, employeeTypeId,
         URL = URL.substring('&', URL.length - 1);
         console.error('URL', URL);
         axios
-            // .get(`/api/Employee/getFilteredEmployees?_firstName=${firstName}&&_departmentId=${departmentId}&_employeeTypeId=${employeeTypeId}&_assignedComputer=${assignedComputer}`)
+            // .get(`/api/Employee/getFilteredEmployees?_firstName=${firstName}&_lastName=${lastName}&_departmentId=${departmentId}&_employeeTypeId=${employeeTypeId}&_assignedComputer=${assignedComputer}`)
             .get(URL)
             .then(res => {
                 resolve(res.data);
