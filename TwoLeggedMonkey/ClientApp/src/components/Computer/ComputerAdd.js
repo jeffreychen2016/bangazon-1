@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import computerRequest from '../../DBRequests/computer';
+import './ComputerAdd.css';
 
 export class ComputerAdd extends Component {
   state = {
@@ -69,10 +70,10 @@ export class ComputerAdd extends Component {
           />
         </td>
         <td>
-          <input 
-            onChange={this.IsOperableChange} 
-            value={this.state.newComputer.IsOperable}
-          />
+          <select onChange={this.IsOperableChange} className="isOperatable-list">
+            <option value='true'>Yes</option>
+            <option value='false'>No</option>
+          </select>
         </td>
         <td><button onClick={this.addComputer}>Add</button></td>
       </tr>
