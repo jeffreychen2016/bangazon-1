@@ -58,12 +58,14 @@ export class ComputerAdd extends Component {
           <input 
             onChange={this.DateOfPurchaseChange} 
             value={this.state.newComputer.DateOfPurchase}
+            type='date'
           />
         </td>
         <td>
           <input 
             onChange={this.DecommissionedDateChange} 
             value={this.state.newComputer.DecommissionedDate}
+            type='date'
           />
         </td>
         <td>

@@ -15,7 +15,7 @@ export class ComputerDelete extends Component {
 
   render() {
     return (
-      <div>
+      <div className="computer-delete">
         <button className="btn btn-danger" onClick={this.deleteComputer}><Glyphicon glyph="trash" /></button>
       </div>
     );
