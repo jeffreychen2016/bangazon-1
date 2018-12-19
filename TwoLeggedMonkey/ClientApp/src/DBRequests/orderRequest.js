@@ -17,6 +17,23 @@ const getAllOrdersRequest = () =>
   });
 };
 
+const getOrderById = (id) =>
+{
+  return new Promise((resolve, reject) =>
+  {
+    axios
+    .get(`/api/order/${id}`)
+    .then(res =>
+      {
+        resolve(res.data);
+      })
+      .catch(err =>
+        {
+          reject(err)
+        });
+  });
+};
+
 const postNewOrder = (order) =>
 {
   return new Promise((resolve, reject) =>
@@ -56,7 +73,7 @@ const updateOrder = (id, updatedOrder) =>
   return new Promise((resolve, reject) =>
   {
     axios
-      .put(`/api/order/updateOrder/${id}`)
+      .put(`/api/order/updateOrder/${id}`, updatedOrder)
       .then((res) =>
       {
         resolve(res);
@@ -69,4 +86,4 @@ const updateOrder = (id, updatedOrder) =>
 };
 
 
-export default {getAllOrdersRequest, postNewOrder, deleteOrder}
+export default {getAllOrdersRequest, postNewOrder, deleteOrder, updateOrder, getOrderById}

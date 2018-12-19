@@ -42,6 +42,7 @@ const postNewDepartment = (dept) =>
   });
 };
 
+
 const putRequest = (departmentId, updatedDepartment) => {
     return new Promise((resolve, reject) => {
         axios
@@ -56,3 +57,4 @@ const putRequest = (departmentId, updatedDepartment) => {
 };
 
 export default { getAllDepartments, getDeptEmployees, postNewDepartment, putRequest };
+
